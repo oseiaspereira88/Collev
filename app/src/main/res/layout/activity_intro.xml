@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.system.IntroActivity">
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37" />
+
+    <TextView
+        android:id="@+id/tvBoasVindas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Seja bem-vindo!"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgLogo"
+        app:layout_constraintStart_toStartOf="@+id/imgLogo"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+
+    <RadioGroup
+        android:id="@+id/rgSlide"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/tvBoasVindas"
+        app:layout_constraintStart_toStartOf="@+id/tvBoasVindas"
+        app:layout_constraintTop_toBottomOf="@+id/tvBoasVindas">
+
+        <RadioButton
+            android:id="@+id/bSlide1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/bSlide2"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+        <RadioButton
+            android:id="@+id/bSlide3"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>
