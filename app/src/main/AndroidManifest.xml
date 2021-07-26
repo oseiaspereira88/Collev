@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Collev">
-        <activity android:name=".ui.system.LoginActivity"></activity>
-        <activity android:name=".ui.system.IntroActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.system.PerfilActivity" />
+        <activity android:name=".ui.system.CadastroActivity" />
+        <activity
+            android:name=".ui.system.LoginActivity"
+            android:theme="@style/Theme.Collev.NoActionBar" />
+        <activity
+            android:name=".ui.system.IntroActivity"
+            android:theme="@style/Theme.Collev.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

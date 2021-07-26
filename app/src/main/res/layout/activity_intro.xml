@@ -8,26 +8,31 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
         android:src="@drawable/logo"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.37"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvBoasVindas"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="94dp"
         android:text="Seja bem-vindo!"
         android:textAlignment="center"
-        android:textSize="14sp"
+        android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imgLogo"
         app:layout_constraintStart_toStartOf="@+id/imgLogo"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        tools:visibility="visible" />
 
     <RadioGroup
         android:id="@+id/rgSlide"
@@ -37,9 +42,11 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:textAlignment="center"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/tvBoasVindas"
         app:layout_constraintStart_toStartOf="@+id/tvBoasVindas"
-        app:layout_constraintTop_toBottomOf="@+id/tvBoasVindas">
+        app:layout_constraintTop_toBottomOf="@+id/tvBoasVindas"
+        tools:visibility="visible">
 
         <RadioButton
             android:id="@+id/bSlide1"

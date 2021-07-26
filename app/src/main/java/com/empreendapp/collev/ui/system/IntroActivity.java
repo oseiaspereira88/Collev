@@ -2,13 +2,17 @@ package com.empreendapp.collev.ui.system;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
 public class IntroActivity extends AppCompatActivity {
@@ -17,13 +21,42 @@ public class IntroActivity extends AppCompatActivity {
     RadioGroup rgSlide;
     RadioButton bSlide1, bSlide2, bSlide3;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         initViews();
+        showIntroAnimate();
+    }
+
+    private void showIntroAnimate() {
+        final Intent it = new Intent(this, LoginActivity.class);
+        imgLogo.setVisibility(View.VISIBLE);
+
+        //play animate logo
+        YoYo.with(Techniques.FadeIn).duration(1600).repeat(0).playOn(imgLogo);
+
+        //contar tempo (700ms)
+        final Handler handler = new Handler();
+        final Runnable r = new Runnable()
+        {
+            public void run() {
+                tvBoasVindas.setVisibility(View.VISIBLE);
+
+                //play animate logo
+                YoYo.with(Techniques.FadeIn).duration(800).repeat(0).playOn(tvBoasVindas);
+
+                final Handler handler2 = new Handler();
+                final Runnable r2 = new Runnable() {
+                    public void run() {
+                        startActivity(it);
+                        finish();
+                    }
+                }; handler2.postDelayed(r2, 1600);
+            }
+        };
+        handler.postDelayed(r, 2000);
+
     }
 
     private void initViews() {
