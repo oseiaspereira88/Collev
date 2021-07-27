@@ -1,8 +1,10 @@
-package com.empreendapp.collev;
+package com.empreendapp.collev.ui.system;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.empreendapp.collev.R;
 
 public class MainActivity extends AppCompatActivity {
 

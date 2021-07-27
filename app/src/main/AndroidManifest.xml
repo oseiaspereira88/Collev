@@ -4,20 +4,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Collev">
-        <activity android:name=".MainActivity"></activity>
+        android:theme="@style/Theme.Collev.NoActionBar">
+        <activity android:name=".ui.system.MainActivity"></activity>
         <activity android:name=".ui.system.PerfilActivity" />
         <activity android:name=".ui.system.CadastroActivity" />
         <activity
-            android:name=".ui.system.LoginActivity"
-            android:theme="@style/Theme.Collev.NoActionBar" />
+            android:name=".ui.system.LoginActivity" />
         <activity
-            android:name=".ui.system.IntroActivity"
-            android:theme="@style/Theme.Collev.NoActionBar">
+            android:name=".ui.system.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

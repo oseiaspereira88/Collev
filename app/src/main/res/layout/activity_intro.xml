@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pag_bg_01"
     tools:context=".ui.system.IntroActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/logo_png"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
