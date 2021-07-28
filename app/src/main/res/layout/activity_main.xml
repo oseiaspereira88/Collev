@@ -79,7 +79,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_voluntario"
+        android:id="@+id/cv_option_1"
         android:layout_width="140dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
@@ -98,7 +98,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_coletor"
+        android:id="@+id/cv_option_2"
         android:layout_width="140dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -133,9 +133,9 @@
         android:layout_marginTop="8dp"
         android:text="Coletor"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_voluntario"
-        app:layout_constraintStart_toStartOf="@+id/cv_voluntario"
-        app:layout_constraintTop_toBottomOf="@+id/cv_voluntario" />
+        app:layout_constraintEnd_toEndOf="@+id/cv_option_1"
+        app:layout_constraintStart_toStartOf="@+id/cv_option_1"
+        app:layout_constraintTop_toBottomOf="@+id/cv_option_1" />
 
     <TextView
         android:id="@+id/textView7"
@@ -144,9 +144,9 @@
         android:layout_marginTop="8dp"
         android:text="Voluntário"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_coletor"
-        app:layout_constraintStart_toStartOf="@+id/cv_coletor"
-        app:layout_constraintTop_toBottomOf="@+id/cv_coletor" />
+        app:layout_constraintEnd_toEndOf="@+id/cv_option_2"
+        app:layout_constraintStart_toStartOf="@+id/cv_option_2"
+        app:layout_constraintTop_toBottomOf="@+id/cv_option_2" />
 
     <TextView
         android:id="@+id/textView9"
@@ -162,7 +162,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/cv_coletor"
+        app:layout_constraintEnd_toEndOf="@+id/cv_option_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl2" />
 
