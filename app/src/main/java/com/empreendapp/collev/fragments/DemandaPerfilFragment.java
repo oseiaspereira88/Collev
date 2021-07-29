@@ -58,7 +58,7 @@ public class DemandaPerfilFragment extends Fragment {
 
     public void animateButton(View view) {
         YoYo.with(Techniques.Pulse)
-                .duration(700)
+                .duration(250)
                 .repeat(0)
                 .playOn(view);
     }
