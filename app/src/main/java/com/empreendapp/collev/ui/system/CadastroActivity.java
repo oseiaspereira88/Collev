@@ -13,6 +13,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
+import static com.empreendapp.collev.ui.system.PerfilActivity.setStatusBarBorderRadius;
+
 public class CadastroActivity extends AppCompatActivity {
     TextView tvCadastrar;
     EditText editNome, editEmail, editSenha;
@@ -22,6 +24,7 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+        setStatusBarBorderRadius(this);
         initViews();
     }
 

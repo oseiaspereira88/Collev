@@ -15,6 +15,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
+import static com.empreendapp.collev.ui.system.PerfilActivity.setStatusBarBorderRadius;
+
 public class IntroActivity extends AppCompatActivity {
     ImageView imgLogo;
     TextView tvBoasVindas;
@@ -25,6 +27,8 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        setStatusBarBorderRadius(this);
         initViews();
         showIntroAnimate();
     }

@@ -124,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pag_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_option_title" />
 
     <TextView
         android:id="@+id/textView6"
@@ -149,7 +149,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_option_2" />
 
     <TextView
-        android:id="@+id/tv_pag_title"
+        android:id="@+id/tv_option_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

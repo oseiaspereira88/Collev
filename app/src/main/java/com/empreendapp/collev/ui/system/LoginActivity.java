@@ -13,6 +13,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
+import static com.empreendapp.collev.ui.system.PerfilActivity.setStatusBarBorderRadius;
+
 public class LoginActivity extends AppCompatActivity {
     TextView tvEntrar, tvCadastreSe;
     EditText editEmail, editSenha;
@@ -22,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        setStatusBarBorderRadius(this);
         initViews();
     }
 
