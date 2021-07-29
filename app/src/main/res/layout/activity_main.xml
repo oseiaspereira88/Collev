@@ -124,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_pag_title" />
 
     <TextView
         android:id="@+id/textView6"
@@ -149,7 +149,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_option_2" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tv_pag_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -165,13 +165,5 @@
         app:layout_constraintEnd_toEndOf="@+id/cv_option_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl2" />
-
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="360dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="499dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
