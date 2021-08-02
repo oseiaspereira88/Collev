@@ -20,11 +20,11 @@ class InitPerfilActivity : AppCompatActivity() {
     var titulos = arrayOf("Selecione a categoria de sua empresa", "Selecione o nome e localização", "Selecione o tamanho do recipiente")
     var navHostFragment: NavHostFragment? = null
     var navController: NavController? = null
-    var tv_tab_title: TextView? = null
+    var tvTabTitle: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil)
+        setContentView(R.layout.activity_init_perfil)
         setStatusBarBorderRadius(this)
         initViews()
     }

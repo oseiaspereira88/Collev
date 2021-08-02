@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         pager = findViewById<View>(R.id.pager) as ViewPager
-        tvOptionTitle = findViewById<View>(R.id.tv_tab_title) as TextView
+        tvOptionTitle = findViewById<View>(R.id.tvTabTitle) as TextView
         tabLayout = findViewById<View>(R.id.tab_layout) as TabLayout
         pagerAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
         pager!!.adapter = pagerAdapter
