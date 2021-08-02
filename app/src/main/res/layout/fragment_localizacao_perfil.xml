@@ -7,86 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".fragments.LocalizacaoPerfilFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_option_1"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutNomeEmpresa"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/icon_coletores" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_option_2"
-        android:layout_width="140dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        app:cardCornerRadius="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="Empresa que representa"
+        app:counterMaxLength="30"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <EditText
+            android:id="@+id/edit_nome_empresa"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="3dp"
-            app:srcCompat="@drawable/icon_voluntarios" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
+            android:inputType="textCapSentences"
+            android:maxLength="30" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Coletor"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_option_1"
-        app:layout_constraintStart_toStartOf="@+id/cv_option_1"
-        app:layout_constraintTop_toBottomOf="@+id/cv_option_1" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Voluntário"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_option_2"
-        app:layout_constraintStart_toStartOf="@+id/cv_option_2"
-        app:layout_constraintTop_toBottomOf="@+id/cv_option_2" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seleção de Localização"
-        app:layout_constraintBottom_toTopOf="@+id/cv_option_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNomeEmpresa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

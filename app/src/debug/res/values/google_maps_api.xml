@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=ED:A3:AC:1C:A5:5C:6D:7A:3A:84:46:9C:9E:2D:09:D2:01:74:22:A6%3Bcom.empreendapp.collev
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.empreendapp.collev
+
+    SHA-1 certificate fingerprint:
+    ED:A3:AC:1C:A5:5C:6D:7A:3A:84:46:9C:9E:2D:09:D2:01:74:22:A6
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCBUm2jDw_zyDLb7v87yhIYzNw5kw-iCnE</string>
+</resources>

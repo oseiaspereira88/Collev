@@ -11,23 +11,7 @@
         android:label="fragment_categoria_perfil"
         tools:layout="@layout/fragment_categoria_perfil" >
         <action
-            android:id="@+id/action_categoriaPerfilFragment_to_demandaPerfilFragment"
-            app:destination="@id/demandaPerfilFragment"
-            app:enterAnim="@anim/fragment_close_enter"
-            app:exitAnim="@anim/fragment_fade_enter" />
-        <action
             android:id="@+id/action_categoriaPerfilFragment_to_localizacaoPerfilFragment"
-            app:destination="@id/localizacaoPerfilFragment"
-            app:enterAnim="@anim/fragment_close_enter"
-            app:exitAnim="@anim/fragment_fade_enter" />
-    </fragment>
-    <fragment
-        android:id="@+id/demandaPerfilFragment"
-        android:name="com.empreendapp.collev.fragments.DemandaPerfilFragment"
-        android:label="fragment_demanda_perfil"
-        tools:layout="@layout/fragment_demanda_perfil" >
-        <action
-            android:id="@+id/action_demandaPerfilFragment_to_localizacaoPerfilFragment"
             app:destination="@id/localizacaoPerfilFragment"
             app:enterAnim="@anim/fragment_close_enter"
             app:exitAnim="@anim/fragment_fade_enter" />

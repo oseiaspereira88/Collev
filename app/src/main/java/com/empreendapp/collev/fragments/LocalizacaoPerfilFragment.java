@@ -22,7 +22,7 @@ public class LocalizacaoPerfilFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_localizacao_perfil, container, false); //->container, false
-        initViews(rootView);
+        //initViews(rootView);
         return rootView;
     }
 

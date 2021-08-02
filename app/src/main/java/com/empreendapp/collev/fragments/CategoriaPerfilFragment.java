@@ -37,16 +37,9 @@ public class CategoriaPerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 animateButton(v);
-                if(cv_option_2.getCardBackgroundColor().getDefaultColor() != 99){
-                    cv_option_1.setCardBackgroundColor(99);
-                } else{
-                    cv_option_2.setCardBackgroundColor(Color.WHITE);
-                    cv_option_1.setCardBackgroundColor(99);
-                }
 
                 //chamada do LocalizacaoPerfilFragment
-                NavHostFragment
-                        .findNavController(getParentFragment())
+                NavHostFragment.findNavController(getParentFragment())
                         .navigate(R.id.action_categoriaPerfilFragment_to_localizacaoPerfilFragment);
             }
         });
@@ -55,18 +48,10 @@ public class CategoriaPerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 animateButton(v);
-                if(cv_option_1.getCardBackgroundColor().getDefaultColor() != 99){
-                    cv_option_2.setCardBackgroundColor(99);
-                } else{
-                    cv_option_1.setCardBackgroundColor(Color.WHITE);
-                    cv_option_2.setCardBackgroundColor(99);
-                }
 
-                //chamada do DemandaPerfilfragment
-                NavHostFragment
-                        .findNavController(getParentFragment())
-                        .navigate(R.id.action_categoriaPerfilFragment_to_demandaPerfilFragment);
-
+                //chamada do LocalizacaoPerfilFragment
+                NavHostFragment.findNavController(getParentFragment())
+                        .navigate(R.id.action_categoriaPerfilFragment_to_localizacaoPerfilFragment);
             }
         });
     }

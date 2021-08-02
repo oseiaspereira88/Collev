@@ -42,9 +42,9 @@ public class DemandaPerfilFragment extends Fragment {
                 }
 
                 //chamada do LocalizacaoPerfilfragment
-                NavHostFragment
-                        .findNavController(getParentFragment())
-                        .navigate(R.id.action_demandaPerfilFragment_to_localizacaoPerfilFragment);
+//                NavHostFragment
+//                        .findNavController(getParentFragment())
+//                        .navigate(R.id.action_demandaPerfilFragment_to_localizacaoPerfilFragment);
             }
         });
 

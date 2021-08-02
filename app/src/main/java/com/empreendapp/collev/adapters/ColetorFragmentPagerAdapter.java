@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.empreendapp.collev.MapsFragment;
 import com.empreendapp.collev.fragments.CategoriaPerfilFragment;
 import com.empreendapp.collev.fragments.DemandaPerfilFragment;
 import com.empreendapp.collev.fragments.LocalizacaoPerfilFragment;
@@ -26,11 +27,11 @@ public class ColetorFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new CategoriaPerfilFragment();
+                return new MapsFragment();
             case 1:
-                return new LocalizacaoPerfilFragment();
+                return new MapsFragment();
             case 2:
-                return new DemandaPerfilFragment();
+                return new MapsFragment();
             default:
                 return null;
         }
