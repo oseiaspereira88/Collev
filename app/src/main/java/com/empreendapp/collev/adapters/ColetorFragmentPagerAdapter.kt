@@ -1,44 +1,26 @@
-package com.empreendapp.collev.adapters;
+package com.empreendapp.collev.adapters
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.empreendapp.collev.ui.coletor.MapsFragment
 
-import com.empreendapp.collev.MapsFragment;
-import com.empreendapp.collev.fragments.CategoriaPerfilFragment;
-import com.empreendapp.collev.fragments.DemandaPerfilFragment;
-import com.empreendapp.collev.fragments.LocalizacaoPerfilFragment;
-
-public class ColetorFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String optionsTitles [] = {"Categoria", "Localização", "Demanda"};
-
-    public ColetorFragmentPagerAdapter(FragmentManager fm) {
-        super(fm);
+class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
+    private val optionsTitles = arrayOf("Categoria", "Localização", "Demanda")
+    override fun getCount(): Int {
+        return optionsTitles.size
     }
 
-    @Override
-    public int getCount() {
-        return optionsTitles.length;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new MapsFragment();
-            case 1:
-                return new MapsFragment();
-            case 2:
-                return new MapsFragment();
-            default:
-                return null;
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> MapsFragment()
+            1 -> MapsFragment()
+            2 -> MapsFragment()
+            else -> MapsFragment()
         }
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return optionsTitles[position];
+    override fun getPageTitle(position: Int): CharSequence? {
+        return optionsTitles[position]
     }
 }

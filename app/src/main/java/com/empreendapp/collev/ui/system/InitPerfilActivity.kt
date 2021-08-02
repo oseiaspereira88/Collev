@@ -14,11 +14,14 @@ import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 
 class InitPerfilActivity : AppCompatActivity() {
     var titulos = arrayOf("Selecione a categoria de sua empresa", "Selecione o nome e localização", "Selecione o tamanho do recipiente")
     var navHostFragment: NavHostFragment? = null
     var navController: NavController? = null
+    var tv_tab_title: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
@@ -27,7 +30,6 @@ class InitPerfilActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        //tvOptionTitle = (TextView) findViewById(R.id.);
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_perfil) as NavHostFragment?
         navController = navHostFragment!!.navController
     }

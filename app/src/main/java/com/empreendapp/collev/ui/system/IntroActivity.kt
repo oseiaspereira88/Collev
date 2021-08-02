@@ -21,6 +21,7 @@ class IntroActivity : AppCompatActivity() {
     var bSlide1: RadioButton? = null
     var bSlide2: RadioButton? = null
     var bSlide3: RadioButton? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
@@ -60,11 +61,13 @@ class IntroActivity : AppCompatActivity() {
         bSlide1 = findViewById<View>(R.id.bSlide1) as RadioButton
         bSlide2 = findViewById<View>(R.id.bSlide2) as RadioButton
         bSlide3 = findViewById<View>(R.id.bSlide3) as RadioButton
+
         val onClickListener = View.OnClickListener { v ->
             val rButton = v as RadioButton
             rgSlide!!.clearCheck()
             rButton.isChecked = true
         }
+
         bSlide1!!.setOnClickListener(onClickListener)
         bSlide2!!.setOnClickListener(onClickListener)
         bSlide3!!.setOnClickListener(onClickListener)
