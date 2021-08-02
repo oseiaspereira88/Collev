@@ -2,6 +2,10 @@ package com.empreendapp.collev.ui.system;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.TargetApi;
@@ -20,15 +24,18 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
-import com.empreendapp.collev.adapters.PerfilFragmentPagerAdapter;
-import com.empreendapp.collev.adapters.PerfilOptionAdapter;
+import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter;
+import com.empreendapp.collev.fragments.CategoriaPerfilFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class PerfilActivity extends AppCompatActivity {
-    ViewPager pager;
+    String titulos[] = {"Selecione a categoria de sua empresa", "Selecione o nome e localização", "Selecione o tamanho do recipiente"};
     TextView tvOptionTitle;
-    private TabLayout tabLayout;
-    PerfilFragmentPagerAdapter fragmentAdapter;
+    NavHostFragment navHostFragment;
+    NavController navController;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,78 +47,9 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        pager = (ViewPager) findViewById(R.id.pager);
-        tvOptionTitle = (TextView) findViewById(R.id.tv_option_title);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        fragmentAdapter = new PerfilFragmentPagerAdapter(getSupportFragmentManager());
-
-        pager.setAdapter(fragmentAdapter);
-        tabLayout.setupWithViewPager(pager);
-
-        pager.addOnPageChangeListener(getOnPageChangeListener());
-    }
-
-    private ViewPager.OnPageChangeListener getOnPageChangeListener() {
-        return new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0:
-                        tvOptionTitle.setText("Selecione a categoria de sua empresa");
-                        break;
-                    case 1:
-                        tvOptionTitle.setText("Selecione o nome e localização");
-                        break;
-                    case 2:
-                        tvOptionTitle.setText("Selecione o tamanho do recipiente");
-                        break;
-                }
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        };
-    }
-
-    public void openProfileDialogCreator() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Selecione uma das Opções");
-
-        View view = View.inflate(this, R.layout.perfil_option_model, null);
-
-        CardView option1 = (CardView) findViewById(R.id.cv_option_1);
-        CardView option2 = (CardView) findViewById(R.id.cv_option_2);
-
-        View.OnClickListener onClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CardView cv = (CardView) v;
-                //cv.setBackground();
-            }
-        };
-
-        builder.setView(view);
-
-        // Set up the buttons
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //proxima questão ou se for a última questão, finaliza o perfil;
-
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
+        tvOptionTitle = (TextView) findViewById(R.id.tv_tab_title);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fcv_perfil);
+        navController = navHostFragment.getNavController();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

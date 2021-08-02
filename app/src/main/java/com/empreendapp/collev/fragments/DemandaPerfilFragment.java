@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -39,6 +40,11 @@ public class DemandaPerfilFragment extends Fragment {
                     cv_option_2.setCardBackgroundColor(Color.WHITE);
                     cv_option_1.setCardBackgroundColor(99);
                 }
+
+                //chamada do LocalizacaoPerfilfragment
+                NavHostFragment
+                        .findNavController(getParentFragment())
+                        .navigate(R.id.action_demandaPerfilFragment_to_localizacaoPerfilFragment);
             }
         });
 

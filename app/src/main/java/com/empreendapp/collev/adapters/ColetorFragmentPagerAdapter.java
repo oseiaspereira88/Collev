@@ -9,10 +9,10 @@ import com.empreendapp.collev.fragments.CategoriaPerfilFragment;
 import com.empreendapp.collev.fragments.DemandaPerfilFragment;
 import com.empreendapp.collev.fragments.LocalizacaoPerfilFragment;
 
-public class PerfilFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String optionsTitles [] = {"Categoria", "Localização", "Damanda"};
+public class ColetorFragmentPagerAdapter extends FragmentPagerAdapter {
+    private String optionsTitles [] = {"Categoria", "Localização", "Demanda"};
 
-    public PerfilFragmentPagerAdapter(FragmentManager fm) {
+    public ColetorFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

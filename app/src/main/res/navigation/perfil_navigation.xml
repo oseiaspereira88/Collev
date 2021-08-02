@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/perfil_navegation"
+    app:startDestination="@id/categoriaPerfilFragment">
+
+    <fragment
+        android:id="@+id/categoriaPerfilFragment"
+        android:name="com.empreendapp.collev.fragments.CategoriaPerfilFragment"
+        android:label="fragment_categoria_perfil"
+        tools:layout="@layout/fragment_categoria_perfil" >
+        <action
+            android:id="@+id/action_categoriaPerfilFragment_to_demandaPerfilFragment"
+            app:destination="@id/demandaPerfilFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_fade_enter" />
+        <action
+            android:id="@+id/action_categoriaPerfilFragment_to_localizacaoPerfilFragment"
+            app:destination="@id/localizacaoPerfilFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_fade_enter" />
+    </fragment>
+    <fragment
+        android:id="@+id/demandaPerfilFragment"
+        android:name="com.empreendapp.collev.fragments.DemandaPerfilFragment"
+        android:label="fragment_demanda_perfil"
+        tools:layout="@layout/fragment_demanda_perfil" >
+        <action
+            android:id="@+id/action_demandaPerfilFragment_to_localizacaoPerfilFragment"
+            app:destination="@id/localizacaoPerfilFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_fade_enter" />
+    </fragment>
+    <fragment
+        android:id="@+id/localizacaoPerfilFragment"
+        android:name="com.empreendapp.collev.fragments.LocalizacaoPerfilFragment"
+        android:label="fragment_localizacao_perfil"
+        tools:layout="@layout/fragment_localizacao_perfil" >
+        <action
+            android:id="@+id/action_localizacaoPerfilFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_fade_enter" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.empreendapp.collev.ui.system.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>

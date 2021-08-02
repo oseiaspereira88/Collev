@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +43,11 @@ public class CategoriaPerfilFragment extends Fragment {
                     cv_option_2.setCardBackgroundColor(Color.WHITE);
                     cv_option_1.setCardBackgroundColor(99);
                 }
+
+                //chamada do LocalizacaoPerfilFragment
+                NavHostFragment
+                        .findNavController(getParentFragment())
+                        .navigate(R.id.action_categoriaPerfilFragment_to_localizacaoPerfilFragment);
             }
         });
 
@@ -53,6 +61,12 @@ public class CategoriaPerfilFragment extends Fragment {
                     cv_option_1.setCardBackgroundColor(Color.WHITE);
                     cv_option_2.setCardBackgroundColor(99);
                 }
+
+                //chamada do DemandaPerfilfragment
+                NavHostFragment
+                        .findNavController(getParentFragment())
+                        .navigate(R.id.action_categoriaPerfilFragment_to_demandaPerfilFragment);
+
             }
         });
     }
