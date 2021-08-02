@@ -1,65 +1,50 @@
-package com.empreendapp.collev.ui.system;
+package com.empreendapp.collev.ui.system
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
+import android.widget.EditText
+import android.os.Bundle
+import com.empreendapp.collev.R
+import android.content.Intent
+import android.os.Handler
+import android.view.View
+import com.daimajia.androidanimations.library.YoYo
+import com.daimajia.androidanimations.library.Techniques
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.empreendapp.collev.R;
-
-import static com.empreendapp.collev.ui.system.PerfilActivity.setStatusBarBorderRadius;
-
-public class CadastroActivity extends AppCompatActivity {
-    TextView tvCadastrar;
-    EditText editNome, editEmail, editSenha;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
-
-        setStatusBarBorderRadius(this);
-        initViews();
+class CadastroActivity : AppCompatActivity() {
+    var tvCadastrar: TextView? = null
+    var editNome: EditText? = null
+    var editEmail: EditText? = null
+    var editSenha: EditText? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cadastro)
+        InitPerfilActivity.setStatusBarBorderRadius(this)
+        initViews()
     }
 
-    private void initViews() {
-        tvCadastrar = (TextView) findViewById(R.id.tv_cadastrar);
-        editNome = (EditText) findViewById(R.id.edit_nome);
-        editEmail = (EditText) findViewById(R.id.edit_email);
-        editSenha = (EditText) findViewById(R.id.edit_senha);
-
-        final Intent itPerfil = new Intent(this, PerfilActivity.class);
-
-        tvCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //animate
-                YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v);
-
-                final Handler handler = new Handler();
-                final Runnable r = new Runnable() {
-                    public void run() {
-                        if (!editNome.getText().toString().isEmpty() &&
-                                !editEmail.getText().toString().isEmpty() &&
-                                !editSenha.getText().toString().isEmpty()) {
-
-                            startActivity(itPerfil);
-                            finish();
-                        } else{
-                            editNome.setError("Digite um nome válido!");
-                            editEmail.setError("Digite um email válido!");
-                            editSenha.setError("Digite uma senha valida!");
-                        }
-                    }
-                };
-                handler.postDelayed(r, 300);
+    private fun initViews() {
+        tvCadastrar = findViewById<View>(R.id.tv_cadastrar) as TextView
+        editNome = findViewById<View>(R.id.edit_nome) as EditText
+        editEmail = findViewById<View>(R.id.edit_email) as EditText
+        editSenha = findViewById<View>(R.id.edit_senha) as EditText
+        val itPerfil = Intent(this, InitPerfilActivity::class.java)
+        tvCadastrar!!.setOnClickListener { v -> //animate
+            YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
+            val handler = Handler()
+            val r = Runnable {
+                if (!editNome!!.text.toString().isEmpty() &&
+                        !editEmail!!.text.toString().isEmpty() &&
+                        !editSenha!!.text.toString().isEmpty()) {
+                    startActivity(itPerfil)
+                    finish()
+                } else {
+                    editNome!!.error = "Digite um nome válido!"
+                    editEmail!!.error = "Digite um email válido!"
+                    editSenha!!.error = "Digite uma senha valida!"
+                }
             }
-        });
+            handler.postDelayed(r, 300)
+        }
     }
 }

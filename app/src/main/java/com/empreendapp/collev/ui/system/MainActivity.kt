@@ -1,146 +1,100 @@
-package com.empreendapp.collev.ui.system;
+package com.empreendapp.collev.ui.system
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.viewpager.widget.ViewPager;
+import android.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
+import android.widget.TextView
+import com.google.android.material.tabs.TabLayout
+import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter
+import android.os.Bundle
+import com.empreendapp.collev.R
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.cardview.widget.CardView
+import android.view.KeyEvent
+import android.view.View
+import com.daimajia.androidanimations.library.YoYo
+import com.daimajia.androidanimations.library.Techniques
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.empreendapp.collev.R;
-import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
-
-import static com.empreendapp.collev.ui.system.PerfilActivity.setStatusBarBorderRadius;
-
-public class MainActivity extends AppCompatActivity {
-    private ViewPager pager;
-    private TextView tvOptionTitle;
-    private TabLayout tabLayout;
-    private ColetorFragmentPagerAdapter pagerAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        setStatusBarBorderRadius(this);
-        initViews();
+class MainActivity : AppCompatActivity() {
+    private var pager: ViewPager? = null
+    private var tvOptionTitle: TextView? = null
+    private var tabLayout: TabLayout? = null
+    private var pagerAdapter: ColetorFragmentPagerAdapter? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        InitPerfilActivity.setStatusBarBorderRadius(this)
+        initViews()
     }
 
-    private void initViews() {
-        pager = (ViewPager) findViewById(R.id.pager);
-        tvOptionTitle = (TextView) findViewById(R.id.tv_tab_title);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        pagerAdapter = new ColetorFragmentPagerAdapter(getSupportFragmentManager());
-
-        pager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(pager);
-
-        pager.addOnPageChangeListener(getOnPageChangeListener());
+    private fun initViews() {
+        pager = findViewById<View>(R.id.pager) as ViewPager
+        tvOptionTitle = findViewById<View>(R.id.tv_tab_title) as TextView
+        tabLayout = findViewById<View>(R.id.tab_layout) as TabLayout
+        pagerAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
+        pager!!.adapter = pagerAdapter
+        tabLayout!!.setupWithViewPager(pager)
+        pager!!.addOnPageChangeListener(onPageChangeListener)
     }
 
-    private ViewPager.OnPageChangeListener getOnPageChangeListener() {
-        return new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0:
-                        tvOptionTitle.setText("Selecione a categoria de sua empresa");
-                        break;
-                    case 1:
-                        tvOptionTitle.setText("Selecione o nome e localização");
-                        break;
-                    case 2:
-                        tvOptionTitle.setText("Selecione o tamanho do recipiente");
-                        break;
+    private val onPageChangeListener: OnPageChangeListener
+        private get() = object : OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> tvOptionTitle!!.text = "Selecione a categoria de sua empresa"
+                    1 -> tvOptionTitle!!.text = "Selecione o nome e localização"
+                    2 -> tvOptionTitle!!.text = "Selecione o tamanho do recipiente"
                 }
             }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        };
-    }
 
-    public void openProfileDialogCreator() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Selecione uma das Opções");
+            override fun onPageScrollStateChanged(state: Int) {}
+        }
 
-        View view = View.inflate(this, R.layout.perfil_option_model, null);
-
-        CardView option1 = (CardView) findViewById(R.id.cv_option_1);
-        CardView option2 = (CardView) findViewById(R.id.cv_option_2);
-
-        View.OnClickListener onClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CardView cv = (CardView) v;
-                //cv.setBackground();
-            }
-        };
-
-        builder.setView(view);
+    fun openProfileDialogCreator() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecione uma das Opções")
+        val view = View.inflate(this, R.layout.perfil_option_model, null)
+        val option1 = findViewById<View>(R.id.cv_option_1) as CardView
+        val option2 = findViewById<View>(R.id.cv_option_2) as CardView
+        val onClick = View.OnClickListener { v ->
+            val cv = v as CardView
+            //cv.setBackground();
+        }
+        builder.setView(view)
 
         // Set up the buttons
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //proxima questão ou se for a última questão, finaliza o perfil;
-
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
+        builder.setPositiveButton("Confirmar") { dialog, which ->
+            //proxima questão ou se for a última questão, finaliza o perfil;
+        }
+        builder.setNegativeButton("Cancelar") { dialog, which -> dialog.cancel() }
+        builder.show()
     }
 
     // Código botão Voltar
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            checkExit();
-            return true;
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK) {
+            checkExit()
+            true
         } else {
-            return super.onKeyDown(keyCode, event);
+            super.onKeyDown(keyCode, event)
         }
     }
 
-    private void checkExit() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private fun checkExit() {
+        val builder = AlertDialog.Builder(this)
         builder.setMessage("Deseja realmente sair?")
                 .setCancelable(false)
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                .setPositiveButton("Sim") { dialog, id -> finish() }
+                .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
+        val alert = builder.create()
+        alert.show()
     }
 
-    public void animateButton(View view) {
+    fun animateButton(view: View?) {
         YoYo.with(Techniques.RotateIn)
                 .duration(700)
                 .repeat(0)
-                .playOn(view);
+                .playOn(view)
     }
 }
