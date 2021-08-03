@@ -26,6 +26,9 @@
             app:destination="@id/mainActivity"
             app:enterAnim="@anim/fragment_close_enter"
             app:exitAnim="@anim/fragment_fade_enter" />
+        <action
+            android:id="@+id/action_localizacaoPerfilFragment_to_categoriaPerfilFragment"
+            app:destination="@id/categoriaPerfilFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

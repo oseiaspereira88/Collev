@@ -15,51 +15,35 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
 public class LocalizacaoPerfilFragment extends Fragment {
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_localizacao_perfil, container, false); //->container, false
-        //initViews(rootView);
+        initViews(rootView);
         return rootView;
     }
 
     public void initViews(View rootView){
-        CardView cv_option_1 = (CardView) rootView.findViewById(R.id.cv_option_1);
-        CardView cv_option_2 = (CardView) rootView.findViewById(R.id.cv_option_2);
-
-        cv_option_1.setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.tvConcluir).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animateButton(v);
-                if(cv_option_2.getCardBackgroundColor().getDefaultColor() != 99){
-                    cv_option_1.setCardBackgroundColor(99);
-                } else{
-                    cv_option_2.setCardBackgroundColor(Color.WHITE);
-                    cv_option_1.setCardBackgroundColor(99);
-                }
-
-                //chamada da MainActivity
-                NavHostFragment
-                        .findNavController(getParentFragment())
+                NavHostFragment.findNavController(getParentFragment())
                         .navigate(R.id.action_localizacaoPerfilFragment_to_mainActivity);
             }
         });
 
-        cv_option_2.setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.tvVoltar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animateButton(v);
-                if(cv_option_1.getCardBackgroundColor().getDefaultColor() != 99){
-                    cv_option_2.setCardBackgroundColor(99);
-                } else{
-                    cv_option_1.setCardBackgroundColor(Color.WHITE);
-                    cv_option_2.setCardBackgroundColor(99);
-                }
+                NavHostFragment.findNavController(getParentFragment())
+                        .navigate(R.id.action_localizacaoPerfilFragment_to_categoriaPerfilFragment);
             }
         });
+
+
     }
 
     public void animateButton(View view) {

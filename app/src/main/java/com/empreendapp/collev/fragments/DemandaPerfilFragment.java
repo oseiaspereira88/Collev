@@ -15,7 +15,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
 
 public class DemandaPerfilFragment extends Fragment {
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
