@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.empreendapp.collev.ui.coletor.MapsFragment
 
 class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
-    private val optionsTitles = arrayOf("Categoria", "Localização", "Demanda")
+    private val optionsTitles = arrayOf("Coletas Pendentes", "Coletas Agendadas", "Histórico de Coletas")
     override fun getCount(): Int {
         return optionsTitles.size
     }
