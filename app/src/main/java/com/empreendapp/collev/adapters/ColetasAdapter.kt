@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.LinearLayout
 import com.empreendapp.collev.R
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -46,6 +45,7 @@ class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>) : Recycle
                 MotionEvent.ACTION_DOWN -> {
                     holder.llDataHora?.visibility = View.VISIBLE;
                     YoYo.with(Techniques.SlideInRight).duration(800).repeat(0).playOn(holder.llDataHora)
+                    YoYo.with(Techniques.BounceIn).duration(800).repeat(0).playOn(holder.viewItem)
                 }
                 MotionEvent.ACTION_UP -> {
                     YoYo.with(Techniques.SlideOutRight).duration(1600).repeat(0).playOn(holder.llDataHora)

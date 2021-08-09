@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.ColetasAdapter
+import com.empreendapp.collev.interfaces.RecyclerViewClickInterface
 import com.empreendapp.collev.model.Coleta
 
-class SolicitacoesFragment : Fragment() {
+class SolicitacoesFragment : Fragment(), RecyclerViewClickInterface {
     private var rvSolicitacoes : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

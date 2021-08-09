@@ -32,9 +32,14 @@ class MainActivity : AppCompatActivity() {
         tvOptionTitle = findViewById<View>(R.id.tvTabTitle) as TextView
         tabLayout = findViewById<View>(R.id.tab_layout) as TabLayout
         pagerAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
-        pager!!.adapter = pagerAdapter
-        tabLayout!!.setupWithViewPager(pager)
-        pager!!.addOnPageChangeListener(onPageChangeListener)
+        pager?.adapter = pagerAdapter
+        tabLayout?.setupWithViewPager(pager)
+        pager?.addOnPageChangeListener(onPageChangeListener)
+
+        tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home);
+        tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi);
+        tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_history);
+        tabLayout?.getTabAt(3)?.setIcon(R.drawable.icon_menu);
     }
 
     private val onPageChangeListener: OnPageChangeListener

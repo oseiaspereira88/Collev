@@ -9,7 +9,7 @@ import com.empreendapp.collev.ui.coletor.MapsFragment
 import com.empreendapp.collev.ui.coletor.SolicitacoesFragment
 
 class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
-    private val optionsTitles = arrayOf("Solicitações", "Agenda", "Histórico")
+    private val optionsTitles = arrayOf("", "", "", "")
     override fun getCount(): Int {
         return optionsTitles.size
     }
@@ -19,7 +19,8 @@ class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(f
             0 -> SolicitacoesFragment()
             1 -> AgendaFragment()
             2 -> HistoricoFragment()
-            else -> MapsFragment()
+            3 -> HistoricoFragment()
+            else -> HistoricoFragment()
         }
     }
 
