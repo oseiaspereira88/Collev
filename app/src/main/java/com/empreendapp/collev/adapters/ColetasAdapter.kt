@@ -56,7 +56,7 @@ class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>) : Recycle
                     handler2.postDelayed(r2, 1600)
                 }
                 MotionEvent.ACTION_CANCEL -> {
-                    YoYo.with(Techniques.SlideOutUp).duration(2600).repeat(0).playOn(holder.llDataHora)
+                    YoYo.with(Techniques.SlideOutRight).duration(2600).repeat(0).playOn(holder.llDataHora)
                     val handler2 = Handler()
                     val r2 = Runnable {
                         holder.llDataHora?.visibility = View.GONE;
