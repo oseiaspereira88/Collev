@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home);
         tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi);
-        tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_history);
-        tabLayout?.getTabAt(3)?.setIcon(R.drawable.icon_menu);
+        tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04);
     }
 
     private val onPageChangeListener: OnPageChangeListener
