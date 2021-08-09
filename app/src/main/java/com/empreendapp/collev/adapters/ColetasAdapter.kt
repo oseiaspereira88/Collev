@@ -44,8 +44,8 @@ class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>) : Recycle
             when (motionEvent.action){
                 MotionEvent.ACTION_DOWN -> {
                     holder.llDataHora?.visibility = View.VISIBLE;
-                    YoYo.with(Techniques.SlideInRight).duration(800).repeat(0).playOn(holder.llDataHora)
-                    YoYo.with(Techniques.BounceIn).duration(800).repeat(0).playOn(holder.viewItem)
+                    YoYo.with(Techniques.SlideInRight).duration(500).repeat(0).playOn(holder.llDataHora)
+                    YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(holder.viewItem)
                 }
                 MotionEvent.ACTION_UP -> {
                     YoYo.with(Techniques.SlideOutRight).duration(1600).repeat(0).playOn(holder.llDataHora)
