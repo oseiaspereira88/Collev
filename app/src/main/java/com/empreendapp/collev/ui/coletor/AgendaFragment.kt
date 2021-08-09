@@ -29,7 +29,7 @@ class AgendaFragment : Fragment() {
     }
 
     private fun intViews(rootView: View) {
-        var adapter = ColetasAdapter(getAllSolicitacoes())
+        var adapter = ColetasAdapter(rootView.context, getAllSolicitacoes())
         rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_solicitacoes)
         rvSolicitacoes?.layoutManager = LinearLayoutManager(context)
         rvSolicitacoes?.itemAnimator = DefaultItemAnimator()
