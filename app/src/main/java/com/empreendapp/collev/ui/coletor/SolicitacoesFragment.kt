@@ -14,6 +14,7 @@ import com.empreendapp.collev.model.Coleta
 
 class SolicitacoesFragment : Fragment() {
     private var rvSolicitacoes : RecyclerView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -5,9 +5,7 @@
     android:id="@+id/cvColeta"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:layout_marginLeft="16dp"
     android:layout_marginTop="16dp"
-    android:layout_marginRight="16dp"
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="8dp">
 
@@ -23,6 +21,16 @@
             android:text="Empresa solicitou nova Coleta"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="09/08/2021"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
