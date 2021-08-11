@@ -69,7 +69,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="17dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,15 +128,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl2" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tab_layout"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_back"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:scrollIndicators="end"
+        app:layout_constraintBottom_toTopOf="@+id/cl1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tab_layout"
-        app:srcCompat="@drawable/button_rounded_04" />
+        app:layout_constraintStart_toStartOf="@+id/cl3"
+        app:layout_constraintTop_toBottomOf="@+id/cl2"
+        app:tabIconTintMode="add"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="#73C3FF"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorGravity="bottom"
+        app:tabIndicatorHeight="3dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/button_rounded_04" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/button_rounded_04" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/button_rounded_04" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
