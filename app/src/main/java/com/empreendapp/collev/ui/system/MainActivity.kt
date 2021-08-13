@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0 -> tvOptionTitle!!.text = "Solicitações" //solicitações de coletas
-                    1 -> tvOptionTitle!!.text = "Coletas Agendadas"
-                    2 -> tvOptionTitle!!.text = "Histórico de Coletas"
+                    0 -> tvOptionTitle!!.text = "Coletas" //solicitações de coletas
+                    1 -> tvOptionTitle!!.text = "Notificações"
+                    2 -> tvOptionTitle!!.text = "Menu"
                 }
             }
 
