@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
+import com.empreendapp.collev.adapters.Coletas2Adapter
 import com.empreendapp.collev.adapters.ColetasAdapter
+import com.empreendapp.collev.interfaces.RecyclerViewClickInterface
 import com.empreendapp.collev.model.Coleta
 
-class AgendaFragment : Fragment() {
+class ColetasFragment : Fragment(), RecyclerViewClickInterface {
     private var rvSolicitacoes : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,7 @@ class AgendaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_solicitacoes, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_coletas, container, false)
         intViews(rootView);
         return rootView
     }

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.ColetasAdapter
+import com.empreendapp.collev.adapters.Coletas2Adapter
 import com.empreendapp.collev.model.Coleta
 
-class HistoricoFragment : Fragment() {
+class NotificacoesFragment : Fragment() {
     private var rvSolicitacoes : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +23,13 @@ class HistoricoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_solicitacoes, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_coletas, container, false)
         intViews(rootView);
         return rootView
     }
 
     private fun intViews(rootView: View) {
-        var adapter = ColetasAdapter(rootView.context, getAllSolicitacoes())
+        var adapter = Coletas2Adapter(rootView.context, getAllSolicitacoes())
         rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_solicitacoes)
         rvSolicitacoes?.layoutManager = LinearLayoutManager(context)
         rvSolicitacoes?.itemAnimator = DefaultItemAnimator()

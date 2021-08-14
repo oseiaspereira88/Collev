@@ -3,10 +3,9 @@ package com.empreendapp.collev.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.empreendapp.collev.ui.coletor.AgendaFragment
-import com.empreendapp.collev.ui.coletor.HistoricoFragment
-import com.empreendapp.collev.ui.coletor.MapsFragment
-import com.empreendapp.collev.ui.coletor.SolicitacoesFragment
+import com.empreendapp.collev.ui.coletor.NotificacoesFragment
+import com.empreendapp.collev.ui.coletor.MenuFragment
+import com.empreendapp.collev.ui.coletor.ColetasFragment
 
 class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
     private val optionsTitles = arrayOf("", "", "")
@@ -16,10 +15,10 @@ class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(f
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> SolicitacoesFragment()
-            1 -> AgendaFragment()
-            2 -> HistoricoFragment()
-            else -> HistoricoFragment()
+            0 -> ColetasFragment()
+            1 -> NotificacoesFragment()
+            2 -> MenuFragment()
+            else -> MenuFragment()
         }
     }
 
