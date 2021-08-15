@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvColeta"
+        android:id="@+id/cvNotificacao"
         android:layout_width="0dp"
         android:layout_height="88dp"
         android:layout_marginStart="4dp"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvColeta"
+                    android:id="@+id/tvNotificacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Empresa solicitou nova coleta"

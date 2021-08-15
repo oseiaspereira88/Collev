@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvColeta"
+        android:id="@+id/cvNotificacao"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -48,7 +48,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvColeta"
+                android:id="@+id/tvNotificacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

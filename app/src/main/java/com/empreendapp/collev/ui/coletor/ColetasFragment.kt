@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.Coletas2Adapter
 import com.empreendapp.collev.adapters.ColetasAdapter
 import com.empreendapp.collev.interfaces.RecyclerViewClickInterface
 import com.empreendapp.collev.model.Coleta
@@ -37,7 +36,7 @@ class ColetasFragment : Fragment(), RecyclerViewClickInterface {
         var adapter2 = ColetasAdapter(rootView.context, getAllDados(5), 2)
         var adapter3 = ColetasAdapter(rootView.context, getAllDados(7), 3)
 
-        rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_solicitacoes)
+        rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_notificacoes)
         rvAgenda = rootView.findViewById<RecyclerView>(R.id.rv_list_agenda)
         rvHistorico = rootView.findViewById<RecyclerView>(R.id.rv_list_historico)
 

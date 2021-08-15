@@ -2,7 +2,6 @@ package com.empreendapp.collev.adapters
 
 import android.content.Context
 import android.os.Handler
-import com.empreendapp.collev.model.Coleta
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -14,9 +13,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.empreendapp.collev.model.Notificacao
 import java.util.ArrayList
 
-class Coletas2Adapter(var ctx: Context, var coletas: ArrayList<Coleta>) : RecyclerView.Adapter<Coletas2Adapter.ViewHolder>() {
+class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notificacao>) : RecyclerView.Adapter<NotificacoesAdapter.ViewHolder>() {
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
         var tvColeta: TextView? = null
@@ -24,20 +24,20 @@ class Coletas2Adapter(var ctx: Context, var coletas: ArrayList<Coleta>) : Recycl
         var llDataHora: LinearLayout? = null
 
         init {
-            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColeta);
+            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvNotificacao);
             this.tvNumber = viewItem.findViewById<TextView>(R.id.tvNumber);
             this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewItem = LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item, parent, false)
+        val viewItem = LayoutInflater.from(parent?.context).inflate(R.layout.item_notificacao, parent, false)
         return ViewHolder(viewItem as ConstraintLayout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var coleta = coletas[position]
-        holder.tvColeta?.setText("A empresa tal solicitou a coleta " + coleta.id_coleta)
+        var coleta = notificacoes[position]
+        holder.tvColeta?.setText("A empresa HotDoguinhos solicitou a coleta " + coleta.id_coleta)
         holder.tvNumber?.setText(if(position<9) "0" + (position +1) else "" + (position +1))
 
         holder.viewItem?.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
@@ -76,7 +76,7 @@ class Coletas2Adapter(var ctx: Context, var coletas: ArrayList<Coleta>) : Recycl
     }
 
     override fun getItemCount(): Int {
-        return coletas.size
+        return notificacoes.size
     }
 
 }

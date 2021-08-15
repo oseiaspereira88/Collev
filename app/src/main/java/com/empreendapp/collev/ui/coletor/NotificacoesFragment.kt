@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.Coletas2Adapter
+import com.empreendapp.collev.adapters.NotificacoesAdapter
 import com.empreendapp.collev.model.Coleta
+import com.empreendapp.collev.model.Notificacao
 
 class NotificacoesFragment : Fragment() {
-    private var rvSolicitacoes : RecyclerView? = null
+    private var rvNotificacoes : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +24,27 @@ class NotificacoesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_coletas, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_notificacoes, container, false)
         intViews(rootView);
         return rootView
     }
 
     private fun intViews(rootView: View) {
-        var adapter = Coletas2Adapter(rootView.context, getAllSolicitacoes())
-        rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_solicitacoes)
-        rvSolicitacoes?.layoutManager = LinearLayoutManager(context)
-        rvSolicitacoes?.itemAnimator = DefaultItemAnimator()
-        rvSolicitacoes?.adapter = adapter
+        var adapter = NotificacoesAdapter(rootView.context, getAllNotificacoes())
+        rvNotificacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_notificacoes)
+        rvNotificacoes?.layoutManager = LinearLayoutManager(context)
+        rvNotificacoes?.itemAnimator = DefaultItemAnimator()
+        rvNotificacoes?.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
-    private fun getAllSolicitacoes(): ArrayList<Coleta> {
-        var coletas = ArrayList<Coleta>()
+    private fun getAllNotificacoes(): ArrayList<Notificacao> {
+        var notificacoes = ArrayList<Notificacao>()
 
-        for(i in 1..17){
-            coletas.add(Coleta(i))
+        for(i in 1..10){
+            notificacoes.add(Notificacao(i))
         }
 
-        return coletas
+        return notificacoes
     }
 }

@@ -1,19 +1,14 @@
 package com.empreendapp.collev.adapters
 
 import android.content.Context
-import android.os.Handler
 import com.empreendapp.collev.model.Coleta
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
 import android.widget.LinearLayout
 import com.empreendapp.collev.R
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import java.util.ArrayList
 
 class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listID: Int) : RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
@@ -33,11 +28,11 @@ class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if(listID == 1){
-            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_solicitacao, parent, false) as ConstraintLayout)
+            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_solicitacao, parent, false) as ConstraintLayout)
         } else if(listID == 2){
-            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_agenda, parent, false) as ConstraintLayout)
+            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_agenda, parent, false) as ConstraintLayout)
         }
-        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_historico, parent, false) as ConstraintLayout)
+        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_historico, parent, false) as ConstraintLayout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
