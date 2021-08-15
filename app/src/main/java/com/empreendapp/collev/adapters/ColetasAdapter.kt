@@ -16,31 +16,32 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import java.util.ArrayList
 
-class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>) : RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
-
+class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listID: Int) : RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
+    var isFirst = true;
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
-        var tvTitleList: TextView? = null
         var tvColeta: TextView? = null
         var tvNumber: TextView? = null
         var llDataHora: LinearLayout? = null
 
         init {
-            this.tvTitleList = viewItem.findViewById<TextView>(R.id.tvTitleList);
-            //this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColeta);
-            //this.tvNumber = viewItem.findViewById<TextView>(R.id.tvNumber);
-            //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
+            //this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColeta)
+            //this.tvNumber = viewItem.findViewById<TextView>(R.id.tvNumber)
+            //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewItem = LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_solicitacao, parent, false)
-        return ViewHolder(viewItem as ConstraintLayout)
+        if(listID == 1){
+            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_solicitacao, parent, false) as ConstraintLayout)
+        } else if(listID == 2){
+            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_agenda, parent, false) as ConstraintLayout)
+        }
+        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.coleta_item_historico, parent, false) as ConstraintLayout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var coleta = coletas[position]
-        if(position==0) holder.tvTitleList?.visibility = View.VISIBLE
         //holder.tvColeta?.setText("A empresa tal solicitou a coleta " + coleta.id_coleta)
         //holder.tvNumber?.setText(if(position<9) "0" + (position +1) else "" + (position +1))
 

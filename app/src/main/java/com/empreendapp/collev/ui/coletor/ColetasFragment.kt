@@ -16,6 +16,8 @@ import com.empreendapp.collev.model.Coleta
 
 class ColetasFragment : Fragment(), RecyclerViewClickInterface {
     private var rvSolicitacoes : RecyclerView? = null
+    private var rvAgenda : RecyclerView? = null
+    private var rvHistorico : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +33,35 @@ class ColetasFragment : Fragment(), RecyclerViewClickInterface {
     }
 
     private fun intViews(rootView: View) {
-        var adapter = ColetasAdapter(rootView.context, getAllSolicitacoes())
+        var adapter1 = ColetasAdapter(rootView.context, getAllDados(3), 1)
+        var adapter2 = ColetasAdapter(rootView.context, getAllDados(5), 2)
+        var adapter3 = ColetasAdapter(rootView.context, getAllDados(7), 3)
+
         rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_solicitacoes)
+        rvAgenda = rootView.findViewById<RecyclerView>(R.id.rv_list_agenda)
+        rvHistorico = rootView.findViewById<RecyclerView>(R.id.rv_list_historico)
+
         rvSolicitacoes?.layoutManager = LinearLayoutManager(context)
+        rvAgenda?.layoutManager = LinearLayoutManager(context)
+        rvHistorico?.layoutManager = LinearLayoutManager(context)
+
         rvSolicitacoes?.itemAnimator = DefaultItemAnimator()
-        rvSolicitacoes?.adapter = adapter
-        adapter.notifyDataSetChanged()
+        rvAgenda?.itemAnimator = DefaultItemAnimator()
+        rvHistorico?.itemAnimator = DefaultItemAnimator()
+
+        rvSolicitacoes?.adapter = adapter1
+        rvAgenda?.adapter = adapter2
+        rvHistorico?.adapter = adapter3
+
+        adapter1.notifyDataSetChanged()
+        adapter2.notifyDataSetChanged()
+        adapter3.notifyDataSetChanged()
     }
 
-    private fun getAllSolicitacoes(): ArrayList<Coleta> {
+    private fun getAllDados(n: Int): ArrayList<Coleta> {
         var coletas = ArrayList<Coleta>()
 
-        for(i in 1..17){
+        for(i in 1..n){
             coletas.add(Coleta(i))
         }
 
