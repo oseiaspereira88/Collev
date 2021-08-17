@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvNotificacao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChecks"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+                <ImageView
+                    android:id="@+id/imgDiv"
+                    android:layout_width="2dp"
+                    android:layout_marginEnd="17dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkBox4"
+                    app:layout_constraintEnd_toEndOf="@+id/checkBox"
+                    app:layout_constraintStart_toStartOf="@+id/checkBox"
+                    app:layout_constraintTop_toTopOf="@+id/checkBox"
+                    app:srcCompat="@drawable/button_rounded_03" />
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/white"
+                    android:checked="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardView2" />
+
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardView3" />
+
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardView5" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="0dp"
+                    android:layout_height="76dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="#DEFAFD"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/checkBox"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingTop="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:text="Hotdoguinho solicitou uma coleta"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="O recipiente já está cheio" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView4"
+                    android:layout_width="0dp"
+                    android:layout_height="76dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="#FFE2B5"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/cardView3"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView3">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingTop="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:text="Confirmou o agendamento"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="Sim! Estaremos no aguardo!" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="0dp"
+                    android:layout_height="76dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="#F1FFDE"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingTop="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:text="Miker Coletor agendou a coleta"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="Pode ser a esse horário?" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView5"
+                    android:layout_width="0dp"
+                    android:layout_height="76dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardBackgroundColor="#FFF3E4"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/cardView4"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingTop="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:text="Finalizou a coleta"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="Serviço concluido. Obrigado!" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imgMapBG"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/button_cycle_blue" />
+
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgMapBG"
+                app:layout_constraintEnd_toEndOf="@+id/imgMapBG"
+                app:layout_constraintStart_toStartOf="@+id/imgMapBG"
+                app:layout_constraintTop_toTopOf="@+id/imgMapBG"
+                app:srcCompat="@drawable/icon_map" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvNotificacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="28 de Agosto, 2021"
+                    android:textAllCaps="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amanhã"
+                    android:textAllCaps="true"
+                    android:textColor="#F4B95E"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSemanaLista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/clS2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS1"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="D"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS1"
+                        app:layout_constraintTop_toTopOf="@+id/imgS1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/clS3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS2"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS2"
+                        app:layout_constraintTop_toTopOf="@+id/imgS2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/clS4"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS3"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="T"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS3"
+                        app:layout_constraintTop_toTopOf="@+id/imgS3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS4"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="Q"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS4"
+                        app:layout_constraintTop_toTopOf="@+id/imgS4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/clS4"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS5"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="Q"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS5"
+                        app:layout_constraintTop_toTopOf="@+id/imgS5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/clS5"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS6"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS6"
+                        app:layout_constraintTop_toTopOf="@+id/imgS6" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clS7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/clS6"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgS7"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/button_cycle_orange" />
+
+                    <TextView
+                        android:id="@+id/tvS7"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgS7"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imgS7"
+                        app:layout_constraintTop_toTopOf="@+id/imgS7" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:padding="4dp"
+                android:text="Período:"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/clSemanaLista"
+                app:layout_constraintTop_toBottomOf="@+id/clSemanaLista" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="4dp"
+                android:text="8:00"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView17"
+                app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="-"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView18"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="19:00"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintStart_toEndOf="@+id/textView20"
+                app:layout_constraintTop_toTopOf="@+id/textView20"
+                app:srcCompat="@drawable/icon_history" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
