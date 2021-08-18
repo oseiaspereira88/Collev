@@ -37,7 +37,7 @@ public class LocalizacaoPerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(getParentFragment())
-                        .navigate(R.id.action_localizacaoPerfilFragment_to_categoriaPerfilFragment);
+                        .navigate(R.id.action_localizacaoPerfilFragment_to_voluntarioFragment);
             }
         });
 

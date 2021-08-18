@@ -9,35 +9,23 @@
         <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/coleta_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/coleta_item_01.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/drawable-v24/button_rounded_01.xml" value="0.175390625" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/drawable/button_cycle_blue.xml" value="0.175390625" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/drawable/button_cycle_orange.xml" value="0.175390625" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/drawable/button_rounded_04.xml" value="0.175390625" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/drawable/button_rounded_05.xml" value="0.175390625" />
+        <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/fragment_coletas.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Oseias.pereira/Desktop/AndroidStudioProjects/Collev/app/src/main/res/layout/fragment_voluntario.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/activity_cadastro.xml" value="0.21770833333333334" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/activity_login.xml" value="0.16328125" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/activity_perfil.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/ciclo_item_model.xml" value="0.10572916666666667" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/coleta_item.xml" value="0.2" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/coleta_item_agendamento.xml" value="0.16328125" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/coleta_item_historico.xml" value="0.16328125" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/coleta_item_solicitacao.xml" value="0.16328125" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/coleta_item.xml" value="0.5" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_agenda.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_categoria_perfil.xml" value="0.21770833333333334" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_coletas.xml" value="0.22" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_demanda_perfil.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_historico.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_localizacao_perfil.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_maps.xml" value="0.10572916666666667" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_menu.xml" value="0.25" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_notificacoes.xml" value="0.16328125" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_solicitacao.xml" value="0.21770833333333334" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_solicitacoes.xml" value="0.17" />
+        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/fragment_solicitacoes.xml" value="0.22" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/input_name_and_color_dialog_model.xml" value="0.10572916666666667" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/item_historico.xml" value="0.16328125" />
-        <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/item_notificacao.xml" value="0.16328125" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/layout/solicitacao_item.xml" value="0.5" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/menu/activity_main_drawer.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/Zeias/AndroidProjects/Collev/app/src/main/res/menu/login.xml" value="0.21770833333333334" />
