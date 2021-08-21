@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "574198073809",
+    "project_id": "collev",
+    "storage_bucket": "collev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574198073809:android:97b95cf8c9439bd9f378f0",
+        "android_client_info": {
+          "package_name": "com.empreendapp.collev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574198073809-g97kb12p5ifod58uvaj1oglugc2s1n54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApQt1NajHkkWdkhavdNISwhvYtoElYINE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574198073809-g97kb12p5ifod58uvaj1oglugc2s1n54.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

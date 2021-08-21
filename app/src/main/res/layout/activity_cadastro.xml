@@ -55,25 +55,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/textInputLayoutNome"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="Nome"
+        app:boxStrokeColor="#88E3FA"
         app:counterMaxLength="30"
+        app:hintTextColor="#51CEED"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <EditText
-        android:id="@+id/edit_nome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inputType="textCapSentences"
-        android:maxLength="30"/>
+        <EditText
+            android:id="@+id/edit_nome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textCapSentences"
+            android:maxLength="30" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +88,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:hint="Email"
+        app:boxStrokeColor="#88E3FA"
         app:counterMaxLength="30"
+        app:hintTextColor="#51CEED"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNome">
@@ -109,8 +113,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:hint="Senha"
-        app:counterMaxLength="12"
+        app:boxStrokeColor="#88E3FA"
         app:counterEnabled="true"
+        app:counterMaxLength="12"
+        app:hintTextColor="#51CEED"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
@@ -120,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword"
-            android:maxLength="12"/>
+            android:maxLength="12" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
 }
+
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -49,9 +51,9 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation platform('com.google.firebase:firebase-bom:28.3.1')
+    implementation 'com.google.firebase:firebase-auth-ktx'
 }
 repositories {
     mavenCentral()
