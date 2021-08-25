@@ -26,8 +26,8 @@ public class DemandaPerfilFragment extends Fragment {
     }
 
     public void initViews(View rootView){
-        CardView cv_option_1 = (CardView) rootView.findViewById(R.id.cv_option_1);
-        CardView cv_option_2 = (CardView) rootView.findViewById(R.id.cv_option_2);
+        CardView cv_option_1 = (CardView) rootView.findViewById(R.id.cv_option_coletor);
+        CardView cv_option_2 = (CardView) rootView.findViewById(R.id.cv_option_voluntario);
 
         cv_option_1.setOnClickListener(new View.OnClickListener() {
             @Override

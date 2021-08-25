@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Selecione uma das Opções")
         val view = View.inflate(this, R.layout.perfil_option_model, null)
-        val option1 = findViewById<View>(R.id.cv_option_1) as CardView
-        val option2 = findViewById<View>(R.id.cv_option_2) as CardView
+        val option1 = findViewById<View>(R.id.cv_option_coletor) as CardView
+        val option2 = findViewById<View>(R.id.cv_option_voluntario) as CardView
         val onClick = View.OnClickListener { v ->
             val cv = v as CardView
             //cv.setBackground();

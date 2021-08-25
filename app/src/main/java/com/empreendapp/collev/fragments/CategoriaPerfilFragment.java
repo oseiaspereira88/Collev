@@ -13,8 +13,15 @@ import android.view.ViewGroup;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.empreendapp.collev.R;
+import com.empreendapp.collev.model.User;
+import com.empreendapp.collev.util.FirebaseConnection;
+import com.empreendapp.collev.util.LibraryClass;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class CategoriaPerfilFragment extends Fragment {
+    private FirebaseDatabase firebaseBD;
+    private FirebaseAuth auth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,14 +33,26 @@ public class CategoriaPerfilFragment extends Fragment {
         return rootView;
     }
 
-    public void initViews(View rootView){
-        CardView cv_option_1 = (CardView) rootView.findViewById(R.id.cv_option_1);
-        CardView cv_option_2 = (CardView) rootView.findViewById(R.id.cv_option_2);
+    private void initFirebase() {
+        firebaseBD = LibraryClass.getFirebaseDB();
+        auth = FirebaseConnection.getFirebaseAuth();
+    }
 
-        cv_option_1.setOnClickListener(new View.OnClickListener() {
+    public void initViews(View rootView){
+        CardView cv_option_coletor = (CardView) rootView.findViewById(R.id.cv_option_coletor);
+        CardView cv_option_voluntario = (CardView) rootView.findViewById(R.id.cv_option_voluntario);
+
+        initFirebase();
+        User user = new User();
+        user.setId(auth.getCurrentUser().getUid());
+
+        cv_option_coletor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 animateButton(v);
+
+                user.setTipo("Coletor");
+                user.saveTipoInFirebase();
 
                 //chamada do LocalizacaoPerfilFragment
                 NavHostFragment.findNavController(getParentFragment())
@@ -41,10 +60,13 @@ public class CategoriaPerfilFragment extends Fragment {
             }
         });
 
-        cv_option_2.setOnClickListener(new View.OnClickListener() {
+        cv_option_voluntario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 animateButton(v);
+
+                user.setTipo("Coletor");
+                user.saveTipoInFirebase();
 
                 //chamada do LocalizacaoPerfilFragment
                 NavHostFragment.findNavController(getParentFragment())

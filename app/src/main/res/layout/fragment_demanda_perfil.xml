@@ -8,7 +8,7 @@
     tools:context=".fragments.DemandaPerfilFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_option_1"
+        android:id="@+id/cv_option_coletor"
         android:layout_width="140dp"
         android:layout_height="100dp"
         android:layout_marginStart="32dp"
@@ -28,7 +28,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_option_2"
+        android:id="@+id/cv_option_voluntario"
         android:layout_width="140dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -64,9 +64,9 @@
         android:layout_marginTop="16dp"
         android:text="Coletor"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_option_1"
-        app:layout_constraintStart_toStartOf="@+id/cv_option_1"
-        app:layout_constraintTop_toBottomOf="@+id/cv_option_1" />
+        app:layout_constraintEnd_toEndOf="@+id/cv_option_coletor"
+        app:layout_constraintStart_toStartOf="@+id/cv_option_coletor"
+        app:layout_constraintTop_toBottomOf="@+id/cv_option_coletor" />
 
     <TextView
         android:id="@+id/textView16"
@@ -75,16 +75,16 @@
         android:layout_marginTop="16dp"
         android:text="Voluntário"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/cv_option_2"
-        app:layout_constraintStart_toStartOf="@+id/cv_option_2"
-        app:layout_constraintTop_toBottomOf="@+id/cv_option_2" />
+        app:layout_constraintEnd_toEndOf="@+id/cv_option_voluntario"
+        app:layout_constraintStart_toStartOf="@+id/cv_option_voluntario"
+        app:layout_constraintTop_toBottomOf="@+id/cv_option_voluntario" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seleção de Demanda"
-        app:layout_constraintBottom_toTopOf="@+id/cv_option_1"
+        app:layout_constraintBottom_toTopOf="@+id/cv_option_coletor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

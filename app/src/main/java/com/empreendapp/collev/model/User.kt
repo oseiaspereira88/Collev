@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException
 
 
 @JsonIgnoreProperties(*arrayOf("id", "senha"))
-open class User{
+open class User {
     private val TOKEN = "com.empreendapp.collev.models.User.TOKEN"
     private val ID = "com.empreendapp.collev.models.User.ID"
     private val NOME = "com.empreendapp.collev.models.User.NOME"
@@ -20,6 +20,7 @@ open class User{
     var nome: String? = null
     var email: String? = null
     var senha: String? = null
+    var tipo: String? = null
     var endereco: String? = null
     var localidade: Local? = null
     var nome_empresa: String? = null
@@ -31,23 +32,29 @@ open class User{
         bdRef.setValue(this)
     }
 
+    open fun saveTipoInFirebase() {
+        var bdRef = LibraryClass.getFirebaseDB().reference
+        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        bdRef.child("tipo").setValue(tipo)
+    }
+
     open fun saveEnderecoInFirebase() {
         var bdRef = LibraryClass.getFirebaseDB().reference
         bdRef = id?.let { bdRef.child("users").child(it) }!!
-        bdRef.setValue(endereco)
+        bdRef.child("endereco").setValue(endereco)
     }
 
     open fun saveLocalidadeInFirebase() {
         var bdRef = LibraryClass.getFirebaseDB().reference
         bdRef = id?.let { bdRef.child("users").child(it) }!!
-        bdRef.setValue(localidade)
+        bdRef.child("localidade").setValue(localidade)
     }
 
     open fun saveNomeEmpresaInFirebase() {
-            var bdRef = LibraryClass.getFirebaseDB().reference
-            bdRef = id?.let { bdRef.child("users").child(it) }!!
-            bdRef.setValue(nome_empresa)
-        }
+        var bdRef = LibraryClass.getFirebaseDB().reference
+        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        bdRef.child("nome_empresa").setValue(nome_empresa)
+    }
 
     open fun saveNameAndEmailSP(ctx: Context) {
         val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
