@@ -8,7 +8,7 @@ import com.empreendapp.collev.util.CryptWithMD5
 import java.security.NoSuchAlgorithmException
 
 
-@JsonIgnoreProperties("id", "senha")
+@JsonIgnoreProperties(*arrayOf("id", "senha"))
 open class User{
     private val TOKEN = "com.empreendapp.collev.models.User.TOKEN"
     private val ID = "com.empreendapp.collev.models.User.ID"
@@ -25,12 +25,29 @@ open class User{
     var nome_empresa: String? = null
 
     open fun saveInFirebase() {
-        var id: String? = this.id
         var bdRef = LibraryClass.getFirebaseDB().reference
         bdRef = id?.let { bdRef.child("users").child(it) }!!
-        id = null
+        this.id = null
         bdRef.setValue(this)
     }
+
+    open fun saveEnderecoInFirebase() {
+        var bdRef = LibraryClass.getFirebaseDB().reference
+        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        bdRef.setValue(endereco)
+    }
+
+    open fun saveLocalidadeInFirebase() {
+        var bdRef = LibraryClass.getFirebaseDB().reference
+        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        bdRef.setValue(localidade)
+    }
+
+    open fun saveNomeEmpresaInFirebase() {
+            var bdRef = LibraryClass.getFirebaseDB().reference
+            bdRef = id?.let { bdRef.child("users").child(it) }!!
+            bdRef.setValue(nome_empresa)
+        }
 
     open fun saveNameAndEmailSP(ctx: Context) {
         val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)

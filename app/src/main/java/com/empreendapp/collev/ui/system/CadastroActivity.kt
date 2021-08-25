@@ -24,6 +24,8 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.tasks.OnCompleteListener
 
 import com.google.firebase.auth.FirebaseUser
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 
 
 class CadastroActivity : AppCompatActivity() {
@@ -33,6 +35,9 @@ class CadastroActivity : AppCompatActivity() {
     private var editNome: EditText? = null
     private var editEmail: EditText? = null
     private var editSenha: EditText? = null
+    private var nome: String = ""
+    private var email: String = ""
+    private var senha: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,42 +52,66 @@ class CadastroActivity : AppCompatActivity() {
         editNome = findViewById<View>(R.id.edit_nome) as EditText
         editEmail = findViewById<View>(R.id.edit_email) as EditText
         editSenha = findViewById<View>(R.id.edit_senha) as EditText
+
         tvCadastrar!!.setOnClickListener { v -> //animate
             YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
             val handler = Handler()
             val r = Runnable {
-                if (validate()) {
-                    cadastrar()
-                } else {
-                    editNome?.error = "Digite um nome válido!"
-                    editEmail?.error = "Digite um email válido!"
-                    editSenha?.error = "Digite uma senha valida!"
-                }
+                getCampos()
+                if (validate()) cadastrar()
             }
             handler.postDelayed(r, 300)
         }
     }
 
+    private fun getCampos(){
+        if(!editNome!!.text.toString().isEmpty()) nome = editNome!!.text.toString()
+        if(!editEmail!!.text.toString().isEmpty()) email = editEmail!!.text.toString()
+        if(!editSenha!!.text.toString().isEmpty()) senha = editSenha!!.text.toString()
+    }
+
     private fun validate(): Boolean {
-        return (!editNome?.text.toString().isEmpty() && editNome?.text.toString().length >= 6 &&
-                !editEmail?.text.toString().isEmpty() && editEmail?.text.toString().length >= 10 &&
-                !editSenha?.text.toString().isEmpty()) && editSenha?.text.toString().length >= 6
+        var isValided = true
+        if (nome.isEmpty() || nome.length < 6) {
+            editNome?.error = "Digite um nome válido!"
+            isValided = false
+        }
+        if (email.isEmpty() || email.length < 10
+            || !email.contains('@') || !email.contains('.')
+        ) {
+            editEmail?.error = "Digite um email válido!"
+            isValided = false
+        }
+        if (senha.isEmpty() || senha.length < 6) {
+            editSenha?.error = "Digite uma senha válida!"
+            isValided = false
+        }
+        return isValided
     }
 
     @Throws(NoSuchAlgorithmException::class)
     private fun initUser() {
         user = User()
-        user!!.nome = editNome?.text.toString().trim()
-        user!!.email = editEmail?.text.toString().trim()
-        user!!.senha = editSenha?.text.toString().trim()
-        user!!.gerarCryptSenha()
+        user!!.nome = nome.trim()
+        user!!.email = email.trim()
+        user!!.senha = encrypt(senha.trim())
         user!!.saveNameAndEmailSP(applicationContext)
+    }
+
+    private fun encrypt(text: String): String{
+        val md = MessageDigest.getInstance("MD5")
+        val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
+        val sb = StringBuilder()
+        for (b in hashInBytes) {
+            sb.append(kotlin.String.format("%02x", b))
+        }
+        return sb.toString()
     }
 
     private fun cadastrar() {
         initUser();
 
-        auth.createUserWithEmailAndPassword(editEmail?.text.toString().trim(), CryptWithMD5.gerarMD5Hash(editSenha?.text.toString().trim()))
+        auth.createUserWithEmailAndPassword(email, encrypt(senha))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("INFO:", "createUserWithEmail:success")
@@ -95,7 +124,7 @@ class CadastroActivity : AppCompatActivity() {
                         user.sendEmailVerification()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    alert("Um email foi enviado para confirmar seu cadastro.", 1)
+                                    alert("Um email foi enviado para seu email.", 1)
                                 } else {
                                     alert("Houve um erro ao soliciar a confirmação do cadastro!", 1)
                                 }
@@ -105,10 +134,8 @@ class CadastroActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Log.w("ERROR:", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    alert("Falha no cadastro!", 0)
+                    alert("Possivelmente o email já foi utilizado em outro cadastro.", 1)
                 }
             }
     }

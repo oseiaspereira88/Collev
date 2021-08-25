@@ -20,6 +20,8 @@ import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseUser
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,35 +31,18 @@ class LoginActivity : AppCompatActivity() {
     private var tvCadastreSe: TextView? = null
     private var editEmail: EditText? = null
     private var editSenha: EditText? = null
+    private var email: String = ""
+    private var senha: String = ""
 
     public override fun onStart() {
         super.onStart()
         initFirebase();
-        if(auth.currentUser != null){
-            if(auth.currentUser!!.isEmailVerified()){
+        if (auth.currentUser != null) {
+            if (auth.currentUser!!.isEmailVerified()) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
-            } else{
-                alert("Confirme sua conta no email", 1)
-            }
-        }
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
-        val it = Intent(baseContext, MainActivity::class.java)
-        if (user != null && user.isEmailVerified) {
-            if (user.email?.let { it1 -> User().haveNameAndEmailEqualSP(applicationContext, it1) } == true) {
-                val newUser = User()
-                newUser.restaureNameSP(applicationContext)
-                newUser.email = user.email
-                newUser.id = user.uid
-                newUser.saveInFirebase()
-                newUser.deleteNameSP(applicationContext)
-                startActivity(it)
             } else {
-                if (user != null) {
-                    startActivity(it)
-                }
+                //alert("Confirme sua conta no email", 1)
             }
         }
     }
@@ -80,16 +65,13 @@ class LoginActivity : AppCompatActivity() {
         editEmail = findViewById<View>(R.id.edit_email) as EditText
         editSenha = findViewById<View>(R.id.edit_senha) as EditText
         val itCadastro = Intent(this, CadastroActivity::class.java)
+
         tvEntrar!!.setOnClickListener { v -> //animate
             YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
             val handler = Handler()
             val r = Runnable {
-                if (validate()) {
-                    login()
-                } else {
-                    editEmail!!.error = "Digite um email válido!"
-                    editSenha!!.error = "Digite uma senha válida!"
-                }
+                getCampos()
+                if (validate()) login()
             }
             handler.postDelayed(r, 300)
         }
@@ -102,29 +84,73 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validate(): Boolean {
-        return (!editEmail?.text.toString().isEmpty() && editEmail?.text.toString().length >= 10 &&
-                editEmail?.text.toString().contains('@') && editEmail?.text.toString().contains('.') &&
-                !editSenha?.text.toString().isEmpty()) && editSenha?.text.toString().length >= 6
+        var isValided = true
+        if (email.isEmpty() || email.length < 10 ||
+            !email.contains('@') || !email.contains('.')
+        ) {
+            editEmail?.error = "Digite um email válido!"
+            isValided = false
+        }
+        if (senha.isEmpty() || senha.length < 6) {
+            editSenha?.error = "Digite uma senha válida!"
+            isValided = false
+        }
+        return isValided
     }
 
-    private fun login(){
-        auth.signInWithEmailAndPassword(editEmail?.text.toString().trim(), CryptWithMD5.gerarMD5Hash(editSenha?.text.toString().trim()))
+    private fun getCampos(){
+        if(!editEmail!!.text.toString().isEmpty()) email = editEmail!!.text.toString()
+        if(!editSenha!!.text.toString().isEmpty()) senha = editSenha!!.text.toString()
+    }
+
+    private fun encrypt(text: String): String{
+        val md = MessageDigest.getInstance("MD5")
+        val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
+        val sb = StringBuilder()
+        for (b in hashInBytes) {
+            sb.append(kotlin.String.format("%02x", b))
+        }
+        return sb.toString()
+    }
+
+    private fun login() {
+        auth.signInWithEmailAndPassword(email, encrypt(senha))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("INFO:", "signInWithEmail:success")
                     val user: FirebaseUser? = auth.currentUser
                     if (user != null) {
-                        if (user.isEmailVerified()) {
+                        if (!user.isEmailVerified) {
                             alert("Verifique o email de confirmação!", 0);
-                        } else{
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
+                        } else {
+                            if (user.email?.let { it1 ->
+                                    User().haveNameAndEmailEqualSP(
+                                        applicationContext,
+                                        it1
+                                    )
+                                } == true) {
+                                val newUser = User()
+                                newUser.restaureNameSP(applicationContext)
+                                newUser.email = user.email
+                                newUser.id = user.uid
+                                newUser.saveInFirebase()
+                                newUser.deleteNameSP(applicationContext)
+                                startActivity(Intent(this, InitPerfilActivity::class.java))
+                            } else {
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
+                            }
                         }
                     }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("ERROR:", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Email ou senha incoretos!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    // checar se o email é um dos cadastrados no bd;
+                    // se sim, notificar erro no campo que apenas a senha está invalida.
+                    // se não, dizer que os dois campos estão invalidos
                 }
             }
     }
