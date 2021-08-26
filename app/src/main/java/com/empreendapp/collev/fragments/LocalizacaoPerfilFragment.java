@@ -50,7 +50,8 @@ public class LocalizacaoPerfilFragment extends Fragment {
                 EditText editNomeEmpresa = (EditText) rootView.findViewById(R.id.edit_nome_empresa);
 
                 if(!editNomeEmpresa.getText().toString().isEmpty()){
-                    user.setEndereco(editNomeEmpresa.getText().toString());
+                    user.setEndereco("Rua Terezinha Campelo, 117");
+                    user.setNome_empresa(editNomeEmpresa.getText().toString());
                     Local local = new Local();
                     local.setId_localidade(0);
                     local.setNome("Local-Generico");
@@ -59,6 +60,7 @@ public class LocalizacaoPerfilFragment extends Fragment {
                     // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
                     // com os que já estão alocados.
                     user.saveEnderecoInFirebase();
+                    user.saveNomeEmpresaInFirebase();
                     user.saveLocalidadeInFirebase();
 
                     NavHostFragment.findNavController(getParentFragment())
