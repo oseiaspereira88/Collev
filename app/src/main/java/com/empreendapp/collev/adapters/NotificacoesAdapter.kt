@@ -20,12 +20,10 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
         var tvColeta: TextView? = null
-        var tvNumber: TextView? = null
         var llDataHora: LinearLayout? = null
 
         init {
             this.tvColeta = viewItem.findViewById<TextView>(R.id.tvNotificacao);
-            this.tvNumber = viewItem.findViewById<TextView>(R.id.tvNumber);
             this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
         }
     }
@@ -38,14 +36,12 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var coleta = notificacoes[position]
         holder.tvColeta?.setText("A empresa HotDoguinhos solicitou a coleta " + coleta.id_coleta)
-        holder.tvNumber?.setText(if(position<9) "0" + (position +1) else "" + (position +1))
 
         holder.viewItem?.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
             when (motionEvent.action){
                 MotionEvent.ACTION_DOWN -> {
                     holder.llDataHora?.visibility = View.VISIBLE;
                     YoYo.with(Techniques.SlideInRight).duration(500).repeat(0).playOn(holder.llDataHora)
-                    YoYo.with(Techniques.RubberBand).duration(300).repeat(0).playOn(holder.viewItem)
                 }
                 MotionEvent.ACTION_UP -> {
                     YoYo.with(Techniques.SlideOutRight).duration(1600).repeat(0).playOn(holder.llDataHora)
