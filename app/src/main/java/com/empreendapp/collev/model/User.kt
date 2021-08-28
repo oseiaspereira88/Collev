@@ -14,6 +14,7 @@ open class User {
     private val ID = "com.empreendapp.collev.models.User.ID"
     private val NOME = "com.empreendapp.collev.models.User.NOME"
     private val EMAIL = "com.empreendapp.collev.models.User.EMAIL"
+    private val TIPO = "com.empreendapp.collev.models.User.TIPO"
     private var PREF = "com.empreendapp.collev.PREF"
 
     var id: String? = null
@@ -71,6 +72,17 @@ open class User {
     open fun deleteNameSP(ctx: Context) {
         val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
         sp.edit().putString(NOME, "").apply()
+    }
+
+    open fun saveTipoSP(ctx: Context) {
+        val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        sp.edit().putString(TIPO, this.tipo).apply()
+    }
+
+    open fun restaureTipoSP(ctx: Context) {
+        val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        val tipo = sp.getString(TIPO, "")
+        this.tipo = tipo
     }
 
     open fun haveNameAndEmailEqualSP(ctx: Context, email: String): Boolean {

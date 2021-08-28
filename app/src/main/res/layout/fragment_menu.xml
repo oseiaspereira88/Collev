@@ -23,7 +23,7 @@
         app:riv_tile_mode="clamp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvOp1"
+        android:id="@+id/cvOpConta"
         android:layout_width="0dp"
         android:layout_height="86dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -107,7 +107,7 @@
         app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOp1">
+        app:layout_constraintTop_toBottomOf="@+id/cvOpConta">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

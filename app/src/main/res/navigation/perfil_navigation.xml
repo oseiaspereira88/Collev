@@ -20,9 +20,9 @@
     </fragment>
     <fragment
         android:id="@+id/localizacaoPerfilFragment"
-        android:name="com.empreendapp.collev.fragments.LocalizacaoPerfilFragment"
+        android:name="com.empreendapp.collev.fragments.MaisPerfilFragment"
         android:label="fragment_localizacao_perfil"
-        tools:layout="@layout/fragment_localizacao_perfil" >
+        tools:layout="@layout/fragment_mais_perfil" >
         <action
             android:id="@+id/action_localizacaoPerfilFragment_to_mainActivity"
             app:destination="@id/mainActivity"
