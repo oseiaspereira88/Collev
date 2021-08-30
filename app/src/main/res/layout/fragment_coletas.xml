@@ -104,7 +104,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvBodySolicitacoes" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_notificacoes"
+                    android:id="@+id/rv_locais"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -128,7 +128,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/clBodySolicitacoes">
 
                 <TextView
-                    android:id="@+id/tvBodyAgenda"
+                    android:id="@+id/tvLocalNome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -149,10 +149,10 @@
                     android:background="@drawable/button_rounded_01"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBodyAgenda" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLocalNome" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_agenda"
+                    android:id="@+id/rvListUsers"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"

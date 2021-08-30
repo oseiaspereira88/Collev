@@ -36,8 +36,8 @@ class ColetasFragment : Fragment(), RecyclerViewClickInterface {
         var adapter2 = ColetasAdapter(rootView.context, getAllDados(5), 2)
         var adapter3 = ColetasAdapter(rootView.context, getAllDados(7), 3)
 
-        rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_notificacoes)
-        rvAgenda = rootView.findViewById<RecyclerView>(R.id.rv_list_agenda)
+        rvSolicitacoes = rootView.findViewById<RecyclerView>(R.id.rv_locais)
+        rvAgenda = rootView.findViewById<RecyclerView>(R.id.rvListUsers)
         rvHistorico = rootView.findViewById<RecyclerView>(R.id.rv_list_historico)
 
         rvSolicitacoes?.layoutManager = LinearLayoutManager(context)

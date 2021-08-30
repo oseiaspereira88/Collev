@@ -12,7 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import java.util.ArrayList
 
 class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listID: Int) : RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
-    var isFirst = true;
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
         var tvColeta: TextView? = null
@@ -28,7 +27,7 @@ class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if(listID == 1){
-            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_solicitacao, parent, false) as ConstraintLayout)
+            return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_coleta, parent, false) as ConstraintLayout)
         } else if(listID == 2){
             return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_agenda, parent, false) as ConstraintLayout)
         }

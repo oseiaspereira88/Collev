@@ -7,7 +7,7 @@
     tools:context=".ui.coletor.NotificacoesFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_notificacoes"
+        android:id="@+id/rv_locais"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"

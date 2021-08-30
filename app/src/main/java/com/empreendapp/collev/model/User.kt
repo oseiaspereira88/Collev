@@ -23,7 +23,7 @@ open class User {
     var senha: String? = null
     var tipo: String? = null
     var endereco: String? = null
-    var localidade: Local? = null
+    var id_local: String? = null
     var nome_empresa: String? = null
 
     open fun saveInFirebase() {
@@ -45,10 +45,10 @@ open class User {
         bdRef.child("endereco").setValue(endereco)
     }
 
-    open fun saveLocalidadeInFirebase() {
+    open fun saveIdLocalInFirebase() {
         var bdRef = LibraryClass.getFirebaseDB().reference
         bdRef = id?.let { bdRef.child("users").child(it) }!!
-        bdRef.child("localidade").setValue(localidade)
+        bdRef.child("id_local").setValue(id_local)
     }
 
     open fun saveNomeEmpresaInFirebase() {

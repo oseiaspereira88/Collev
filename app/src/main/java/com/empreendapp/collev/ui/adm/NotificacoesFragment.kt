@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.NotificacoesAdapter
-import com.empreendapp.collev.model.Coleta
 import com.empreendapp.collev.model.Notificacao
 
 class NotificacoesFragment : Fragment() {
@@ -31,7 +30,7 @@ class NotificacoesFragment : Fragment() {
 
     private fun intViews(rootView: View) {
         var adapter = NotificacoesAdapter(rootView.context, getAllNotificacoes())
-        rvNotificacoes = rootView.findViewById<RecyclerView>(R.id.rv_list_notificacoes)
+        rvNotificacoes = rootView.findViewById<RecyclerView>(R.id.rv_locais)
         rvNotificacoes?.layoutManager = LinearLayoutManager(context)
         rvNotificacoes?.itemAnimator = DefaultItemAnimator()
         rvNotificacoes?.adapter = adapter

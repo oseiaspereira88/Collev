@@ -6,15 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.NotificacoesAdapter
-import com.empreendapp.collev.model.Coleta
+import com.empreendapp.collev.ui.adm.AdmActivity
 import com.empreendapp.collev.ui.system.InitPerfilActivity
 import com.empreendapp.collev.ui.system.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +17,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 class MenuFragment : Fragment() {
     private var imgSair : RoundedImageView? = null
     private var cvOpConta : CardView? = null
+    private var cvOpConfiguracoes : CardView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +35,7 @@ class MenuFragment : Fragment() {
     private fun intViews(rootView: View) {
         imgSair = rootView.findViewById(R.id.imgSair)
         cvOpConta = rootView.findViewById(R.id.cvOpConta)
+        cvOpConfiguracoes = rootView.findViewById(R.id.cvOpConfiguracoes)
 
         imgSair?.setOnClickListener({
             FirebaseAuth.getInstance().signOut()
@@ -49,6 +45,10 @@ class MenuFragment : Fragment() {
 
         cvOpConta?.setOnClickListener({
             startActivity(Intent(context, InitPerfilActivity::class.java))
+        })
+
+        cvOpConfiguracoes?.setOnClickListener({
+            startActivity(Intent(context, AdmActivity::class.java))
         })
     }
 }

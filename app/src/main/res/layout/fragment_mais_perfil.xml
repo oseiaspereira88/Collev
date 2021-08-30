@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="56dp"
         android:hint="Empresa que representa"
         app:counterMaxLength="30"
         app:layout_constraintBottom_toTopOf="@+id/tvRecipiente"
@@ -35,25 +35,38 @@
         android:id="@+id/tvRecipiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/button_rounded_03"
+        android:padding="16dp"
         android:text="Qual recipiente será necessário?"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerRecipiente"
-        app:layout_constraintStart_toStartOf="@+id/spinnerRecipiente"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutNomeEmpresa"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/button_rounded_03"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerRecipiente"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerRecipiente"
+        app:layout_constraintStart_toStartOf="@+id/spinnerRecipiente"
+        app:layout_constraintTop_toTopOf="@+id/spinnerRecipiente" />
 
     <Spinner
         android:id="@+id/spinnerRecipiente"
-        style="@android:style/Widget.Material.Spinner"
+        style="@android:style/Widget.Holo.Light.Spinner"
         android:layout_width="0dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="32dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRecipiente"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRecipiente"
+        app:layout_constraintTop_toTopOf="@+id/tvRecipiente"
         tools:visibility="visible" />
 
     <TextView
