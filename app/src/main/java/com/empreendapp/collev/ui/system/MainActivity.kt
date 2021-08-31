@@ -8,37 +8,107 @@ import com.google.android.material.tabs.TabLayout
 import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter
 import android.os.Bundle
 import com.empreendapp.collev.R
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.cardview.widget.CardView
 import android.view.KeyEvent
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.viewpager.widget.ViewPager.*
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
+import com.empreendapp.collev.adapters.AdmFragmentPagerAdapter
+import com.empreendapp.collev.adapters.VoluntarioFragmentPagerAdapter
+import com.empreendapp.collev.util.LibraryClass
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
     private var pager: ViewPager? = null
+    private var database: DatabaseReference? = null
+    private var auth: FirebaseAuth? = null
     private var tvOptionTitle: TextView? = null
     private var tabLayout: TabLayout? = null
-    private var pagerAdapter: ColetorFragmentPagerAdapter? = null
+    private var pageProgressBar: ProgressBar? = null
+    private var voluntarioAdapter: VoluntarioFragmentPagerAdapter? = null
+    private var coletorAdapter: ColetorFragmentPagerAdapter? = null
+    private var admAdapter: AdmFragmentPagerAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         InitPerfilActivity.setStatusBarBorderRadius(this)
+        initFirebase()
         initViews()
+    }
+
+    private fun initFirebase() {
+        database = LibraryClass.getFirebaseDB().reference
+        auth = FirebaseAuth.getInstance()
     }
 
     private fun initViews() {
         pager = findViewById<View>(R.id.pager) as ViewPager
         tvOptionTitle = findViewById<View>(R.id.tvTabTitle) as TextView
         tabLayout = findViewById<View>(R.id.tab_layout) as TabLayout
-        pagerAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
-        pager?.adapter = pagerAdapter
-        tabLayout?.setupWithViewPager(pager)
-        pager?.addOnPageChangeListener(onPageChangeListener)
+        pageProgressBar = findViewById<View>(R.id.pageProgressBar) as ProgressBar
 
-        tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home);
-        tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi);
-        tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04);
+        if(auth?.currentUser != null){
+            getUserTypeAndPage()
+        }
+    }
+
+    private fun getUserTypeAndPage(){
+        database!!.child("users").child(auth?.uid.toString()).get()
+            .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
+                if (task.isSuccessful) {
+                    costruirPaginacao(java.lang.String.valueOf(task.result?.child("tipo")?.getValue()))
+                    pageProgressBar?.visibility = View.GONE
+                } else if(task.isCanceled){
+                    costruirPaginacao("undefined")
+                    pageProgressBar?.clearAnimation()
+                }
+            })
+    }
+
+    private fun costruirPaginacao(userType: String){
+        when(userType){
+            "Voluntário" -> {
+                voluntarioAdapter = VoluntarioFragmentPagerAdapter(supportFragmentManager)
+                pager?.adapter = voluntarioAdapter
+                tabLayout?.setupWithViewPager(pager)
+                pager?.addOnPageChangeListener(onPageChangeListener)
+
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+            }
+            "Coletor" -> {
+                coletorAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
+                pager?.adapter = coletorAdapter
+                tabLayout?.setupWithViewPager(pager)
+                pager?.addOnPageChangeListener(onPageChangeListener)
+
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+            }
+            "Administrador" -> {
+                admAdapter = AdmFragmentPagerAdapter(supportFragmentManager)
+                pager?.adapter = admAdapter
+                tabLayout?.setupWithViewPager(pager)
+                pager?.addOnPageChangeListener(onPageChangeListener)
+
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+            }
+            else -> {
+                Toast.makeText(this, "Error: Tipo de Usuário não identificado!", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private val onPageChangeListener: OnPageChangeListener
@@ -55,25 +125,26 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
         }
 
-    fun openProfileDialogCreator() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Selecione uma das Opções")
-        val view = View.inflate(this, R.layout.perfil_option_model, null)
-        val option1 = findViewById<View>(R.id.cv_option_coletor) as CardView
-        val option2 = findViewById<View>(R.id.cv_option_voluntario) as CardView
-        val onClick = View.OnClickListener { v ->
-            val cv = v as CardView
-            //cv.setBackground();
-        }
-        builder.setView(view)
-
-        // Set up the buttons
-        builder.setPositiveButton("Confirmar") { dialog, which ->
-            //proxima questão ou se for a última questão, finaliza o perfil;
-        }
-        builder.setNegativeButton("Cancelar") { dialog, which -> dialog.cancel() }
-        builder.show()
-    }
+//    fun openProfileDialogCreator() {
+//        val builder = AlertDialog.Builder(this)
+//        builder.setTitle("Selecione uma das Opções")
+//        val view = View.inflate(this, R.layout.perfil_option_model, null)
+//        val option1 = findViewById<View>(R.id.cv_option_coletor) as CardView
+//        val option2 = findViewById<View>(R.id.cv_option_voluntario) as CardView
+//        val onClick = View.OnClickListener { v ->
+//            val cv = v as CardView
+//            //cv.setBackground();
+//        }
+//        builder.setView(view)
+//
+//        // Set up the buttons
+//        builder.setPositiveButton("Confirmar") { dialog, which ->
+//            //proxima questão ou se for a última questão, finaliza o perfil;
+//        }
+//        builder.setNegativeButton("Cancelar") { dialog, which -> dialog.cancel() }
+//        builder.show()
+//    }
+//
 
     // Código botão Voltar
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

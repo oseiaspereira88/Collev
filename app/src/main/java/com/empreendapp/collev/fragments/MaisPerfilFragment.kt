@@ -27,9 +27,7 @@ class MaisPerfilFragment : Fragment() {
     private var firebaseBD: FirebaseDatabase? = null
     private var database: DatabaseReference? = null
     private var ref: DatabaseReference? = null
-    private var auth: FirebaseAuth? = null
     private var userChildEventListener: UserChildEventListener? = null
-    private var userValueEventListener: UserValueEventListener? = null
     private var editNomeEmpresa: EditText? = null
     private var spinnerRecipiente: Spinner? = null
     private var tvRecipiente: TextView? = null
@@ -41,26 +39,17 @@ class MaisPerfilFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // Inflate the layout for this fragment
-        val rootView =
-            inflater.inflate(R.layout.fragment_mais_perfil, container, false) //->container, false
+        val rootView = inflater.inflate(R.layout.fragment_mais_perfil, container, false)
+        initFirebase()
         initViews(rootView)
         return rootView
     }
 
     private fun initFirebase() {
         firebaseBD = LibraryClass.getFirebaseDB()
-        //auth = FirebaseConnection.getFirebaseAuth()
-        //userValueEventListener = UserValueEventListener()
     }
 
     fun initViews(rootView: View) {
-        initFirebase()
-        //val ref = firebaseBD!!.getReference("users")
-        //ref.addListenerForSingleValueEvent(userValueEventListener!!)
-        //tipo = userValueEventListener!!.user!!.tipo
-
         val auth: FirebaseAuth = FirebaseConnection.getFirebaseAuth()
         database = LibraryClass.getFirebaseDB().reference
 

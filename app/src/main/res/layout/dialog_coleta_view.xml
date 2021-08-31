@@ -414,8 +414,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clTime"
-                tools:visibility="invisible">
+                app:layout_constraintTop_toBottomOf="@+id/clTime">
 
                 <ImageView
                     android:id="@+id/imgDiv"

@@ -17,8 +17,8 @@ class AdmFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!)
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> LocaisFragment()
-            1 -> LocaisFragment()
-            2 -> LocaisFragment()
+            1 -> NotificacoesFragment()
+            2 -> MenuFragment()
             else -> LocaisFragment()
         }
     }

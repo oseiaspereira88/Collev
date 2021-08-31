@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.empreendapp.collev.ui.coletor.NotificacoesFragment
 import com.empreendapp.collev.ui.coletor.MenuFragment
 import com.empreendapp.collev.ui.coletor.ColetasFragment
+import com.empreendapp.collev.ui.voluntario.VoluntarioFragment
 
 class VoluntarioFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
     private val optionsTitles = arrayOf("", "", "")
@@ -15,7 +16,7 @@ class VoluntarioFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapte
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> ColetasFragment()
+            0 -> VoluntarioFragment()
             1 -> NotificacoesFragment()
             2 -> MenuFragment()
             else -> MenuFragment()

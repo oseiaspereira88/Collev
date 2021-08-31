@@ -42,5 +42,6 @@
         android:id="@+id/mainActivity"
         android:name="com.empreendapp.collev.ui.system.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main">
+    </activity>
 </navigation>

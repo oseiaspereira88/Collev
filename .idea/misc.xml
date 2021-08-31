@@ -51,10 +51,20 @@
         <entry key="..\:/Users/Zeias/AndroidProjects/app/src/main/res/layout/fragment_menu.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/AndroidProjects/app/src/main/res/layout/item_notificacao.xml" value="0.2" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_categoria_perfil.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_coletas.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_locais.xml" value="0.2" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_mais_perfil.xml" value="0.25" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_maps.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_notificacoes.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_users.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_voluntario.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_agenda.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_coleta.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_local.xml" value="0.2" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_notificacao.xml" value="0.2" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_solicitacao.xml" value="0.2" />
