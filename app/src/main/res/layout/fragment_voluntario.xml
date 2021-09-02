@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvNotificacao"
+            android:id="@+id/tvDataColeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="28 de Agosto, 2021"
@@ -27,7 +27,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tvDiaColeta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Amanhã"
@@ -47,8 +47,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        app:riv_border_color="#FFCA86"
-        app:riv_border_width="1dip"
+        app:riv_border_color="#FFF"
+        app:riv_border_width="3dip"
         app:riv_corner_radius="50dip"
         app:riv_mutate_background="true"
         app:riv_oval="true"
@@ -690,37 +690,44 @@
             android:text="Nenhuma coleta por aqui!" />
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/button_cycle_primary_color"
-        app:layout_constraintBottom_toBottomOf="@+id/clColeta"
-        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/clColeta" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="32dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSolicitarColeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:translationY="-16dp"
         app:layout_constraintBottom_toBottomOf="@+id/clColeta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clColeta"
-        app:srcCompat="@drawable/button_cycle_blue" />
+        app:layout_constraintTop_toBottomOf="@+id/clColeta">
 
-    <ImageView
-        android:id="@+id/imgSolicitarColeta"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
-        app:srcCompat="@drawable/icon_plus" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/button_cycle_primary_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:srcCompat="@drawable/button_cycle_blue" />
+
+        <ImageView
+            android:id="@+id/imgSolicitarColeta"
+            android:layout_width="44dp"
+            android:layout_height="46dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+            app:layout_constraintEnd_toEndOf="@+id/imageView9"
+            app:layout_constraintStart_toStartOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="@+id/imageView9"
+            app:srcCompat="@drawable/icon_plus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

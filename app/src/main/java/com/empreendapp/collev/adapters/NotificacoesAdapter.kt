@@ -23,7 +23,7 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
         var llDataHora: LinearLayout? = null
 
         init {
-            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvNotificacao);
+            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvDataColeta);
             this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
         }
     }

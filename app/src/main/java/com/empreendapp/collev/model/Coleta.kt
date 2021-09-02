@@ -7,7 +7,7 @@ class Coleta {
     var id_solicitante: Int? = null
     var id_coletor: Int? = null
     var local: String? = null
-    var status //solicitada, agendada e atendida;
+    var status //solicitada, agendada, confirmada e atendida;
             : String? = null
     var feedbacks: ArrayList<Feedback>? = null
     var dataSolicitacao: Date? = null
