@@ -406,7 +406,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clChecks"
+                android:id="@+id/clColeta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -688,7 +688,7 @@
                 app:srcCompat="@drawable/button_cycle_blue" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/imgSolicitarColeta"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
@@ -707,10 +707,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/clChecks"
+                app:layout_constraintBottom_toBottomOf="@+id/clColeta"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/clChecks">
+                app:layout_constraintTop_toTopOf="@+id/clColeta">
 
                 <TextView
                     android:id="@+id/textView22"
