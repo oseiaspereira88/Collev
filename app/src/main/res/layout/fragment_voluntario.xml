@@ -73,15 +73,16 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="52dp"
         android:background="@drawable/button_cycle_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/tvSpacer"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,9 +90,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/clTime"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tvInfoCreate">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clS1"
@@ -336,9 +337,9 @@
             android:id="@+id/clTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/clSemanaLista"
-            app:layout_constraintTop_toBottomOf="@+id/clSemanaLista">
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/clChecks"
+            app:layout_constraintStart_toStartOf="@+id/clSemanaLista">
 
             <TextView
                 android:id="@+id/textView17"
@@ -347,6 +348,7 @@
                 android:padding="4dp"
                 android:text="Período:"
                 android:textAllCaps="true"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -358,6 +360,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="8:00"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView17"
@@ -369,6 +372,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="-"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView18"
@@ -380,6 +384,7 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="19:00"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView19"
@@ -402,10 +407,13 @@
             android:id="@+id/clChecks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="94dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clTime">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/imgDiv"
@@ -667,6 +675,22 @@
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvInfoCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            android:text="Selecione o dia e o período:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -680,7 +704,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/clColeta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/clColeta">
+        app:layout_constraintTop_toTopOf="@+id/clColeta"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/textView22"
@@ -729,5 +754,17 @@
             app:srcCompat="@drawable/icon_plus" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvSpacer"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

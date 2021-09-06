@@ -7,11 +7,13 @@ class Coleta {
     var id_solicitante: Int? = null
     var id_coletor: Int? = null
     var local: String? = null
-    var status //solicitada, agendada, confirmada e atendida;
+    var status //solicitada, agendada, confirmada e atendida; ou cancelada;
             : String? = null
     var feedbacks: ArrayList<Feedback>? = null
     var dataSolicitacao: Date? = null
     var dataConclusao: Date? = null
+
+    constructor()
 
     constructor(
         id_coleta: Int?,

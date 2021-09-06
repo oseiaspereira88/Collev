@@ -7,6 +7,11 @@
                 android:centerColor="#E5FFFC"
                 android:endColor="#82DFDC"
                 android:angle="180"></gradient>
+            <corners
+                android:topRightRadius="80dp"
+                android:topLeftRadius="80dp"
+                android:bottomRightRadius="80dp"
+                android:bottomLeftRadius="80dp"/>
         </shape>
     </item>
 </layer-list>
