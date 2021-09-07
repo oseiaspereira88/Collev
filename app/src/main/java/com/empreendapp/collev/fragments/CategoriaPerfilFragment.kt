@@ -32,7 +32,7 @@ class CategoriaPerfilFragment : Fragment() {
     }
 
     private fun initFirebase() {
-        firebaseBD = LibraryClass.getFirebaseDB()
+        firebaseBD = LibraryClass.firebaseDB
         auth = FirebaseConnection.getFirebaseAuth()
     }
 

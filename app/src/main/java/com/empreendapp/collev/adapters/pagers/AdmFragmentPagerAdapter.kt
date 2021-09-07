@@ -1,4 +1,4 @@
-package com.empreendapp.collev.adapters
+package com.empreendapp.collev.adapters.pagers
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

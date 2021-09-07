@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
-import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter
+import com.empreendapp.collev.adapters.pagers.ColetorFragmentPagerAdapter
 import android.os.Bundle
 import com.empreendapp.collev.R
-import androidx.cardview.widget.CardView
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
@@ -16,14 +15,13 @@ import android.widget.Toast
 import androidx.viewpager.widget.ViewPager.*
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
-import com.empreendapp.collev.adapters.AdmFragmentPagerAdapter
-import com.empreendapp.collev.adapters.VoluntarioFragmentPagerAdapter
+import com.empreendapp.collev.adapters.pagers.AdmFragmentPagerAdapter
+import com.empreendapp.collev.adapters.pagers.VoluntarioFragmentPagerAdapter
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
     private var pager: ViewPager? = null
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
-        database = LibraryClass.getFirebaseDB().reference
+        database = LibraryClass.firebaseDB?.reference
         auth = FirebaseAuth.getInstance()
     }
 

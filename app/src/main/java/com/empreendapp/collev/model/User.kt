@@ -27,33 +27,33 @@ open class User {
     var nome_empresa: String? = null
 
     open fun saveInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         this.id = null
         bdRef.setValue(this)
     }
 
     open fun saveTipoInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         bdRef.child("tipo").setValue(tipo)
     }
 
     open fun saveEnderecoInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         bdRef.child("endereco").setValue(endereco)
     }
 
     open fun saveIdLocalInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         bdRef.child("id_local").setValue(id_local)
     }
 
     open fun saveNomeEmpresaInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         bdRef.child("nome_empresa").setValue(nome_empresa)
     }
 
@@ -98,7 +98,7 @@ open class User {
 
     @Throws(NoSuchAlgorithmException::class)
     open fun gerarCryptSenha() {
-        senha = CryptWithMD5.gerarMD5Hash(senha)
+        senha = senha?.let { CryptWithMD5.gerarMD5Hash(it) }
     }
 
     open fun saveIdSP(ctx: Context, id: String?) {

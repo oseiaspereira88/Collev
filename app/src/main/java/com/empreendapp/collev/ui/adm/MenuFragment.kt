@@ -6,13 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.NotificacoesAdapter
-import com.empreendapp.collev.model.Coleta
 import com.empreendapp.collev.ui.system.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.makeramen.roundedimageview.RoundedImageView

@@ -1,4 +1,4 @@
-package com.empreendapp.collev.adapters
+package com.empreendapp.collev.adapters.recycler
 
 import android.content.Context
 import android.view.View

@@ -55,8 +55,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
-        firebaseBD = LibraryClass.getFirebaseDB()
-        auth = FirebaseConnection.getFirebaseAuth()
+        firebaseBD = LibraryClass.firebaseDB
+        auth = FirebaseConnection.getFirebaseAuth()!!
     }
 
     private fun initViews() {
@@ -130,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
                                     )
                                 } == true) {
                                 val newUser = User()
-                                newUser.restaureNameSP(applicationContext)
+                                newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
                                 newUser.email = user.email
                                 newUser.id = user.uid
                                 newUser.saveInFirebase()

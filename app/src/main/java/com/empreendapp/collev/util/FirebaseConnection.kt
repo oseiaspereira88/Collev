@@ -1,44 +1,35 @@
-package com.empreendapp.collev.util;
-import androidx.annotation.NonNull;
+package com.empreendapp.collev.util
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.auth.FirebaseUser
+import com.empreendapp.collev.util.FirebaseConnection
 
-public class FirebaseConnection {
-    private static FirebaseAuth firebaseAuth;
-    private static FirebaseAuth.AuthStateListener authStateListener;
-    private static FirebaseUser firebaseUser;
+object FirebaseConnection {
+    private var firebaseAuth: FirebaseAuth? = null
+    private var authStateListener: AuthStateListener? = null
+    var firebaseUser: FirebaseUser? = null
+        private set
 
-    private FirebaseConnection(){
-
-    }
-
-    public static FirebaseAuth getFirebaseAuth(){
-        if(firebaseAuth==null){
-            initFirebase();
+    fun getFirebaseAuth(): FirebaseAuth? {
+        if (firebaseAuth == null) {
+            initFirebase()
         }
-        return firebaseAuth;
+        return firebaseAuth
     }
 
-    private static void initFirebase() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    firebaseUser = user;
-                }
+    private fun initFirebase() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        authStateListener = AuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            if (user != null) {
+                firebaseUser = user
             }
-        };
-        firebaseAuth.addAuthStateListener(authStateListener);
+        }
+        firebaseAuth!!.addAuthStateListener(authStateListener!!)
     }
 
-    public static FirebaseUser getFirebaseUser(){
-        return firebaseUser;
-    }
-
-    public static void logout(){
-        firebaseAuth.signOut();
+    fun logout() {
+        firebaseAuth!!.signOut()
     }
 }

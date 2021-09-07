@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.ColetasAdapter
-import com.empreendapp.collev.interfaces.RecyclerViewClickInterface
+import com.empreendapp.collev.adapters.recycler.ColetasAdapter
 import com.empreendapp.collev.model.Coleta
 
-class ColetasFragment : Fragment(), RecyclerViewClickInterface {
+class ColetasFragment : Fragment() {
     private var rvSolicitacoes : RecyclerView? = null
     private var rvAgenda : RecyclerView? = null
     private var rvHistorico : RecyclerView? = null

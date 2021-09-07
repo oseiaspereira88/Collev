@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.NotificacoesAdapter
+import com.empreendapp.collev.adapters.recycler.NotificacoesAdapter
 import com.empreendapp.collev.model.Notificacao
 
 class NotificacoesFragment : Fragment() {

@@ -1,30 +1,30 @@
-package com.empreendapp.collev.util;
+package com.empreendapp.collev.util
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.app.Application
+import android.content.Context
+import com.google.firebase.database.FirebaseDatabase
+import com.empreendapp.collev.util.LibraryClass
+import android.content.SharedPreferences
 
-import com.google.firebase.database.FirebaseDatabase;
-
-public class LibraryClass extends Application {
-    private static FirebaseDatabase firebaseBD;
-    public static String PREF = "com.empreendapp.collev.PREF";
-
-    public static FirebaseDatabase getFirebaseDB(){
-        if(firebaseBD==null){
-            firebaseBD = FirebaseDatabase.getInstance();
+object LibraryClass : Application() {
+    private var firebaseBD: FirebaseDatabase? = null
+    var PREF = "com.empreendapp.collev.PREF"
+    val firebaseDB: FirebaseDatabase?
+        get() {
+            if (firebaseBD == null) {
+                firebaseBD = FirebaseDatabase.getInstance()
+            }
+            return firebaseBD
         }
-        return firebaseBD;
+
+    fun saveSP(ctx: Context, key: String?, value: String?) {
+        val sp = ctx.getSharedPreferences(PREF, MODE_PRIVATE)
+        sp.edit().putString(key, value).apply()
     }
 
-    public static void saveSP(Context ctx, String key, String value){
-        SharedPreferences sp = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        sp.edit().putString(key, value).apply();
-    }
-
-    public static String getSP(Context ctx, String key){
-        SharedPreferences sp = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        String token = sp.getString(key,"");
-        return token;
+    fun getSP(ctx: Context, key: String?): String? {
+        val sp =
+            ctx.getSharedPreferences(PREF, MODE_PRIVATE)
+        return sp.getString(key, "")
     }
 }

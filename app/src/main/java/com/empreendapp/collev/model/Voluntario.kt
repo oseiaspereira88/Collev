@@ -6,8 +6,8 @@ class Voluntario(): User(){
     var recipiente: String? = null
 
     open fun saveRecipienteInFirebase() {
-        var bdRef = LibraryClass.getFirebaseDB().reference
-        bdRef = id?.let { bdRef.child("users").child(it) }!!
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         bdRef.child("recipiente").setValue(recipiente)
     }
 }

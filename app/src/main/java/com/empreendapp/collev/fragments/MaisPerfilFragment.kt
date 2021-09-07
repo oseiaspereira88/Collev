@@ -46,26 +46,28 @@ class MaisPerfilFragment : Fragment() {
     }
 
     private fun initFirebase() {
-        firebaseBD = LibraryClass.getFirebaseDB()
+        firebaseBD = LibraryClass.firebaseDB
     }
 
     fun initViews(rootView: View) {
-        val auth: FirebaseAuth = FirebaseConnection.getFirebaseAuth()
-        database = LibraryClass.getFirebaseDB().reference
+        val auth: FirebaseAuth? = FirebaseConnection.getFirebaseAuth()
+        database = LibraryClass.firebaseDB?.reference
 
-        database!!.child("users").child(auth.uid.toString()).get()
-            .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
-                if (task.isSuccessful) {
-                    tipo = java.lang.String.valueOf(task.result?.child("tipo")?.getValue())
-                    if (tipo == "Voluntário") {
-                        spinnerRecipiente!!.visibility = View.VISIBLE
-                        tvRecipiente!!.visibility = View.VISIBLE
+        if (auth != null) {
+            database!!.child("users").child(auth.uid.toString()).get()
+                .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
+                    if (task.isSuccessful) {
+                        tipo = java.lang.String.valueOf(task.result?.child("tipo")?.getValue())
+                        if (tipo == "Voluntário") {
+                            spinnerRecipiente!!.visibility = View.VISIBLE
+                            tvRecipiente!!.visibility = View.VISIBLE
+                        }
+                        Toast.makeText(context, "Tipo selecionado: " + tipo, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
                     }
-                    Toast.makeText(context, "Tipo selecionado: " + tipo, Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
-                }
-            })
+                })
+        }
 
         spinnerRecipiente = rootView.findViewById<View>(R.id.spinnerRecipiente) as Spinner
         tvRecipiente = rootView.findViewById<View>(R.id.tvRecipiente) as TextView
@@ -98,7 +100,7 @@ class MaisPerfilFragment : Fragment() {
 
     fun saveColetorInBD() {
         coletor = Coletor()
-        coletor!!.id = FirebaseConnection.getFirebaseAuth().uid
+        coletor!!.id = FirebaseConnection.getFirebaseAuth()?.uid
         coletor!!.endereco = "Rua Terezinha Campelo, 117"
         coletor!!.nome_empresa = editNomeEmpresa!!.text.toString()
         coletor!!.id_local = "generico"
@@ -112,7 +114,7 @@ class MaisPerfilFragment : Fragment() {
 
     fun saveVoluntarioInBD() {
         voluntario = Voluntario()
-        voluntario!!.id = FirebaseConnection.getFirebaseAuth().uid
+        voluntario!!.id = FirebaseConnection.getFirebaseAuth()!!.uid
         voluntario!!.endereco = "Rua Terezinha Campelo, 117"
         voluntario!!.nome_empresa = editNomeEmpresa!!.text.toString()
         voluntario!!.id_local = "generico"

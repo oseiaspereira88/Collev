@@ -9,30 +9,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.LocaisRecyclerAdapter
-import com.empreendapp.collev.interfaces.RecyclerViewClickInterface
-import com.empreendapp.collev.model.Coleta
-import com.empreendapp.collev.model.Local
+import com.empreendapp.collev.adapters.recycler.LocaisRecyclerAdapter
 import com.empreendapp.collev.util.LibraryClass
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.FirebaseDatabase
 
-import android.widget.TextView
-
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-
-import com.empreendapp.collev.ui.system.MainActivity
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter
 
 import com.google.firebase.database.DataSnapshot
 
-import com.firebase.ui.database.SnapshotParser
-import com.google.firebase.database.Query
-import android.graphics.ColorSpace.Model
-import android.util.Log
 import com.empreendapp.collev.util.FirebaseConnection
 import com.google.firebase.database.DatabaseReference
 import com.google.android.gms.tasks.OnCompleteListener
@@ -40,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.lang.String
 
 
-class LocaisFragment : Fragment(), RecyclerViewClickInterface {
+class LocaisFragment : Fragment() {
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
     private var rvLocais: RecyclerView? = null
@@ -74,18 +57,22 @@ class LocaisFragment : Fragment(), RecyclerViewClickInterface {
 //        adapter = LocaisRecyclerAdapter(options)
 //        rvLocais!!.adapter = adapter
 //
-        val auth: FirebaseAuth = FirebaseConnection.getFirebaseAuth()
-        database = LibraryClass.getFirebaseDB().reference
+        val auth: FirebaseAuth? = FirebaseConnection.getFirebaseAuth()
+        database = LibraryClass.firebaseDB?.reference
 
-        if(auth.currentUser != null){
-            database!!.child("users").child(auth.uid.toString()).get()
-                .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
-                    if (!task.isSuccessful) {
-                        Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(context, "Firebase: " + String.valueOf(task.result?.getValue()), Toast.LENGTH_LONG).show()
-                    }
-                })
+        if (auth != null) {
+            if(auth.currentUser != null){
+                if (auth != null) {
+                    database!!.child("users").child(auth.uid.toString()).get()
+                        .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
+                            if (!task.isSuccessful) {
+                                Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(context, "Firebase: " + String.valueOf(task.result?.getValue()), Toast.LENGTH_LONG).show()
+                            }
+                        })
+                }
+            }
         }
 
 

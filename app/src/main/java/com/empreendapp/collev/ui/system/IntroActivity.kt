@@ -30,30 +30,6 @@ class IntroActivity : AppCompatActivity() {
         showIntroAnimate()
     }
 
-    private fun showIntroAnimate() {
-        val it = Intent(this, LoginActivity::class.java)
-        imgLogo!!.visibility = View.VISIBLE
-
-        //play animate logo
-        YoYo.with(Techniques.FadeIn).duration(1600).repeat(0).playOn(imgLogo)
-
-        //contar tempo (700ms)
-        val handler = Handler()
-        val r = Runnable {
-            tvBoasVindas!!.visibility = View.VISIBLE
-
-            //play animate logo
-            YoYo.with(Techniques.FadeIn).duration(800).repeat(0).playOn(tvBoasVindas)
-            val handler2 = Handler()
-            val r2 = Runnable {
-                startActivity(it)
-                finish()
-            }
-            handler2.postDelayed(r2, 1600)
-        }
-        handler.postDelayed(r, 2000)
-    }
-
     private fun initViews() {
         imgLogo = findViewById<View>(R.id.imgLogo) as ImageView
         tvBoasVindas = findViewById<View>(R.id.tvBoasVindas) as TextView
@@ -71,5 +47,28 @@ class IntroActivity : AppCompatActivity() {
         bSlide1!!.setOnClickListener(onClickListener)
         bSlide2!!.setOnClickListener(onClickListener)
         bSlide3!!.setOnClickListener(onClickListener)
+    }
+
+    private fun showIntroAnimate() {
+        imgLogo!!.visibility = View.VISIBLE
+
+        //play animate logo
+        YoYo.with(Techniques.FadeIn).duration(1600).repeat(0).playOn(imgLogo)
+
+        //contar tempo (700ms)
+        val handler = Handler()
+        val r = Runnable {
+            tvBoasVindas!!.visibility = View.VISIBLE
+
+            //play animate logo
+            YoYo.with(Techniques.FadeIn).duration(800).repeat(0).playOn(tvBoasVindas)
+            val handler2 = Handler()
+            val r2 = Runnable {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+            handler2.postDelayed(r2, 1600)
+        }
+        handler.postDelayed(r, 2000)
     }
 }

@@ -58,6 +58,8 @@
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable/button_cycle_blue2.xml" value="0.240625" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable/button_cycle_orange.xml" value="0.240625" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_init_perfil.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_intro.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.22" />
@@ -69,7 +71,7 @@
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_notificacoes.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_users.xml" value="0.22" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_voluntario.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_voluntario.xml" value="0.33" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_agenda.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_coleta.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_local.xml" value="0.2" />

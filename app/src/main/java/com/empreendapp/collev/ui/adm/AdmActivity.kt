@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
-import com.empreendapp.collev.adapters.ColetorFragmentPagerAdapter
 import android.os.Bundle
 import com.empreendapp.collev.R
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
@@ -14,7 +13,7 @@ import android.view.KeyEvent
 import android.view.View
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
-import com.empreendapp.collev.adapters.AdmFragmentPagerAdapter
+import com.empreendapp.collev.adapters.pagers.AdmFragmentPagerAdapter
 import com.empreendapp.collev.ui.system.InitPerfilActivity
 
 class AdmActivity : AppCompatActivity() {

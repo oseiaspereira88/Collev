@@ -1,4 +1,4 @@
-package com.empreendapp.collev.adapters
+package com.empreendapp.collev.adapters.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
