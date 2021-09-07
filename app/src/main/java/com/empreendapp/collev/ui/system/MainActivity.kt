@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var pager: ViewPager? = null
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
-    private var tvOptionTitle: TextView? = null
+    private var tvTitle: TextView? = null
     private var tabLayout: TabLayout? = null
     private var pageProgressBar: ProgressBar? = null
     private var voluntarioAdapter: VoluntarioFragmentPagerAdapter? = null
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         pager = findViewById<View>(R.id.pager) as ViewPager
-        tvOptionTitle = findViewById<View>(R.id.tvTabTitle) as TextView
+        tvTitle = findViewById<View>(R.id.tvTabTitle) as TextView
         tabLayout = findViewById<View>(R.id.tab_layout) as TabLayout
         pageProgressBar = findViewById<View>(R.id.pageProgressBar) as ProgressBar
 
@@ -114,9 +114,9 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0 -> tvOptionTitle!!.text = "Coletas" //solicitações de coletas
-                    1 -> tvOptionTitle!!.text = "Notificações"
-                    2 -> tvOptionTitle!!.text = "Menu"
+                    0 -> tvTitle!!.text = "Coletas" //solicitações de coletas
+                    1 -> tvTitle!!.text = "Notificações"
+                    2 -> tvTitle!!.text = "Menu"
                 }
             }
 

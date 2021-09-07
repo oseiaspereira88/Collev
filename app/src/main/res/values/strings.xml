@@ -2,4 +2,7 @@
     <string name="app_name">Collev</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id_1">574198073809-g97kb12p5ifod58uvaj1oglugc2s1n54.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">184265023791228</string>
+    <string name="fb_login_protocol_scheme">fb184265023791228</string>
 </resources>

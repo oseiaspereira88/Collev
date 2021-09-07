@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 apply plugin: 'kotlin-android'
@@ -55,11 +57,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
-    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx: 21.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.0-rc1'
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
+    implementation 'com.facebook.android:facebook-login:[8.1)'
 }
 repositories {
     maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
