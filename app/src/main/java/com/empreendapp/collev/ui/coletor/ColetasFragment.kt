@@ -60,7 +60,7 @@ class ColetasFragment : Fragment() {
         var coletas = ArrayList<Coleta>()
 
         for(i in 1..n){
-            coletas.add(Coleta(i))
+            coletas.add(Coleta())
         }
 
         return coletas

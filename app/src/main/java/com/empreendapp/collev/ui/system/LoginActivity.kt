@@ -26,12 +26,25 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-import androidx.core.app.ActivityCompat.startActivityForResult
-import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.FacebookException
+
+import com.facebook.login.LoginResult
+
+import com.facebook.FacebookCallback
+
+import com.facebook.login.LoginManager
+
+import com.facebook.CallbackManager
+
+
+
 
 
 class LoginActivity : AppCompatActivity() {
+    private var callbackManager: CallbackManager? = null
     private var firebaseBD: FirebaseDatabase? = null
     private lateinit var auth: FirebaseAuth
     private var tvEntrar: TextView? = null
@@ -41,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
     private var email: String = ""
     private var senha: String = ""
     private lateinit var mGoogleSignClient: GoogleSignInClient
-
 
     public override fun onStart() {
         super.onStart()
@@ -64,6 +76,32 @@ class LoginActivity : AppCompatActivity() {
         InitPerfilActivity.setStatusBarBorderRadius(this)
         initViews()
         loginGoogle()
+        initFacebook()
+        initFacebookCallback()
+    }
+
+    private fun initFacebookCallback() {
+        callbackManager = CallbackManager.Factory.create()
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult?> {
+                override fun onSuccess(loginResult: LoginResult?) {
+                    // App code
+                }
+
+                override fun onCancel() {
+                    // App code
+                }
+
+                override fun onError(exception: FacebookException) {
+                    // App code
+                }
+            })
+    }
+
+    private fun initFacebook() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     private fun initFirebase() {
@@ -93,8 +131,10 @@ class LoginActivity : AppCompatActivity() {
             val r = Runnable { startActivity(itCadastro) }
             handler.postDelayed(r, 300)
         }
+
         btn_google.setOnClickListener {
             signInGoogle()
+            alert("The google button was clicked!", 1)
         }
     }
 
@@ -183,6 +223,29 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    private fun loginWithFacebook(){
+//        loginButton = findViewById<View>(R.id.login_button) as LoginButton
+//        loginButton.setReadPermissions("email")
+//         If using in a fragment
+//         If using in a fragment
+//        loginButton.setFragment(this)
+//
+//         Callback registration
+//        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+//            override fun onSuccess(loginResult: LoginResult?) {
+//                // App code
+//            }
+//
+//            override fun onCancel() {
+//                // App code
+//            }
+//
+//            override fun onError(exception: FacebookException) {
+//                // App code
+//            }
+//        })
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -191,11 +254,14 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "sucesso: " + account.id)
+                Log.d(TAG, "Sucesso: " + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
             }catch (e: ApiException){
                 Log.d(TAG, "Error: ${e.statusCode} " + e.status)
             }
+        } else{
+            callbackManager!!.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -232,6 +298,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, txtAlert, Toast.LENGTH_LONG).show()
         }
     }
+
     fun onConnectionFailed(connectionResult: ConnectionResult) {
         alert("Error: $connectionResult", 1)
     }
