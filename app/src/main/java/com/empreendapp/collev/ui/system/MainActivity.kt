@@ -123,27 +123,6 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
         }
 
-//    fun openProfileDialogCreator() {
-//        val builder = AlertDialog.Builder(this)
-//        builder.setTitle("Selecione uma das Opções")
-//        val view = View.inflate(this, R.layout.perfil_option_model, null)
-//        val option1 = findViewById<View>(R.id.cv_option_coletor) as CardView
-//        val option2 = findViewById<View>(R.id.cv_option_voluntario) as CardView
-//        val onClick = View.OnClickListener { v ->
-//            val cv = v as CardView
-//            //cv.setBackground();
-//        }
-//        builder.setView(view)
-//
-//        // Set up the buttons
-//        builder.setPositiveButton("Confirmar") { dialog, which ->
-//            //proxima questão ou se for a última questão, finaliza o perfil;
-//        }
-//        builder.setNegativeButton("Cancelar") { dialog, which -> dialog.cancel() }
-//        builder.show()
-//    }
-//
-
     // Código botão Voltar
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -162,12 +141,5 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
-    }
-
-    fun animateButton(view: View?) {
-        YoYo.with(Techniques.RotateIn)
-                .duration(700)
-                .repeat(0)
-                .playOn(view)
     }
 }

@@ -14,6 +14,8 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.R
 import com.empreendapp.collev.model.Coleta
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.getInstance
 
 
 class VoluntarioFragment : Fragment() {
@@ -120,8 +122,10 @@ class VoluntarioFragment : Fragment() {
         } else if (isStateCreate == true) {
             // varifica os campos e caso validados as opções, cria nova coleta com status "Solicitada"
             if(isCamposValided()){
-                var coleta: Coleta
-                //coleta!!.id_solicitante = 12
+                var coleta = Coleta()
+                coleta?.id_solicitante = getInstance()?.currentUser?.uid;
+                //coleta?.id_solicitante = getInstance()?.currentUser?.uid;
+                // pegar id_coletor do usuário voluntário
 
                 tvSpacer?.visibility = View.GONE
                 clChecks?.visibility = View.VISIBLE

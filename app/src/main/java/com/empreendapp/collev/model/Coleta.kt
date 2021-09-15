@@ -3,9 +3,9 @@ package com.empreendapp.collev.model
 import java.util.*
 
 class Coleta {
-    var id_coleta: Int? = null
-    var id_solicitante: Int? = null
-    var id_coletor: Int? = null
+    var id_coleta: String? = null
+    var id_solicitante: String? = null
+    var id_coletor: String? = null
     var local: String? = null
     var status //solicitada, agendada, confirmada e atendida; ou cancelada;
             : String? = null
@@ -16,9 +16,9 @@ class Coleta {
     constructor()
 
     constructor(
-        id_coleta: Int?,
-        id_solicitante: Int?,
-        id_coletor: Int?,
+        id_coleta: String?,
+        id_solicitante: String?,
+        id_coletor: String?,
         local: String?,
         status: String?,
         feedbacks: ArrayList<Feedback>?,
@@ -35,5 +35,5 @@ class Coleta {
         this.dataConclusao = dataConclusao
     }
 
-    constructor(id_coleta: Int?) {this.id_coleta = id_coleta}
+    //constructor(id_coleta: Int?) {this.id_coleta = id_coleta}
 }
