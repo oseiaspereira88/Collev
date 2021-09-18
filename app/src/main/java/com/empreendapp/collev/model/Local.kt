@@ -3,7 +3,7 @@ package com.empreendapp.collev.model
 import java.util.*
 
 class Local {
-    var id_local: Int? = null
+    var id: String? = null
     var nome: String? = null
     var descricao: String? = null
 

@@ -1,6 +1,7 @@
 package com.empreendapp.collev.ui.adm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.recycler.LocaisRecyclerAdapter
 import com.empreendapp.collev.util.LibraryClass
-
 import android.widget.Toast
-
-import com.google.firebase.database.DataSnapshot
-
-import com.empreendapp.collev.util.FirebaseConnection
-import com.google.firebase.database.DatabaseReference
-import com.google.android.gms.tasks.OnCompleteListener
+import com.empreendapp.collev.adapters.recycler.LocaisRecyclerAdapter
+import com.empreendapp.collev.model.Local
 import com.google.firebase.auth.FirebaseAuth
-import java.lang.String
+import com.google.firebase.database.*
 
 
 class LocaisFragment : Fragment() {
@@ -28,10 +23,7 @@ class LocaisFragment : Fragment() {
     private var auth: FirebaseAuth? = null
     private var rvLocais: RecyclerView? = null
     private var adapter: LocaisRecyclerAdapter? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var locais: ArrayList<Local>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,117 +40,55 @@ class LocaisFragment : Fragment() {
         rvLocais!!.itemAnimator = DefaultItemAnimator()
         rvLocais!!.setHasFixedSize(true)
 
-//        val options: FirebaseRecyclerOptions<Local> = FirebaseRecyclerOptions.Builder<Local>()
-//            .setQuery(
-//                FirebaseDatabase.getInstance().getReference()
-//                .child("locais"), Local::class.java)
-//            .build()
-//
-//        adapter = LocaisRecyclerAdapter(options)
-//        rvLocais!!.adapter = adapter
-//
-        val auth: FirebaseAuth? = FirebaseConnection.getFirebaseAuth()
-        database = LibraryClass.firebaseDB?.reference
+        database = LibraryClass.firebaseDB?.reference?.child("locais")
+        locais = ArrayList()
 
-        if (auth != null) {
-            if(auth.currentUser != null){
-                if (auth != null) {
-                    database!!.child("users").child(auth.uid.toString()).get()
-                        .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
-                            if (!task.isSuccessful) {
-                                Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
-                            } else {
-                                Toast.makeText(context, "Firebase: " + String.valueOf(task.result?.getValue()), Toast.LENGTH_LONG).show()
-                            }
-                        })
+        val childEventListener = object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("DEBUG", "onChildAdded -> Key: ${snapshot.key} - value: ${snapshot.value}")
+                snapshot.getValue(Local::class.java)?.let {local ->
+                    local.id = snapshot.key
+                    locais!!.add(local)
+                }
+                updateList()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("DEBUG", "onChildChanged -> Key: ${snapshot.key} - value: ${snapshot.value}")
+                snapshot.getValue(Local::class.java)?.let { local ->
+                    local.id = snapshot.key
+                    locais?.forEachIndexed{ index, old -> if(old.id == local.id) locais!![index] = local}
+                }
+                updateList()
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                Log.d("DEBUG", "onChildRemoved: -> Key: ${snapshot.key} - value: ${snapshot.value}")
+                snapshot.getValue(Local::class.java)?.let { local ->
+                    locais!!.removeIf { it.id == snapshot.key}
                 }
             }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("DEBUG", "onChildMoved: -> Key: ${snapshot.key} - value: ${snapshot.value}")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("W", "postLocals:onCancelled", error.toException())
+                Toast.makeText(
+                    context, "Failed to load locals.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
-
-
-        //fetch();
-        //adapter!!.notifyDataSetChanged()
-
-        //Toast.makeText(context, "Itens: " + adapter!!.itemCount, Toast.LENGTH_LONG).show()
+        database?.addChildEventListener(childEventListener)
     }
 
-    private fun lerLocais(){
-
+    private fun updateList(){
+        locais?.let { itens ->
+            adapter = context?.let { ctx -> LocaisRecyclerAdapter(ctx, itens) }
+            rvLocais!!.adapter = adapter
+        }
     }
-
-//    private fun fetch() {
-//        val query: Query = FirebaseDatabase.getInstance()
-//            .getReference()
-//            .child("locais")
-//
-//        val options = FirebaseRecyclerOptions.Builder<Local>()
-//            .setQuery(
-//                query
-//            ) { snapshot ->
-//                Local(
-//                    snapshot.child("nome").value.toString(),
-//                    snapshot.child("descricao").value.toString()
-//                )
-//            }
-//            .build()
-//
-//        adapter = object : FirebaseRecyclerAdapter<Local, LocalViewHolder>(options) {
-//            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalViewHolder {
-//                val view: View = LayoutInflater.from(parent.context)
-//                    .inflate(R.layout.item_local, parent, false)
-//                return LocalViewHolder(view)
-//            }
-//
-//            override fun onBindViewHolder(holder: LocalViewHolder, position: Int, model: Local) {
-//                holder.setTxtNome(model.nome)
-//                holder.root.setOnClickListener(View.OnClickListener {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        position.toString(),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                })
-//            }
-//        }
-//        rvLocais!!.setAdapter(adapter)
-//
-//        Toast.makeText(context, "Adapeter is: " + adapter.toString(), Toast.LENGTH_LONG).show()
-//        Toast.makeText(context, "Itens count: " + (adapter as FirebaseRecyclerAdapter<Local, LocalViewHolder>)?.itemCount, Toast.LENGTH_LONG).show()
-//        Toast.makeText(context, "Snapshots Size: " + (adapter as FirebaseRecyclerAdapter<Local, LocalViewHolder>)?.snapshots.size, Toast.LENGTH_LONG).show()
-//    }
-
-
-//    private fun getLocaisInDB(n: Int): ArrayList<Local> {
-//        var locais = ArrayList<Local>()
-//        for(i in 1..n){
-//            //locais.add(Local())
-//        }
-//        return locais
-//    }
-
-//    class LocalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var root: ConstraintLayout
-//        var tvLocalNome: TextView
-//
-//        fun setTxtNome(string: String?) {
-//            tvLocalNome.text = string
-//        }
-//
-//        init {
-//            root = itemView.findViewById(R.id.clLocalItem)
-//            tvLocalNome = itemView.findViewById(R.id.tvLocalNome)
-//        }
-//    }
-//
-
-    override fun onStart() {
-        super.onStart()
-        //adapter!!.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //adapter!!.stopListening()
-    }
-
 }
