@@ -71,7 +71,6 @@ class LocaisRecyclerAdapter(var ctx: Context, var locais: ArrayList<Local>) :
         return View.OnClickListener {
             if (holder.rvListUsers?.visibility == View.GONE) {
                 holder.rvListUsers?.visibility = View.VISIBLE
-                holder.tvLocalEmpty?.visibility = View.GONE
                 YoYo.with(Techniques.FadeIn).duration(700).repeat(0).playOn(holder.rvListUsers)
             } else {
                 holder.rvListUsers?.visibility = View.GONE
@@ -100,6 +99,9 @@ class LocaisRecyclerAdapter(var ctx: Context, var locais: ArrayList<Local>) :
                     usersByLocal?.get(position)?.add(user)
                 }
                 holder.viewItem.setOnClickListener(getOnClickNotEmptyLocal(holder))
+                holder.tvLocalEmpty?.visibility = View.GONE
+                holder.rvListUsers?.visibility = View.VISIBLE
+
                 updateList(holder, position)
             }
 
@@ -124,6 +126,8 @@ class LocaisRecyclerAdapter(var ctx: Context, var locais: ArrayList<Local>) :
                 }
                 if(usersByLocal?.get(position)!!.isEmpty()){
                     holder.viewItem.setOnClickListener(getOnClickEmptyLocal(holder))
+                    holder.rvListUsers?.visibility = View.GONE
+                    holder.tvLocalEmpty?.visibility = View.VISIBLE
                 }
                 updateList(holder, position)
             }
