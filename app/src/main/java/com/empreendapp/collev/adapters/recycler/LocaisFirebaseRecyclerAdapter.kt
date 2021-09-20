@@ -19,7 +19,7 @@ class LocaisFirebaseRecyclerAdapter(options: FirebaseRecyclerOptions<Local>
 
         init {
             this.tvLocalNome = viewItem.findViewById(R.id.tvLocalNome)
-            this.rvListUsers = viewItem.findViewById(R.id.rvListUsers)
+            this.rvListUsers = viewItem.findViewById(R.id.rvUsersList)
         }
     }
 

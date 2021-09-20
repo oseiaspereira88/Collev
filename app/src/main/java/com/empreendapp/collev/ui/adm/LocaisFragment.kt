@@ -30,7 +30,7 @@ class LocaisFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_locais, container, false)
-        intViews(rootView);
+        intViews(rootView)
         return rootView
     }
 

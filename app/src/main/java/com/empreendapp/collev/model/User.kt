@@ -25,6 +25,7 @@ open class User {
     var endereco: String? = null
     var id_local: String? = null
     var nome_empresa: String? = null
+    var ativo: Boolean? = null
 
     open fun saveInFirebase() {
         var bdRef = LibraryClass.firebaseDB?.reference

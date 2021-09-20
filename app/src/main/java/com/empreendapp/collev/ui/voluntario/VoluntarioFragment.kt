@@ -14,7 +14,6 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.R
 import com.empreendapp.collev.model.Coleta
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.getInstance
 
 
@@ -49,8 +48,8 @@ class VoluntarioFragment : Fragment() {
             clSolicitarColeta = rootView.findViewById(R.id.clSolicitarColeta)
             clChecks = rootView.findViewById(R.id.clChecks)
             tvInfoCreate = rootView.findViewById(R.id.tvInfoCreate)
-            tvDataColeta = rootView.findViewById(R.id.tvDataColeta)
-            tvDiaColeta = rootView.findViewById(R.id.tvDiaColeta)
+            tvDataColeta = rootView.findViewById(R.id.tvColetaEtapa)
+            tvDiaColeta = rootView.findViewById(R.id.tvColetaRecipiente)
             imgMapBG = rootView.findViewById(R.id.imgMapBG)
             cvCapa = rootView.findViewById(R.id.cvCapa)
             clColeta = rootView.findViewById(R.id.clColeta)
