@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()  {
     private var pager: ViewPager? = null
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
