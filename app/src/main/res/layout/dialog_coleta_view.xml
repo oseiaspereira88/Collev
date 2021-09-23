@@ -360,7 +360,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/text_horas_inicial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
@@ -378,11 +378,11 @@
                     android:text="-"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView18"
+                    app:layout_constraintStart_toEndOf="@+id/text_horas_inicial"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/text_horas_final"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
@@ -393,14 +393,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView10"
+                    android:id="@+id/image_time"
                     android:layout_width="32dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView20"
-                    app:layout_constraintTop_toTopOf="@+id/textView20"
+                    app:layout_constraintStart_toEndOf="@+id/text_horas_final"
+                    app:layout_constraintTop_toTopOf="@+id/text_horas_final"
                     app:srcCompat="@drawable/icon_history" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
     private var senha: String = ""
     private lateinit var mGoogleSignClient: GoogleSignInClient
 
+
     public override fun onStart() {
         super.onStart()
         initFirebase();
