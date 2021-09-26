@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.coletor.MenuFragment" >
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imgSair"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="32dp"
-        android:src="@android:drawable/btn_dialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOp5"
-        app:riv_border_color="@android:color/transparent"
-        app:riv_border_width="1dip"
-        app:riv_corner_radius="0dip"
-        app:riv_mutate_background="true"
-        app:riv_oval="true"
-        app:riv_tile_mode="clamp" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cvOpConta"
         android:layout_width="0dp"
@@ -41,7 +25,7 @@
             android:layout_height="match_parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgAOp1"
+                android:id="@+id/imgPerfil"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -67,8 +51,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp1"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp1"
-                app:layout_constraintTop_toTopOf="@+id/imgAOp1" />
+                app:layout_constraintStart_toEndOf="@+id/imgPerfil"
+                app:layout_constraintTop_toTopOf="@+id/imgPerfil" />
 
             <TextView
                 android:id="@+id/tvBOp1"
@@ -76,11 +60,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Minha conta"
+                android:text="Acesse o Seu Perfil"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgAOp1"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPerfil"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp1"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp1"
+                app:layout_constraintStart_toEndOf="@+id/imgPerfil"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp1" />
 
             <ImageView
@@ -115,7 +99,7 @@
             android:layout_height="match_parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgAOp2"
+                android:id="@+id/imgTutorial"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -136,13 +120,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Nome do usuário"
+                android:text="Tutorial"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp2"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp2"
-                app:layout_constraintTop_toTopOf="@+id/imgAOp2" />
+                app:layout_constraintStart_toEndOf="@+id/imgTutorial"
+                app:layout_constraintTop_toTopOf="@+id/imgTutorial" />
 
             <TextView
                 android:id="@+id/tvBOp2"
@@ -150,11 +134,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Minha conta"
+                android:text="Acesse ao Tutorial"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgAOp2"
+                app:layout_constraintBottom_toBottomOf="@+id/imgTutorial"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp2"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp2"
+                app:layout_constraintStart_toEndOf="@+id/imgTutorial"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp2" />
 
             <ImageView
@@ -189,7 +173,7 @@
             android:layout_height="match_parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgAOp3"
+                android:id="@+id/imgConf"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -210,13 +194,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Nome do usuário"
+                android:text="Configuração"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp3"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp3"
-                app:layout_constraintTop_toTopOf="@+id/imgAOp3" />
+                app:layout_constraintStart_toEndOf="@+id/imgConf"
+                app:layout_constraintTop_toTopOf="@+id/imgConf" />
 
             <TextView
                 android:id="@+id/tvBOp3"
@@ -224,10 +208,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Minha conta"
+                android:text="Acesse as Configurações"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp3"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp3"
+                app:layout_constraintStart_toEndOf="@+id/imgConf"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp3" />
 
             <ImageView
@@ -261,7 +245,7 @@
             android:layout_height="match_parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgAOp4"
+                android:id="@+id/imgChat"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -282,13 +266,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Nome do usuário"
+                android:text="Chat"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp4"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp4"
-                app:layout_constraintTop_toTopOf="@+id/imgAOp4" />
+                app:layout_constraintStart_toEndOf="@+id/imgChat"
+                app:layout_constraintTop_toTopOf="@+id/imgChat" />
 
             <TextView
                 android:id="@+id/tvBOp4"
@@ -296,10 +280,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Minha conta"
+                android:text="Fale Conosco"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp4"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp4"
+                app:layout_constraintStart_toEndOf="@+id/imgChat"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp4" />
 
             <ImageView
@@ -334,11 +318,11 @@
             android:layout_height="match_parent">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgAOp5"
+                android:id="@+id/imgSair"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/iconnotificacao"
+                android:src="@drawable/ic_sair"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -355,25 +339,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="Nome do usuário"
+                android:text="Sair"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/imgBOp5"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp5"
-                app:layout_constraintTop_toTopOf="@+id/imgAOp5" />
-
-            <TextView
-                android:id="@+id/tvBOp5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:text="Minha conta"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/imgBOp5"
-                app:layout_constraintStart_toEndOf="@+id/imgAOp5"
-                app:layout_constraintTop_toBottomOf="@+id/tvAOp5" />
+                app:layout_constraintStart_toEndOf="@+id/imgSair"
+                app:layout_constraintTop_toTopOf="@+id/imgSair" />
 
             <ImageView
                 android:id="@+id/imgBOp5"
