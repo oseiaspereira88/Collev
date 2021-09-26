@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pag_bg_01"
     tools:context=".ui.voluntario.VoluntarioFragment">
 
     <LinearLayout
@@ -42,7 +41,7 @@
         android:id="@+id/imgMapBG"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="28dp"
         android:src="@drawable/button_cycle_blue"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +88,9 @@
             android:id="@+id/clSemanaLista"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvInfoCreate">
 
@@ -337,17 +337,16 @@
             android:id="@+id/clTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="66dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvInfoCreate"
             app:layout_constraintTop_toBottomOf="@+id/clSemanaLista">
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="4dp"
                 android:text="Período:"
                 android:textAllCaps="true"
                 android:textSize="18sp"
@@ -364,7 +363,6 @@
                 android:padding="4dp"
                 android:text="8:00"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView17"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -388,7 +386,6 @@
                 android:padding="4dp"
                 android:text="19:00"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView19"
                 app:layout_constraintTop_toTopOf="parent"
@@ -399,8 +396,6 @@
                 android:layout_width="32dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/text_horas_final"
                 app:layout_constraintTop_toTopOf="@+id/text_horas_final"
@@ -413,7 +408,7 @@
             android:id="@+id/clChecks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="114dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -685,29 +680,26 @@
             android:id="@+id/tvInfoCreate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="12dp"
-            android:text="Selecione o dia e o período:"
-            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:text="Selecione o dia e o período"
+            android:textAllCaps="true"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/clSemanaLista"
+            app:layout_constraintTop_toBottomOf="@+id/imgCancelForm"
             tools:visibility="visible" />
 
-        <Button
-            android:id="@+id/button_clear_clColeta"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_clear_sair"
+        <ImageView
+            android:id="@+id/imgCancelForm"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_del"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.934"
-            app:layout_constraintStart_toEndOf="@+id/tvInfoCreate"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -725,7 +717,7 @@
         tools:visibility="gone">
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/tvCapaInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
