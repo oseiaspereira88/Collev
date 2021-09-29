@@ -9,7 +9,6 @@ import android.view.View
 import com.empreendapp.collev.R
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -147,9 +146,9 @@ class LocaisRecyclerAdapter(var ctx: Context, var locais: ArrayList<Local>) :
     }
 
     private fun updateList(holder: ViewHolder, position: Int) {
-        usersByLocal?.get(position)?.let { itens ->
-            holder.adapter = ctx?.let { ctx -> UsersRecyclerAdapter(ctx, itens) }
-            holder.tvNumberUsersInLocal?.text = itens.size.toString()
+        usersByLocal?.get(position)?.let { users ->
+            holder.adapter = ctx?.let { ctx -> UsersRecyclerAdapter(ctx, users, locais) }
+            holder.tvNumberUsersInLocal?.text = users.size.toString()
             holder.rvListUsers!!.adapter = holder.adapter
         }
     }

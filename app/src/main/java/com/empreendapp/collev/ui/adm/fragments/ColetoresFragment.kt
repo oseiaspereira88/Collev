@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.adm
+package com.empreendapp.collev.ui.adm.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,7 @@ import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.recycler.NotificacoesAdapter
 import com.empreendapp.collev.model.Notificacao
 
-class NotificacoesFragment : Fragment() {
+class ColetoresFragment : Fragment() {
     private var rvNotificacoes : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

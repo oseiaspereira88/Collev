@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.adm
+package com.empreendapp.collev.ui.adm.fragments
 
 import android.content.Intent
 import android.os.Bundle
