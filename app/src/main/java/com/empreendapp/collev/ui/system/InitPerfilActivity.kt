@@ -7,14 +7,10 @@ import android.os.Bundle
 import com.empreendapp.collev.R
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
-import android.annotation.TargetApi
-import android.os.Build
-import android.app.Activity
 import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.View
-import android.view.WindowManager
-import android.widget.TextView
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 
 class InitPerfilActivity : AppCompatActivity() {
     var navHostFragment: NavHostFragment? = null
@@ -23,7 +19,7 @@ class InitPerfilActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_init_perfil)
-        setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         initViews()
     }
 
@@ -57,20 +53,5 @@ class InitPerfilActivity : AppCompatActivity() {
                 .duration(700)
                 .repeat(0)
                 .playOn(view)
-    }
-
-    companion object {
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        fun setStatusBarBorderRadius(activity: Activity) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val window = activity.window
-                val background = activity.resources.getDrawable(R.drawable.pag_bg_01)
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = activity.resources.getColor(android.R.color.transparent)
-                window.navigationBarColor = activity.resources.getColor(android.R.color.transparent)
-                window.setBackgroundDrawable(background)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
     }
 }

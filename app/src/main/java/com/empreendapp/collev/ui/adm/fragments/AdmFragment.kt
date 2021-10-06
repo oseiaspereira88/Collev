@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.adm
+package com.empreendapp.collev.ui.adm.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
-class LocaisFragment : Fragment() {
+class AdmFragment : Fragment() {
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
     private var rvLocais: RecyclerView? = null
@@ -29,7 +29,7 @@ class LocaisFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_locais, container, false)
+        var rootView = inflater.inflate(R.layout.fragment_adm, container, false)
         intViews(rootView)
         return rootView
     }

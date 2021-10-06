@@ -14,7 +14,7 @@ import android.view.View
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.adapters.pagers.AdmFragmentPagerAdapter
-import com.empreendapp.collev.ui.system.InitPerfilActivity
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 
 class AdmActivity : AppCompatActivity() {
     private var pager: ViewPager? = null
@@ -25,7 +25,7 @@ class AdmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        InitPerfilActivity.setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         initViews()
     }
 

@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.coletor
+package com.empreendapp.collev.ui.system.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

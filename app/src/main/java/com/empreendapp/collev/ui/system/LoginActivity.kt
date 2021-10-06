@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.User
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
 import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass
@@ -74,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        InitPerfilActivity.setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         initViews()
         loginGoogle()
         initFacebook()
