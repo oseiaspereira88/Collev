@@ -19,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.security.NoSuchAlgorithmException
 import androidx.annotation.NonNull
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
 
 import com.google.android.gms.tasks.OnCompleteListener
@@ -42,7 +43,7 @@ class CadastroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
-        InitPerfilActivity.setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         auth = Firebase.auth
         initViews()
     }

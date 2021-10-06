@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.coletor
+package com.empreendapp.collev.ui.system.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,18 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.ui.adm.AdmActivity
-import com.empreendapp.collev.ui.system.InitPerfilActivity
 import com.empreendapp.collev.ui.system.LoginActivity
+import com.empreendapp.collev.ui.system.PerfilActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.makeramen.roundedimageview.RoundedImageView
 
 class MenuFragment : Fragment() {
+    private var imgPerfil : RoundedImageView? = null
     private var imgSair : RoundedImageView? = null
-    private var cvOpConta : CardView? = null
-    private var cvOpConfiguracoes : CardView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,27 +25,22 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_menu, container, false)
-        intViews(rootView);
+        intViews(rootView)
         return rootView
     }
 
     private fun intViews(rootView: View) {
+        imgPerfil = rootView.findViewById(R.id.imgPerfil)
         imgSair = rootView.findViewById(R.id.imgSair)
-        cvOpConta = rootView.findViewById(R.id.cvOpConta)
-        cvOpConfiguracoes = rootView.findViewById(R.id.cvOpConfiguracoes)
 
-        imgSair?.setOnClickListener({
+        imgPerfil?.setOnClickListener{
+            startActivity(Intent(context, PerfilActivity::class.java))
+        }
+
+        imgSair?.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
-        })
-
-        cvOpConta?.setOnClickListener({
-            startActivity(Intent(context, InitPerfilActivity::class.java))
-        })
-
-        cvOpConfiguracoes?.setOnClickListener({
-            startActivity(Intent(context, AdmActivity::class.java))
-        })
+        }
     }
 }

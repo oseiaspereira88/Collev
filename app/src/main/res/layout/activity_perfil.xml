@@ -7,7 +7,7 @@
     tools:context=".ui.system.PerfilActivity">
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/imgBackPerfil"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -24,7 +24,7 @@
         android:src="@drawable/icon_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView20"
+        app:layout_constraintTop_toBottomOf="@+id/imgBackPerfil"
         app:riv_border_color="#FAB35A"
         app:riv_border_width="1dip"
         app:riv_corner_radius="50dip"
@@ -95,7 +95,7 @@
             android:layout_height="47dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView19"
+            app:layout_constraintEnd_toStartOf="@+id/imgEditNome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -121,7 +121,7 @@
                     android:text="Nome" />
 
                 <TextView
-                    android:id="@+id/textView30"
+                    android:id="@+id/tvNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Thais Brenda"
@@ -131,7 +131,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView19"
+            android:id="@+id/imgEditNome"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -167,7 +167,7 @@
             android:layout_height="47dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView21"
+            app:layout_constraintEnd_toStartOf="@+id/imgEditEmpresa"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -193,7 +193,7 @@
                     android:text="Empresa Representada" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/tvEmpresa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Collev"
@@ -203,7 +203,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView21"
+            android:id="@+id/imgEditEmpresa"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -237,9 +237,10 @@
             android:id="@+id/linearLayout4"
             android:layout_width="0dp"
             android:layout_height="47dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView31"
+            app:layout_constraintEnd_toStartOf="@+id/imgEditEmail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -248,7 +249,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/iconestudo3" />
+                app:srcCompat="@drawable/googleg_standard_color_18" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -265,7 +266,7 @@
                     android:text="Email" />
 
                 <TextView
-                    android:id="@+id/textView40"
+                    android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="empreendapp.oficial@gmail.com"
@@ -275,7 +276,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView31"
+            android:id="@+id/imgEditEmail"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -309,9 +310,10 @@
             android:id="@+id/linearLayout5"
             android:layout_width="0dp"
             android:layout_height="47dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView41"
+            app:layout_constraintEnd_toStartOf="@+id/imgEditSenha"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -320,7 +322,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/iconestudo3" />
+                app:srcCompat="@android:drawable/ic_lock_power_off" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -347,7 +349,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView41"
+            android:id="@+id/imgEditSenha"
             android:layout_width="32dp"
             android:layout_height="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -366,11 +368,12 @@
         app:srcCompat="@drawable/button_cycle_orange" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/tvNumeroColetas"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="0"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
         app:layout_constraintEnd_toEndOf="@+id/imageView22"

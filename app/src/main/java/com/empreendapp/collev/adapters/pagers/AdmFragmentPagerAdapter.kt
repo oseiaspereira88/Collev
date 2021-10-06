@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.empreendapp.collev.ui.adm.fragments.AdmFragment
 import com.empreendapp.collev.ui.adm.fragments.ColetoresFragment
-import com.empreendapp.collev.ui.adm.fragments.MenuFragment
+import com.empreendapp.collev.ui.system.fragments.MenuFragment
 
 class AdmFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
     private val optionsTitles = arrayOf("", "", "")

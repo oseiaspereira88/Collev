@@ -13,10 +13,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager.*
-import com.daimajia.androidanimations.library.YoYo
-import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.adapters.pagers.AdmFragmentPagerAdapter
 import com.empreendapp.collev.adapters.pagers.VoluntarioFragmentPagerAdapter
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        InitPerfilActivity.setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         initFirebase()
         initViews()
     }

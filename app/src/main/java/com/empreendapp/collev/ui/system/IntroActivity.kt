@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.ImageView
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
+import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 
 class IntroActivity : AppCompatActivity() {
     //IntroActivityBinding binding;
@@ -25,7 +26,7 @@ class IntroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
-        InitPerfilActivity.setStatusBarBorderRadius(this)
+        setStatusBarBorderRadiusWhite(this)
         initViews()
         showIntroAnimate()
     }
