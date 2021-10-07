@@ -168,6 +168,7 @@ open class VoluntarioFragment : Fragment() {
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(clColeta)
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(tvCapaInfo)
             tvInfoCreate?.visibility = View.GONE
+            clChecks?.visibility = View.GONE
             tvSpacer?.visibility = View.GONE
 
             val handler = Handler()
