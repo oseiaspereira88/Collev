@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.User
+import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
 import com.empreendapp.collev.util.FirebaseConnection
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import com.google.firebase.auth.GoogleAuthProvider
-import com.facebook.FacebookSdk;
+import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookException
 
@@ -39,10 +40,6 @@ import com.facebook.FacebookCallback
 import com.facebook.login.LoginManager
 
 import com.facebook.CallbackManager
-
-
-
-
 
 class LoginActivity : AppCompatActivity() {
     private var callbackManager: CallbackManager? = null
@@ -136,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
 
         btn_google.setOnClickListener {
             signInGoogle()
-            alert("The google button was clicked!", 1)
+            alert("The google button was clicked!", 1, this)
         }
     }
 
@@ -174,35 +171,40 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, encrypt(senha))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d("INFO:", "signInWithEmail:success")
-                    val user: FirebaseUser? = auth.currentUser
-                    if (user != null) {
-                        if (!user.isEmailVerified) {
-                            alert("Verifique o email de confirmação!", 0);
-                        } else {
-                            if (user.email?.let { it1 ->
-                                    User().haveNameAndEmailEqualSP(
-                                        applicationContext,
-                                        it1
-                                    )
-                                } == true) {
-                                val newUser = User()
-                                newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
-                                newUser.email = user.email
-                                newUser.id = user.uid
-                                newUser.saveInFirebase()
-                                newUser.deleteNameSP(applicationContext)
-                                startActivity(Intent(this, InitPerfilActivity::class.java))
+                    if(task.result != null){
+                        Log.d("INFO:", "signInWithEmail:success")
+                        val userFirebase: FirebaseUser? = auth.currentUser
+                        if (userFirebase != null) {
+                            if (!userFirebase.isEmailVerified) {
+                                alert("Verifique o email de confirmação!", 0, this)
                             } else {
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
+                                if (userFirebase.email?.let { it1 ->
+                                        User().haveNameAndEmailEqualSP(
+                                            applicationContext,
+                                            it1
+                                        )
+                                    } == true) {
+                                    var newUser = User()
+                                    newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
+                                    newUser.email =  userFirebase.email
+                                    newUser.id = userFirebase.uid
+                                    newUser.saveInFirebase()
+                                    newUser.deleteNameSP(applicationContext)
+                                    startActivity(Intent(this, InitPerfilActivity::class.java))
+                                } else {
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                    finish()
+                                }
                             }
                         }
+                    } else{
+                        Toast.makeText(baseContext, "Email ou senha incorretos!", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("ERROR:", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Email ou senha incoretos!", Toast.LENGTH_SHORT)
+                    Toast.makeText(baseContext, "Verifique sua conexão!", Toast.LENGTH_SHORT)
                         .show()
 
                     // checar se o email é um dos cadastrados no bd;
@@ -293,15 +295,7 @@ class LoginActivity : AppCompatActivity() {
         private const val RC_SIGN_IN = 9001
     }
 
-    private fun alert(txtAlert: String, delay: Int) {
-        if (delay == 0) {
-            Toast.makeText(applicationContext, txtAlert, Toast.LENGTH_SHORT).show()
-        } else if (delay == 1) {
-            Toast.makeText(applicationContext, txtAlert, Toast.LENGTH_LONG).show()
-        }
-    }
-
     fun onConnectionFailed(connectionResult: ConnectionResult) {
-        alert("Error: $connectionResult", 1)
+        alert("Error: $connectionResult", 1, this)
     }
 }

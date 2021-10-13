@@ -2,7 +2,6 @@ package com.empreendapp.collev.listeners
 
 import android.util.Log
 import com.empreendapp.collev.model.User
-import com.google.firebase.FirebaseError
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

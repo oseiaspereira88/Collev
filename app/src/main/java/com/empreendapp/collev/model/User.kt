@@ -66,8 +66,7 @@ open class User {
 
     open fun restaureNameSP(ctx: Context) {
         val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
-        val nome = sp.getString(NOME, "")
-        this.nome = nome
+        nome = sp.getString(NOME, "")
     }
 
     open fun deleteNameSP(ctx: Context) {
@@ -82,8 +81,7 @@ open class User {
 
     open fun restaureTipoSP(ctx: Context) {
         val sp: SharedPreferences = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
-        val tipo = sp.getString(TIPO, "")
-        this.tipo = tipo
+        tipo = sp.getString(TIPO, "")
     }
 
     open fun haveNameAndEmailEqualSP(ctx: Context, email: String): Boolean {

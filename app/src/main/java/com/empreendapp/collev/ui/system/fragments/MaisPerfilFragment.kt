@@ -1,4 +1,4 @@
-package com.empreendapp.collev.fragments
+package com.empreendapp.collev.ui.system.fragments
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth
@@ -18,8 +18,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.listeners.UserChildEventListener
-import com.empreendapp.collev.listeners.UserValueEventListener
-import com.empreendapp.collev.model.Local
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 
@@ -103,13 +101,11 @@ class MaisPerfilFragment : Fragment() {
         coletor!!.id = FirebaseConnection.getFirebaseAuth()?.uid
         coletor!!.endereco = "Rua Terezinha Campelo, 117"
         coletor!!.nome_empresa = editNomeEmpresa!!.text.toString()
-        coletor!!.id_local = "generico"
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
         coletor!!.saveEnderecoInFirebase()
         coletor!!.saveNomeEmpresaInFirebase()
-        coletor!!.saveIdLocalInFirebase()
     }
 
     fun saveVoluntarioInBD() {
@@ -126,13 +122,6 @@ class MaisPerfilFragment : Fragment() {
         voluntario!!.saveNomeEmpresaInFirebase()
         voluntario!!.saveIdLocalInFirebase()
         voluntario!!.saveRecipienteInFirebase()
-    }
-
-    fun animateButton(view: View?) {
-        YoYo.with(Techniques.Pulse)
-            .duration(250)
-            .repeat(0)
-            .playOn(view)
     }
 
     override fun onDestroy() {

@@ -5,7 +5,7 @@
     android:id="@+id/clCategoria"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CategoriaPerfilFragment">
+    tools:context=".ui.system.fragments.CategoriaPerfilFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_option_coletor"

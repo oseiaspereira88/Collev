@@ -47,11 +47,4 @@ class InitPerfilActivity : AppCompatActivity() {
         val alert = builder.create()
         alert.show()
     }
-
-    fun animateButton(view: View?) {
-        YoYo.with(Techniques.RotateIn)
-                .duration(700)
-                .repeat(0)
-                .playOn(view)
-    }
 }

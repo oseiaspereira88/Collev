@@ -5,7 +5,6 @@ import android.widget.TextView
 import android.widget.EditText
 import android.os.Bundle
 import com.empreendapp.collev.R
-import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -13,16 +12,12 @@ import android.widget.Toast
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.model.User
-import com.empreendapp.collev.util.CryptWithMD5
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.security.NoSuchAlgorithmException
-import androidx.annotation.NonNull
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
-
-import com.google.android.gms.tasks.OnCompleteListener
 
 import com.google.firebase.auth.FirebaseUser
 import java.nio.charset.StandardCharsets

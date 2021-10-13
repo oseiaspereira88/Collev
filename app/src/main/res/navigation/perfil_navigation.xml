@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/categoriaPerfilFragment"
-        android:name="com.empreendapp.collev.fragments.CategoriaPerfilFragment"
+        android:name="com.empreendapp.collev.ui.system.fragments.CategoriaPerfilFragment"
         android:label="fragment_categoria_perfil"
         tools:layout="@layout/fragment_categoria_perfil" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/maisPerfilFragment"
-        android:name="com.empreendapp.collev.fragments.MaisPerfilFragment"
+        android:name="com.empreendapp.collev.ui.system.fragments.MaisPerfilFragment"
         android:label="fragment_mais_perfil"
         tools:layout="@layout/fragment_mais_perfil">
         <action

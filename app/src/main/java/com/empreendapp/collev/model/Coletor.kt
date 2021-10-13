@@ -1,3 +1,3 @@
 package com.empreendapp.collev.model
 
-class Coletor(): User()
+class Coletor: User()

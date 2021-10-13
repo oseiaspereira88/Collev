@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity()  {
 
     private fun getUserTypeAndPage(){
         database!!.child("users").child(auth?.uid.toString()).get()
-            .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
+            .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
                     costruirPaginacao(java.lang.String.valueOf(task.result?.child("tipo")?.getValue()))
                     pageProgressBar?.visibility = View.GONE
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity()  {
                     costruirPaginacao("undefined")
                     pageProgressBar?.clearAnimation()
                 }
-            })
+            }
     }
 
     private fun costruirPaginacao(userType: String){
