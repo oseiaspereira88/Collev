@@ -104,7 +104,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvBodySolicitacoes" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_locais"
+                    android:id="@+id/rvSolicitacoes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -152,7 +152,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvLocalNome" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvUsersList"
+                    android:id="@+id/rvAgenda"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -200,7 +200,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvBodyHistorico" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_historico"
+                    android:id="@+id/rvHistorico"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"

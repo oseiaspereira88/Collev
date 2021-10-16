@@ -3,8 +3,8 @@ package com.empreendapp.collev.adapters.pagers
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.empreendapp.collev.ui.adm.fragments.AdmFragment
-import com.empreendapp.collev.ui.adm.fragments.ColetoresFragment
+import com.empreendapp.collev.ui.adm.AdmFragment
+import com.empreendapp.collev.ui.adm.ColetoresFragment
 import com.empreendapp.collev.ui.system.fragments.MenuFragment
 
 class AdmFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {

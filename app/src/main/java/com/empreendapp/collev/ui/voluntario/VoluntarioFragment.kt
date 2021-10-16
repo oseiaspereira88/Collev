@@ -19,6 +19,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import com.empreendapp.collev.enums.ColetaStatus
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass
@@ -330,7 +331,7 @@ open class VoluntarioFragment : Fragment() {
         var coleta = Coleta()
         coleta!!.solicitante = auth!!.currentUser!!.uid
         coleta!!.coletor = ID_COLETOR_PRINCIPAL
-        coleta!!.status = "solicitada"
+        coleta!!.status = ColetaStatus.SOLICITADA.name
         coleta!!.periodoIn = horaInicial.text.toString()
         coleta!!.periodoOut = horaFinal.text.toString()
         coleta!!.ativar().generateIdAndSave(requireContext(), VOLUNTARIO_PREF, this)
