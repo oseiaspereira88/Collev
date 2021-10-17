@@ -20,11 +20,11 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
         var tvColeta: TextView? = null
-        var llDataHora: LinearLayout? = null
+        //var llDataHora: LinearLayout? = null
 
         init {
             this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColetaEtapa);
-            this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
+            //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
         }
     }
 
@@ -35,36 +35,10 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var coleta = notificacoes[position]
-        holder.tvColeta?.setText("A empresa HotDoguinhos solicitou a coleta " + coleta.id_coleta)
-
-        holder.viewItem?.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
-            when (motionEvent.action){
-                MotionEvent.ACTION_DOWN -> {
-                    holder.llDataHora?.visibility = View.VISIBLE;
-                    YoYo.with(Techniques.SlideInRight).duration(500).repeat(0).playOn(holder.llDataHora)
-                }
-                MotionEvent.ACTION_UP -> {
-                    YoYo.with(Techniques.SlideOutRight).duration(1600).repeat(0).playOn(holder.llDataHora)
-                    val handler2 = Handler()
-                    val r2 = Runnable {
-                        holder.llDataHora?.visibility = View.GONE;
-                    }
-                    handler2.postDelayed(r2, 1600)
-                }
-                MotionEvent.ACTION_CANCEL -> {
-                    YoYo.with(Techniques.SlideOutRight).duration(2600).repeat(0).playOn(holder.llDataHora)
-                    val handler2 = Handler()
-                    val r2 = Runnable {
-                        holder.llDataHora?.visibility = View.GONE;
-                    }
-                    handler2.postDelayed(r2, 2600)
-                }
-            }
-            return@OnTouchListener true
-        })
+        holder.tvColeta?.setText("Sua coleta do dia 12/07 foi finalizada. " + coleta.id_coleta)
 
         holder.viewItem?.setOnLongClickListener{
-            holder.llDataHora?.visibility = View.GONE;
+            //holder.llDataHora?.visibility = View.GONE;
             true
         }
 

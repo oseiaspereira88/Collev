@@ -78,9 +78,9 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
-                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }
             "Coletor" -> {
                 coletorAdapter = ColetorFragmentPagerAdapter(supportFragmentManager)
@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
-                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }
             "Administrador" -> {
                 admAdapter = AdmFragmentPagerAdapter(supportFragmentManager)
@@ -98,9 +98,9 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
-                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu04)
+                tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }
             else -> {
                 Toast.makeText(this, "Error: Tipo de Usuário não identificado!", Toast.LENGTH_LONG).show()

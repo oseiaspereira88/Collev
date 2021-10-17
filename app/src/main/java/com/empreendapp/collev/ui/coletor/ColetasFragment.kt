@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,9 @@ class ColetasFragment : Fragment() {
     private var listSolicitacoes: ArrayList<Coleta>? = null
     private var listAgenda: ArrayList<Coleta>? = null
     private var listHistorico: ArrayList<Coleta>? = null
+    private var tvEmptySolicitacoes: TextView? = null
+    private var tvEmptyAgenda: TextView? = null
+    private var tvEmptyHistorico: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +49,10 @@ class ColetasFragment : Fragment() {
         rvSolicitacoes = rootView.findViewById(R.id.rvSolicitacoes)
         rvAgenda = rootView.findViewById(R.id.rvAgenda)
         rvHistorico = rootView.findViewById(R.id.rvHistorico)
+
+        tvEmptySolicitacoes = rootView.findViewById(R.id.tvEmptySolicitacoes)
+        tvEmptyAgenda = rootView.findViewById(R.id.tvEmptyAgenda)
+        tvEmptyHistorico = rootView.findViewById(R.id.tvEmptyHistorico)
 
         rvSolicitacoes?.layoutManager = LinearLayoutManager(context)
         rvAgenda?.layoutManager = LinearLayoutManager(context)
@@ -148,10 +156,6 @@ class ColetasFragment : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {
                 Log.w("W", "postColetas:onCancelled", error.toException())
-                Toast.makeText(
-                    context, "Falha ao carregar as coletas.",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
         }
@@ -162,5 +166,39 @@ class ColetasFragment : Fragment() {
         var adapter = ColetasAdapter(requireContext(), list, listId)
         rv!!.adapter = adapter
         adapter.notifyDataSetChanged()
+
+        checkVisibleList(listId, list)
+    }
+
+    private fun checkVisibleList(listId: Int,  list: ArrayList<Coleta>) {
+        when(listId){
+            1 -> {
+                if(list.isEmpty()){
+                    tvEmptySolicitacoes!!.visibility = View.VISIBLE
+                    rvSolicitacoes!!.visibility = View.GONE
+                } else{
+                    tvEmptySolicitacoes!!.visibility = View.GONE
+                    rvSolicitacoes!!.visibility = View.VISIBLE
+                }
+            }
+            2 -> {
+                if(list.isEmpty()){
+                    tvEmptyAgenda!!.visibility = View.VISIBLE
+                    rvAgenda!!.visibility = View.GONE
+                } else{
+                    tvEmptyAgenda!!.visibility = View.GONE
+                    rvAgenda!!.visibility = View.VISIBLE
+                }
+            }
+            3 -> {
+                if(list.isEmpty()){
+                    tvEmptyHistorico!!.visibility = View.VISIBLE
+                    rvHistorico!!.visibility = View.GONE
+                } else{
+                    tvEmptyHistorico!!.visibility = View.GONE
+                    rvHistorico!!.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

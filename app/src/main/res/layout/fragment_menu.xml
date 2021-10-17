@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.coletor.MenuFragment" >
+    tools:context=".ui.system.fragments.MenuFragment" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvOpConta"
@@ -23,6 +23,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgPerfil"
@@ -57,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Acesse o Seu Perfil"
+                android:text="Acesse o seu perfil"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgPerfil"
                 app:layout_constraintStart_toEndOf="@+id/imgPerfil"
@@ -84,20 +94,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView20"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgTutorial"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/iconhelp3"
+                android:padding="6dp"
+                android:src="@drawable/icon_tutorial_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_border_color="#EC982E"
                 app:riv_border_width="0dip"
-                app:riv_corner_radius="50dip"
                 app:riv_mutate_background="true"
-                app:riv_oval="true"
                 app:riv_tile_mode="clamp" />
 
             <TextView
@@ -117,7 +136,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Acesse ao Tutorial"
+                android:text="Acesse ao tutorial"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgTutorial"
                 app:layout_constraintStart_toEndOf="@+id/imgTutorial"
@@ -143,6 +162,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgConf"
@@ -177,7 +206,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Acesse as Configurações"
+                android:text="Acesse as configurações"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imgConf"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp3" />
@@ -196,11 +225,21 @@
         app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOpConfiguracoes">
+        app:layout_constraintTop_toBottomOf="@+id/cvOp5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgChat"
@@ -235,7 +274,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Fale Conosco"
+                android:text="Fale conosco"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imgChat"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp4" />
@@ -255,18 +294,96 @@
         app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvOpConfiguracoes">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgQuemSomos"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:padding="4dp"
+                android:src="@drawable/icon_parceiros_01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_border_color="#EC982E"
+                app:riv_border_width="0dip"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="clamp" />
+
+            <TextView
+                android:id="@+id/tvAOp5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Quem somos"
+                android:textColor="#F4AC51"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
+                app:layout_constraintTop_toTopOf="@+id/imgQuemSomos" />
+
+            <TextView
+                android:id="@+id/tvBOp5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Sobre nós e nossos parceiros"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
+                app:layout_constraintTop_toBottomOf="@+id/tvAOp5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvOp6"
+        android:layout_width="0dp"
+        android:layout_height="86dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvOp4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView25"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_next_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imgSair"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_sair"
+                android:src="@drawable/icon_logout_02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -278,7 +395,7 @@
                 app:riv_tile_mode="clamp" />
 
             <TextView
-                android:id="@+id/tvAOp5"
+                android:id="@+id/tvAOp6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
