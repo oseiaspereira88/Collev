@@ -1,18 +1,12 @@
 package com.empreendapp.collev.adapters.recycler
 
 import android.content.Context
-import android.os.Handler
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.widget.LinearLayout
 import com.empreendapp.collev.R
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.model.Notificacao
 import java.util.ArrayList
 
@@ -23,7 +17,7 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
         //var llDataHora: LinearLayout? = null
 
         init {
-            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColetaEtapa);
+            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvTituloColeta);
             //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
         }
     }

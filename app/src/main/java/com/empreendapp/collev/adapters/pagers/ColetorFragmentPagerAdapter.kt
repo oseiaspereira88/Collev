@@ -3,11 +3,12 @@ package com.empreendapp.collev.adapters.pagers
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.empreendapp.collev.ui.system.fragments.NotificacoesFragment
 import com.empreendapp.collev.ui.coletor.ColetasFragment
 import com.empreendapp.collev.ui.system.fragments.MenuFragment
 
-class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm!!) {
+class ColetorFragmentPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm!!) {
     private val optionsTitles = arrayOf("", "", "")
     override fun getCount(): Int {
         return optionsTitles.size

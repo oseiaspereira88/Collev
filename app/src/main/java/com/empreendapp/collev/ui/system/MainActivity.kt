@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
                 tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
                 tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity()  {
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
-                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_oil_05)
+                tabLayout?.getTabAt(0)?.setIcon(R.drawable.icon_home)
                 tabLayout?.getTabAt(1)?.setIcon(R.drawable.icon_notifi)
                 tabLayout?.getTabAt(2)?.setIcon(R.drawable.icon_menu_01)
             }

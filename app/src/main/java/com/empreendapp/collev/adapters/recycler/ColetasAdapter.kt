@@ -1,92 +1,74 @@
 package com.empreendapp.collev.adapters.recycler
 
-import android.content.Context
+import android.app.Activity
 import com.empreendapp.collev.model.Coleta
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.widget.LinearLayout
+import android.widget.ImageView
 import com.empreendapp.collev.R
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentActivity
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import com.empreendapp.collev.enums.ColetaStatus.*
+import com.empreendapp.collev.ui.system.dialogs.ColetaDialog
 import java.util.ArrayList
 
-class ColetasAdapter(var ctx: Context, var coletas: ArrayList<Coleta>, var listId: Int) :
+class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>) :
     RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem) {
-        var tvColeta: TextView? = null
-        var tvNumber: TextView? = null
-        var llDataHora: LinearLayout? = null
+        var tvTituloColeta: TextView? = null
+        var tvSubtituloColeta: TextView? = null
+        var imgColeta: ImageView? = null
 
         init {
-            //this.tvColeta = viewItem.findViewById<TextView>(R.id.tvColeta)
-            //this.tvNumber = viewItem.findViewById<TextView>(R.id.tvNumber)
-            //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora)
+            this.tvTituloColeta = viewItem.findViewById(R.id.tvTituloColeta)
+            this.tvSubtituloColeta = viewItem.findViewById(R.id.tvSubtituloColeta)
+            this.imgColeta = viewItem.findViewById(R.id.imgColeta)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        when (listId) {
-            1 -> {
-                return ViewHolder(
-                    LayoutInflater.from(parent?.context)
-                        .inflate(R.layout.item_coleta, parent, false) as ConstraintLayout
-                )
-            }
-            2 -> {
-                return ViewHolder(
-                    LayoutInflater.from(parent?.context)
-                        .inflate(R.layout.item_agenda, parent, false) as ConstraintLayout
-                )
-            }
-            else -> { //3
-                return ViewHolder(
-                    LayoutInflater.from(parent?.context)
-                        .inflate(R.layout.item_historico, parent, false) as ConstraintLayout
-                )
-            }
-        }
+        return ViewHolder(
+            LayoutInflater.from(parent?.context)
+                .inflate(R.layout.item_coleta, parent, false) as ConstraintLayout
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var coleta = coletas[position]
-        //holder.tvColeta?.setText("A empresa tal solicitou a coleta " + coleta.id_coleta)
-        //holder.tvNumber?.setText(if(position<9) "0" + (position +1) else "" + (position +1))
 
-//        holder.viewItem?.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
-//            when (motionEvent.action){
-//                MotionEvent.ACTION_DOWN -> {
-//                    holder.llDataHora?.visibility = View.VISIBLE;
-//                    YoYo.with(Techniques.SlideInRight).duration(500).repeat(0).playOn(holder.llDataHora)
-//                    YoYo.with(Techniques.RubberBand).duration(300).repeat(0).playOn(holder.viewItem)
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                    YoYo.with(Techniques.SlideOutRight).duration(1600).repeat(0).playOn(holder.llDataHora)
-//                    val handler2 = Handler()
-//                    val r2 = Runnable {
-//                        holder.llDataHora?.visibility = View.GONE;
-//                    }
-//                    handler2.postDelayed(r2, 1600)
-//                }
-//                MotionEvent.ACTION_CANCEL -> {
-//                    YoYo.with(Techniques.SlideOutRight).duration(2600).repeat(0).playOn(holder.llDataHora)
-//                    val handler2 = Handler()
-//                    val r2 = Runnable {
-//                        holder.llDataHora?.visibility = View.GONE;
-//                    }
-//                    handler2.postDelayed(r2, 2600)
-//                }
-//            }
-//            return@OnTouchListener true
-//        })
+        when(coleta.status){
+            SOLICITADA.name -> {
+                holder.tvTituloColeta!!.text = "Fulano solicitou uma coleta"
+                holder.tvSubtituloColeta!!.text = "Um recipiente de 50 litros está cheio"
+                holder.imgColeta!!.setImageResource(R.drawable.icon_oil_05)
+            }
+            AGENDADA.name -> {
+                holder.tvTituloColeta!!.text = "Você agendou a coleta da empresa tal" //nome da empresa ou do colaborador
+                holder.tvSubtituloColeta!!.text = "Leve um recipiente de 50 litros"
+                holder.imgColeta!!.setImageResource(R.drawable.icon_history)
+            }
+            ATENDIDA.name -> {
+                holder.tvTituloColeta!!.text = "Coleta na empresa tal concluida!"
+                holder.tvSubtituloColeta!!.text = "Realizada no dia 21/11/2021"
+                holder.imgColeta!!.setImageResource(R.drawable.icon_check_01)
+            }
+        }
 
-//        holder.viewItem?.setOnLongClickListener{
-//            holder.llDataHora?.visibility = View.GONE;
-//            true
-//        }
+        holder.viewItem.setOnClickListener{
+            animateButton(holder.viewItem)
+            var fragmentManager = (act as FragmentActivity).supportFragmentManager
+            ColetaDialog().show(fragmentManager, "ColetaDialog")
+        }
 
+    }
 
+    private fun animateButton(viewItem: ConstraintLayout) {
+        YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(viewItem)
     }
 
     override fun getItemCount(): Int {

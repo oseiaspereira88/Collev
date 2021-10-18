@@ -34,6 +34,9 @@ class ColetasFragment : Fragment() {
     private var tvEmptySolicitacoes: TextView? = null
     private var tvEmptyAgenda: TextView? = null
     private var tvEmptyHistorico: TextView? = null
+    private var solicitacoesAdapter: ColetasAdapter? = null
+    private var agendaAdapter: ColetasAdapter? = null
+    private var historicoAdapter: ColetasAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +69,22 @@ class ColetasFragment : Fragment() {
         rvAgenda?.setHasFixedSize(true)
         rvHistorico?.setHasFixedSize(true)
 
+        initAdapters()
         setChildEventListener()
+    }
+
+    private fun initAdapters() {
+        listSolicitacoes = ArrayList()
+        listAgenda = ArrayList()
+        listHistorico = ArrayList()
+
+        solicitacoesAdapter = ColetasAdapter(requireActivity(), listSolicitacoes!!)
+        agendaAdapter = ColetasAdapter(requireActivity(), listAgenda!!)
+        historicoAdapter = ColetasAdapter(requireActivity(), listHistorico!!)
+
+        rvSolicitacoes!!.adapter = solicitacoesAdapter
+        rvAgenda!!.adapter = agendaAdapter
+        rvHistorico!!.adapter = historicoAdapter
     }
 
     private fun initFirebase(){
@@ -79,10 +97,6 @@ class ColetasFragment : Fragment() {
             ?.orderByChild("solicitante")
             ?.equalTo(auth!!.currentUser!!.uid)!!.ref
 
-        listSolicitacoes = ArrayList()
-        listAgenda = ArrayList()
-        listHistorico = ArrayList()
-
         val childEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 Log.d("DEBUG", "onChildAdded -> Key: ${snapshot.key} - value: ${snapshot.value}")
@@ -92,15 +106,15 @@ class ColetasFragment : Fragment() {
                         when(coleta.status){
                             SOLICITADA.name -> {
                                 listSolicitacoes!!.add(coleta)
-                                updateList(1, listSolicitacoes!!, rvSolicitacoes!!)
+                                updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
                             }
                             AGENDADA.name -> {
                                 listAgenda!!.add(coleta)
-                                updateList(2, listAgenda!!, rvAgenda!!)
+                                updateList(2, listAgenda!!, agendaAdapter!!)
                             }
                             ATENDIDA.name -> {
                                 listHistorico!!.add(coleta)
-                                updateList(3, listHistorico!!, rvHistorico!!)
+                                updateList(3, listHistorico!!, historicoAdapter!!)
                             }
                         }
                     }
@@ -115,14 +129,14 @@ class ColetasFragment : Fragment() {
                         AGENDADA.name -> {
                             listSolicitacoes!!.removeIf { it.id == coleta.id }
                             listAgenda!!.add(coleta)
-                            updateList(2, listSolicitacoes!!, rvSolicitacoes!!)
-                            updateList(2, listAgenda!!, rvAgenda!!)
+                            updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
+                            updateList(2, listAgenda!!, agendaAdapter!!)
                         }
                         ATENDIDA.name -> {
                             listAgenda!!.removeIf { it.id == coleta.id }
                             listHistorico!!.add(coleta)
-                            updateList(3, listAgenda!!, rvAgenda!!)
-                            updateList(3, listHistorico!!, rvHistorico!!)
+                            updateList(2, listAgenda!!, agendaAdapter!!)
+                            updateList(3, listHistorico!!, historicoAdapter!!)
                         }
                     }
                 }
@@ -135,15 +149,15 @@ class ColetasFragment : Fragment() {
                         when(coleta.status){
                             SOLICITADA.name -> {
                                 listSolicitacoes!!.removeIf { it.id == snapshot.key }
-                                updateList(1, listSolicitacoes!!, rvSolicitacoes!!)
+                                updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
                             }
                             AGENDADA.name -> {
                                 listAgenda!!.removeIf { it.id == snapshot.key }
-                                updateList(2, listAgenda!!, rvAgenda!!)
+                                updateList(2, listAgenda!!, agendaAdapter!!)
                             }
                             ATENDIDA.name -> {
                                 listHistorico!!.removeIf { it.id == snapshot.key }
-                                updateList(3, listHistorico!!, rvHistorico!!)
+                                updateList(3, listHistorico!!, historicoAdapter!!)
                             }
                         }
                     }
@@ -157,16 +171,13 @@ class ColetasFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
                 Log.w("W", "postColetas:onCancelled", error.toException())
             }
-
         }
         database?.addChildEventListener(childEventListener)
     }
 
-    private fun updateList(listId: Int, list: ArrayList<Coleta>, rv: RecyclerView){
-        var adapter = ColetasAdapter(requireContext(), list, listId)
-        rv!!.adapter = adapter
+    private fun updateList(listId: Int, list: ArrayList<Coleta>, adapter: ColetasAdapter){
+        adapter.coletas = list
         adapter.notifyDataSetChanged()
-
         checkVisibleList(listId, list)
     }
 
