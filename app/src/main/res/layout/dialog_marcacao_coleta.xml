@@ -57,9 +57,9 @@
                 android:id="@+id/clActionAgendar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView28">
@@ -170,21 +170,20 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                style="@android:style/Widget.Holo.Spinner"
+                style="@style/Widget.AppCompat.Spinner"
                 android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                app:layout_constraintTop_toBottomOf="@+id/clTime" />
 
             <TextView
                 android:id="@+id/textView28"
                 android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -192,19 +191,19 @@
                 android:gravity="center|center_vertical"
                 android:padding="8dp"
                 android:text="Defina um horário"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
             <TextView
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Entre o período das"
+                android:text="E o horário das"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
