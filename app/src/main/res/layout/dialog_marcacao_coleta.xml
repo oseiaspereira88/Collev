@@ -53,69 +53,16 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llDias"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/clActionAgendar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView25">
-
-                <CheckBox
-                    android:id="@+id/cbDia1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Segunda" />
-
-                <CheckBox
-                    android:id="@+id/cbDia2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Terça" />
-
-                <CheckBox
-                    android:id="@+id/cbDia3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Quarta" />
-
-                <CheckBox
-                    android:id="@+id/cbDia4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Quinta" />
-
-                <CheckBox
-                    android:id="@+id/cbDia5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Sexta" />
-
-                <CheckBox
-                    android:id="@+id/cbDia6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Sábado" />
-
-                <CheckBox
-                    android:id="@+id/cbDia7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:text="Domingo" />
-            </LinearLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clActionAgendar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28">
 
                 <TextView
                     android:id="@+id/textView6"
@@ -176,20 +123,20 @@
                 android:id="@+id/textView25"
                 android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:background="#AAF2FB"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/button_cycle_orange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                app:layout_constraintTop_toBottomOf="@+id/llTitulo" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26">
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView29"
+                app:layout_constraintStart_toEndOf="@+id/textView29"
+                app:layout_constraintTop_toTopOf="@+id/textView29">
 
                 <TextView
                     android:id="@+id/text_horas_inicial"
@@ -208,8 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="-"
-                    android:textStyle="bold"
+                    android:text="às"
                     app:layout_constraintStart_toEndOf="@+id/text_horas_inicial"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -231,27 +177,50 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Informe quando será realizada a coleta"
                 android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                style="@android:style/Widget.Holo.Spinner"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llTitulo" />
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/textView28"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="24dp"
-                android:padding="4dp"
-                android:text="Lembre-se de considerar o período abaixo:"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/llDias"
+                android:layout_height="42dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_rounded_02"
+                android:gravity="center|center_vertical"
+                android:padding="8dp"
+                android:text="Defina um horário"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/llDias"
-                app:layout_constraintTop_toTopOf="@+id/llDias" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Entre o período das"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
