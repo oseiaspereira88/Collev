@@ -94,7 +94,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvOpTutorial"
+        android:id="@+id/cvOpQuemSomos"
         android:layout_width="0dp"
         android:layout_height="86dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -116,7 +116,7 @@
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView20"
-                app:layout_constraintStart_toEndOf="@+id/imgTutorial"
+                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
                 app:layout_constraintTop_toTopOf="parent">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -132,7 +132,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgTutorial"
+                android:id="@+id/imgQuemSomos"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -153,25 +153,26 @@
                 android:background="@color/white"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="Tutorial"
+                android:text="Quem somos"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imgTutorial"
-                app:layout_constraintTop_toTopOf="@+id/imgTutorial" />
+                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
+                app:layout_constraintTop_toTopOf="@+id/imgQuemSomos" />
 
             <TextView
                 android:id="@+id/tvBOp2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="Acesse ao tutorial"
+                android:text="Sobre nós"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgTutorial"
-                app:layout_constraintStart_toEndOf="@+id/imgTutorial"
+                app:layout_constraintBottom_toBottomOf="@+id/imgQuemSomos"
+                app:layout_constraintEnd_toEndOf="@+id/tvAOp2"
+                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -189,7 +190,7 @@
         app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOpTutorial">
+        app:layout_constraintTop_toBottomOf="@+id/cvOpQuemSomos">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -274,7 +275,7 @@
         app:cardUseCompatPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOpQuemSomos">
+        app:layout_constraintTop_toBottomOf="@+id/cvOpParceiros">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -350,7 +351,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvOpQuemSomos"
+        android:id="@+id/cvOpParceiros"
         android:layout_width="0dp"
         android:layout_height="86dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -372,7 +373,7 @@
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView24"
-                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
+                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
                 app:layout_constraintTop_toTopOf="parent">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -388,7 +389,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgQuemSomos"
+                android:id="@+id/imgParceiros"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
@@ -409,12 +410,12 @@
                 android:background="@color/white"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="Quem somos"
+                android:text="Parceiros"
                 android:textColor="#F4AC51"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
-                app:layout_constraintTop_toTopOf="@+id/imgQuemSomos" />
+                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
+                app:layout_constraintTop_toTopOf="@+id/imgParceiros" />
 
             <TextView
                 android:id="@+id/tvBOp5"
@@ -424,10 +425,10 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:text="Sobre nós e nossos parceiros"
+                android:text="Sobre nossos parceiros"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgQuemSomos"
-                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
+                app:layout_constraintBottom_toBottomOf="@+id/imgParceiros"
+                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
                 app:layout_constraintTop_toBottomOf="@+id/tvAOp5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

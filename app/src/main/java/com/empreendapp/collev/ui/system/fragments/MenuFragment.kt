@@ -12,14 +12,13 @@ import com.empreendapp.collev.ui.system.LoginActivity
 import com.empreendapp.collev.ui.system.PerfilActivity
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.google.firebase.auth.FirebaseAuth
-import com.makeramen.roundedimageview.RoundedImageView
 
 class MenuFragment : Fragment() {
     private var cvOpPerfil: CardView? = null
-    private var cvOpTutorial: CardView? = null
+    private var cvOpQuemSomos: CardView? = null
     private var cvOpConfiguracoes: CardView? = null
     private var cvOpChat: CardView? = null
-    private var cvOpQuemSomos: CardView? = null
+    private var cvOpParceiros: CardView? = null
     private var cvOpSair: CardView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +36,10 @@ class MenuFragment : Fragment() {
 
     private fun intViews(rootView: View) {
         cvOpPerfil = rootView.findViewById(R.id.cvOpPerfil)
-        cvOpTutorial = rootView.findViewById(R.id.cvOpTutorial)
+        cvOpQuemSomos = rootView.findViewById(R.id.cvOpQuemSomos)
         cvOpConfiguracoes = rootView.findViewById(R.id.cvOpConfiguracoes)
         cvOpChat = rootView.findViewById(R.id.cvOpChat)
-        cvOpQuemSomos = rootView.findViewById(R.id.cvOpQuemSomos)
+        cvOpParceiros = rootView.findViewById(R.id.cvOpParceiros)
         cvOpSair = rootView.findViewById(R.id.cvOpSair)
 
         cvOpPerfil!!.setOnClickListener{
@@ -48,7 +47,7 @@ class MenuFragment : Fragment() {
             startActivity(Intent(context, PerfilActivity::class.java))
         }
 
-        cvOpTutorial!!.setOnClickListener{
+        cvOpQuemSomos!!.setOnClickListener{
             animateButton(it)
         }
         cvOpConfiguracoes!!.setOnClickListener{
@@ -57,8 +56,9 @@ class MenuFragment : Fragment() {
         cvOpChat!!.setOnClickListener{
             animateButton(it)
         }
-        cvOpQuemSomos!!.setOnClickListener{
+        cvOpParceiros!!.setOnClickListener{
             animateButton(it)
+            startActivity(Intent(context, PerfilActivity::class.java))
         }
 
         cvOpSair?.setOnClickListener{
