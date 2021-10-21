@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.recycler.ColetasAdapter
-import com.empreendapp.collev.enums.ColetaStatus.*
+import com.empreendapp.collev.util.ColetaStatus.*
 import com.empreendapp.collev.model.Coleta
+import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.LibraryClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
@@ -78,9 +80,9 @@ class ColetasFragment : Fragment() {
         listAgenda = ArrayList()
         listHistorico = ArrayList()
 
-        solicitacoesAdapter = ColetasAdapter(requireActivity(), listSolicitacoes!!)
-        agendaAdapter = ColetasAdapter(requireActivity(), listAgenda!!)
-        historicoAdapter = ColetasAdapter(requireActivity(), listHistorico!!)
+        solicitacoesAdapter = ColetasAdapter(requireActivity(), listSolicitacoes!!, this)
+        agendaAdapter = ColetasAdapter(requireActivity(), listAgenda!!, this)
+        historicoAdapter = ColetasAdapter(requireActivity(), listHistorico!!, this)
 
         rvSolicitacoes!!.adapter = solicitacoesAdapter
         rvAgenda!!.adapter = agendaAdapter
@@ -104,15 +106,15 @@ class ColetasFragment : Fragment() {
                     coleta.id = snapshot.key
                     if(coleta.ativo!!){
                         when(coleta.status){
-                            SOLICITADA.name -> {
+                            SOLICITADA -> {
                                 listSolicitacoes!!.add(coleta)
                                 updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
                             }
-                            AGENDADA.name -> {
+                            AGENDADA -> {
                                 listAgenda!!.add(coleta)
                                 updateList(2, listAgenda!!, agendaAdapter!!)
                             }
-                            ATENDIDA.name -> {
+                            ATENDIDA -> {
                                 listHistorico!!.add(coleta)
                                 updateList(3, listHistorico!!, historicoAdapter!!)
                             }
@@ -126,13 +128,13 @@ class ColetasFragment : Fragment() {
                 snapshot.getValue(Coleta::class.java)?.let { coleta ->
                     coleta.id = snapshot.key
                     when(coleta.status){
-                        AGENDADA.name -> {
+                        AGENDADA -> {
                             listSolicitacoes!!.removeIf { it.id == coleta.id }
                             listAgenda!!.add(coleta)
                             updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
                             updateList(2, listAgenda!!, agendaAdapter!!)
                         }
-                        ATENDIDA.name -> {
+                        ATENDIDA -> {
                             listAgenda!!.removeIf { it.id == coleta.id }
                             listHistorico!!.add(coleta)
                             updateList(2, listAgenda!!, agendaAdapter!!)
@@ -147,15 +149,15 @@ class ColetasFragment : Fragment() {
                 snapshot.getValue(Coleta::class.java)?.let { coleta ->
                     if(coleta.ativo!!){
                         when(coleta.status){
-                            SOLICITADA.name -> {
+                            SOLICITADA -> {
                                 listSolicitacoes!!.removeIf { it.id == snapshot.key }
                                 updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
                             }
-                            AGENDADA.name -> {
+                            AGENDADA -> {
                                 listAgenda!!.removeIf { it.id == snapshot.key }
                                 updateList(2, listAgenda!!, agendaAdapter!!)
                             }
-                            ATENDIDA.name -> {
+                            ATENDIDA -> {
                                 listHistorico!!.removeIf { it.id == snapshot.key }
                                 updateList(3, listHistorico!!, historicoAdapter!!)
                             }
@@ -179,6 +181,14 @@ class ColetasFragment : Fragment() {
         adapter.coletas = list
         adapter.notifyDataSetChanged()
         checkVisibleList(listId, list)
+    }
+
+    public fun resetList(listId: Int){
+        when(listId){
+            1 -> updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
+            2 -> updateList(2, listAgenda!!, agendaAdapter!!)
+            3 -> updateList(3, listHistorico!!, historicoAdapter!!)
+        }
     }
 
     private fun checkVisibleList(listId: Int,  list: ArrayList<Coleta>) {

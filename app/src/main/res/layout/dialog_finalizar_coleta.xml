@@ -40,7 +40,7 @@
                     android:id="@+id/tvTituloColeta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Agendar Coleta"
+                    android:text="Finalizar Coleta"
                     android:textAllCaps="true"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -69,7 +69,7 @@
             <TextView
                 android:id="@+id/textView25"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/pag_bg_01"
                 android:textColor="@android:color/transparent"
@@ -78,14 +78,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/llTitulo" />
 
             <TextView
-                android:id="@+id/tvInfoAgendarColeta"
+                android:id="@+id/textView22"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:text="Informe quando será realizada a coleta e o horário entre as 00:00 e 00:00 horas"
+                android:text="Deseja marcar a coleta como concluída?"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,61 +95,15 @@
                 android:id="@+id/imageView29"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/spDias"
-                app:layout_constraintEnd_toEndOf="@+id/spDias"
-                app:layout_constraintStart_toStartOf="@+id/spDias"
-                app:layout_constraintTop_toTopOf="@+id/spDias"
-                app:srcCompat="@drawable/button_rounded_05" />
-
-            <Spinner
-                android:id="@+id/spDias"
-                style="@style/Widget.AppCompat.Spinner"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toStartOf="@+id/llHorario"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvInfoAgendarColeta" />
-
-            <LinearLayout
-                android:id="@+id/llHorario"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button_rounded_05"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView29"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView29">
-
-                <ImageView
-                    android:id="@+id/imageView28"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginStart="8dp"
-                    app:srcCompat="@drawable/icon_history" />
-
-                <TextView
-                    android:id="@+id/tvHorario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|center_vertical"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="16dp"
-                    android:text="Selecione"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                app:srcCompat="@drawable/button_rounded_05"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="160dp" />
 
             <TextView
-                android:id="@+id/tvAgendar"
+                android:id="@+id/tvConcluirColeta"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
@@ -160,22 +113,44 @@
                 android:paddingTop="12dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="12dp"
-                android:text="Concluir"
+                android:text="Sim"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llHorario" />
+                app:layout_constraintStart_toEndOf="@+id/space"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-            <ImageView
-                android:id="@+id/imageView30"
+            <TextView
+                android:id="@+id/tvNaoConcluirColeta"
                 android:layout_width="0dp"
-                android:layout_height="4dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView25"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_rounded_05"
+                android:gravity="center_horizontal"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="12dp"
+                android:text="Não"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/space"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView25"
-                app:srcCompat="@drawable/shadow_black_white_top_bottom" />
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

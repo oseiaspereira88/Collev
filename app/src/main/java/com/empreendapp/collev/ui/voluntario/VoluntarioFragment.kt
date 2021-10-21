@@ -19,7 +19,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import com.empreendapp.collev.enums.ColetaStatus
+import com.empreendapp.collev.util.ColetaStatus
+import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass
@@ -90,8 +91,8 @@ open class VoluntarioFragment : Fragment() {
             tvSpacer = rootView.findViewById(R.id.tvSpacer)
             imgCancelForm = rootView.findViewById(R.id.imgCancelForm)
             time = rootView.findViewById(R.id.image_time)
-            horaInicial = rootView.findViewById(R.id.text_horas_inicial)
-            horaFinal = rootView.findViewById(R.id.text_horas_final)
+            horaInicial = rootView.findViewById(R.id.tvPeriodoIn)
+            horaFinal = rootView.findViewById(R.id.tvPeriodoOut)
 
             itensSemana = ArrayList()
             val imgResources = arrayOf(
@@ -331,7 +332,7 @@ open class VoluntarioFragment : Fragment() {
         var coleta = Coleta()
         coleta!!.solicitante = auth!!.currentUser!!.uid
         coleta!!.coletor = ID_COLETOR_PRINCIPAL
-        coleta!!.status = ColetaStatus.SOLICITADA.name
+        coleta!!.status = SOLICITADA
         coleta!!.periodoIn = horaInicial.text.toString()
         coleta!!.periodoOut = horaFinal.text.toString()
         coleta!!.ativar().generateIdAndSave(requireContext(), VOLUNTARIO_PREF, this)

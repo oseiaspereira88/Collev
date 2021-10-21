@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import com.empreendapp.collev.ui.voluntario.VoluntarioFragment
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
+import com.google.android.gms.tasks.Task
 import java.util.*
 
 class Coleta {
@@ -65,11 +66,11 @@ class Coleta {
         }
     }
 
-    fun saveInFirebase() {
+    fun saveInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("coletas")?.child(it) }!!
         this.id = null
-        bdRef.setValue(this)
+        return bdRef.setValue(this)
     }
 
     fun ativar(): Coleta{

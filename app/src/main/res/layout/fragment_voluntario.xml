@@ -357,7 +357,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/text_horas_inicial"
+                android:id="@+id/tvPeriodoIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -376,11 +376,11 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_horas_inicial"
+                app:layout_constraintStart_toEndOf="@+id/tvPeriodoIn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/text_horas_final"
+                android:id="@+id/tvPeriodoOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -397,8 +397,8 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_horas_final"
-                app:layout_constraintTop_toTopOf="@+id/text_horas_final"
+                app:layout_constraintStart_toEndOf="@+id/tvPeriodoOut"
+                app:layout_constraintTop_toTopOf="@+id/tvPeriodoOut"
                 app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/icon_history" />
 

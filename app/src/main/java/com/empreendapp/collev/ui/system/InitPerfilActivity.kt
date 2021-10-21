@@ -10,6 +10,7 @@ import com.daimajia.androidanimations.library.Techniques
 import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.View
+import com.empreendapp.collev.util.DefaultFunctions.Companion.checkExit
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 
 class InitPerfilActivity : AppCompatActivity() {
@@ -31,20 +32,10 @@ class InitPerfilActivity : AppCompatActivity() {
     // Código botão Voltar
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
-            checkExit()
+            checkExit(this)
             true
         } else {
             super.onKeyDown(keyCode, event)
         }
-    }
-
-    private fun checkExit() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Deseja realmente sair?")
-                .setCancelable(false)
-                .setPositiveButton("Sim") { dialog, id -> finish() }
-                .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
-        val alert = builder.create()
-        alert.show()
     }
 }
