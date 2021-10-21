@@ -2,7 +2,7 @@ package com.empreendapp.collev.model
 
 import com.empreendapp.collev.util.LibraryClass
 
-class Voluntario: User(){
+class Colaborador: User(){
     var recipiente: String? = null
 
     open fun saveRecipienteInFirebase() {

@@ -38,8 +38,7 @@ class CategoriaPerfilFragment : Fragment() {
 
     fun initViews(rootView: View) {
         val cv_option_coletor = rootView.findViewById<View>(R.id.cv_option_coletor) as CardView
-        val cv_option_voluntario =
-            rootView.findViewById<View>(R.id.cv_option_voluntario) as CardView
+        val cv_option_colaborador = rootView.findViewById<View>(R.id.cv_option_colaborador) as CardView
         initFirebase()
         val user = User()
         user.id = auth!!.currentUser!!.uid
@@ -53,9 +52,9 @@ class CategoriaPerfilFragment : Fragment() {
             NavHostFragment.findNavController(requireParentFragment())
                 .navigate(R.id.action_categoriaPerfilFragment_to_localizacaoPerfilFragment)
         }
-        cv_option_voluntario.setOnClickListener { v ->
+        cv_option_colaborador.setOnClickListener { v ->
             animateButton(v)
-            user.tipo = "Voluntário"
+            user.tipo = "Colaborador"
             user.saveTipoInFirebase()
 
             //chamada do LocalizacaoPerfilFragment

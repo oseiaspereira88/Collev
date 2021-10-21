@@ -3,7 +3,7 @@ package com.empreendapp.collev.model
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.empreendapp.collev.ui.voluntario.VoluntarioFragment
+import com.empreendapp.collev.ui.colaborador.ColaboradorFragment
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
@@ -51,7 +51,7 @@ class Coleta {
         this.ativo_solicitante = ativo_solicitante
     }
 
-    fun generateIdAndSave(ctx: Context, spName: String, vf: VoluntarioFragment) {
+    fun generateIdAndSave(ctx: Context, spName: String, vf: ColaboradorFragment) {
         LibraryClass.firebaseDB!!.reference!!.child("coletas")!!.push()
             .get().addOnCompleteListener { task ->
             if(task.isSuccessful){

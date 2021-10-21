@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.voluntario
+package com.empreendapp.collev.ui.colaborador
 
 import android.os.Bundle
 import android.os.Handler
@@ -19,7 +19,6 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import com.empreendapp.collev.util.ColetaStatus
 import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.FirebaseConnection
@@ -31,9 +30,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-open class VoluntarioFragment : Fragment() {
+open class ColaboradorFragment : Fragment() {
     private val ID_COLETOR_PRINCIPAL = "cvzFUzdnKgSaB28TsACocqBMzdg2"
-    private val VOLUNTARIO_PREF = "com.empreendapp.collev.VOLUNTORIO_PREF"
+    private val COLABORADOR_PREF = "com.empreendapp.collev.COLABORADOR_PREF"
     private var imgSolicitarColeta: ImageView? = null
     private var clSolicitarColeta: ConstraintLayout? = null
     private var clChecks: ConstraintLayout? = null
@@ -64,7 +63,7 @@ open class VoluntarioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_voluntario, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_colaborador, container, false)
         initFirebase()
         initViews(rootView)
         checkColetaSolicitada()
@@ -128,7 +127,7 @@ open class VoluntarioFragment : Fragment() {
             //clear all listeners
             imgCancelForm.setOnClickListener {
                 var sp: SharedPreferences =
-                    requireContext().getSharedPreferences(VOLUNTARIO_PREF, MODE_PRIVATE)
+                    requireContext().getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
                 if (sp.contains("ColetaSolicitada")) {
                     confirmDeleteColetaSolicitada(sp)
                 }
@@ -179,7 +178,7 @@ open class VoluntarioFragment : Fragment() {
         var user = auth!!.currentUser
 
         var sp: SharedPreferences = requireContext()
-            .getSharedPreferences(VOLUNTARIO_PREF, MODE_PRIVATE)
+            .getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
 
         if (sp.contains("ColetaSolicitada")) {
             //exibir coleta solicitada
@@ -335,7 +334,7 @@ open class VoluntarioFragment : Fragment() {
         coleta!!.status = SOLICITADA
         coleta!!.periodoIn = horaInicial.text.toString()
         coleta!!.periodoOut = horaFinal.text.toString()
-        coleta!!.ativar().generateIdAndSave(requireContext(), VOLUNTARIO_PREF, this)
+        coleta!!.ativar().generateIdAndSave(requireContext(), COLABORADOR_PREF, this)
         pauseActionButton()
     }
 

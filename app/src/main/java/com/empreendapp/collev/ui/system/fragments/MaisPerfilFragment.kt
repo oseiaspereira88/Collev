@@ -2,7 +2,7 @@ package com.empreendapp.collev.ui.system.fragments
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth
-import com.empreendapp.collev.model.Voluntario
+import com.empreendapp.collev.model.Colaborador
 import com.empreendapp.collev.model.Coletor
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,8 +15,6 @@ import com.empreendapp.collev.util.FirebaseConnection
 import com.google.firebase.database.DatabaseReference
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.daimajia.androidanimations.library.YoYo
-import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.listeners.UserChildEventListener
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
@@ -29,7 +27,7 @@ class MaisPerfilFragment : Fragment() {
     private var editNomeEmpresa: EditText? = null
     private var spinnerRecipiente: Spinner? = null
     private var tvRecipiente: TextView? = null
-    private var voluntario: Voluntario? = null
+    private var colaborador: Colaborador? = null
     private var coletor: Coletor? = null
     private var tipo: String? = null
 
@@ -56,7 +54,7 @@ class MaisPerfilFragment : Fragment() {
                 .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
                     if (task.isSuccessful) {
                         tipo = java.lang.String.valueOf(task.result?.child("tipo")?.getValue())
-                        if (tipo == "Voluntário") {
+                        if (tipo == "Colaborador") {
                             spinnerRecipiente!!.visibility = View.VISIBLE
                             tvRecipiente!!.visibility = View.VISIBLE
                         }
@@ -81,8 +79,8 @@ class MaisPerfilFragment : Fragment() {
             if (!editNomeEmpresa!!.text.toString().isEmpty()) {
                 if (tipo == "Coletor") {
                     saveColetorInBD()
-                } else if (tipo == "Voluntário") {
-                    saveVoluntarioInBD()
+                } else if (tipo == "Colaborador") {
+                    saveColaboradorInBD()
                 }
                 NavHostFragment.findNavController(requireParentFragment())
                     .navigate(R.id.action_localizacaoPerfilFragment_to_mainActivity)
@@ -108,20 +106,20 @@ class MaisPerfilFragment : Fragment() {
         coletor!!.saveNomeEmpresaInFirebase()
     }
 
-    fun saveVoluntarioInBD() {
-        voluntario = Voluntario()
-        voluntario!!.id = FirebaseConnection.getFirebaseAuth()!!.uid
-        voluntario!!.endereco = "Rua Terezinha Campelo, 117"
-        voluntario!!.nome_empresa = editNomeEmpresa!!.text.toString()
-        voluntario!!.id_local = "generico"
-        voluntario!!.recipiente = spinnerRecipiente!!.selectedItem.toString()
+    fun saveColaboradorInBD() {
+        colaborador = Colaborador()
+        colaborador!!.id = FirebaseConnection.getFirebaseAuth()!!.uid
+        colaborador!!.endereco = "Rua Terezinha Campelo, 117"
+        colaborador!!.nome_empresa = editNomeEmpresa!!.text.toString()
+        colaborador!!.id_local = "generico"
+        colaborador!!.recipiente = spinnerRecipiente!!.selectedItem.toString()
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
-        voluntario!!.saveEnderecoInFirebase()
-        voluntario!!.saveNomeEmpresaInFirebase()
-        voluntario!!.saveIdLocalInFirebase()
-        voluntario!!.saveRecipienteInFirebase()
+        colaborador!!.saveEnderecoInFirebase()
+        colaborador!!.saveNomeEmpresaInFirebase()
+        colaborador!!.saveIdLocalInFirebase()
+        colaborador!!.saveRecipienteInFirebase()
     }
 
     override fun onDestroy() {

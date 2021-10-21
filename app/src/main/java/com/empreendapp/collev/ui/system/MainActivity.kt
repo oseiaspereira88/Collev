@@ -14,12 +14,10 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager.*
 import com.empreendapp.collev.adapters.pagers.AdmFragmentPagerAdapter
-import com.empreendapp.collev.adapters.pagers.VoluntarioFragmentPagerAdapter
+import com.empreendapp.collev.adapters.pagers.ColaboradorFragmentPagerAdapter
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.empreendapp.collev.util.LibraryClass
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 
 class MainActivity : AppCompatActivity()  {
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity()  {
     private var tvTitle: TextView? = null
     private var tabLayout: TabLayout? = null
     private var pageProgressBar: ProgressBar? = null
-    private var voluntarioAdapter: VoluntarioFragmentPagerAdapter? = null
+    private var colaboradorAdapter: ColaboradorFragmentPagerAdapter? = null
     private var coletorAdapter: ColetorFragmentPagerAdapter? = null
     private var admAdapter: AdmFragmentPagerAdapter? = null
 
@@ -72,9 +70,9 @@ class MainActivity : AppCompatActivity()  {
 
     private fun costruirPaginacao(userType: String){
         when(userType){
-            "Voluntário" -> {
-                voluntarioAdapter = VoluntarioFragmentPagerAdapter(supportFragmentManager)
-                pager?.adapter = voluntarioAdapter
+            "Colaborador" -> {
+                colaboradorAdapter = ColaboradorFragmentPagerAdapter(supportFragmentManager)
+                pager?.adapter = colaboradorAdapter
                 tabLayout?.setupWithViewPager(pager)
                 pager?.addOnPageChangeListener(onPageChangeListener)
 
