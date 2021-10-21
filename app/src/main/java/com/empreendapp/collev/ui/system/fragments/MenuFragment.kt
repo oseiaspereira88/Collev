@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import com.empreendapp.collev.R
 import com.empreendapp.collev.ui.system.LoginActivity
 import com.empreendapp.collev.ui.system.PerfilActivity
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.google.firebase.auth.FirebaseAuth
 import com.makeramen.roundedimageview.RoundedImageView
 
 class MenuFragment : Fragment() {
-    private var imgPerfil : RoundedImageView? = null
-    private var imgSair : RoundedImageView? = null
+    private var cvOpPerfil: CardView? = null
+    private var cvOpTutorial: CardView? = null
+    private var cvOpConfiguracoes: CardView? = null
+    private var cvOpChat: CardView? = null
+    private var cvOpQuemSomos: CardView? = null
+    private var cvOpSair: CardView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +36,34 @@ class MenuFragment : Fragment() {
     }
 
     private fun intViews(rootView: View) {
-        imgPerfil = rootView.findViewById(R.id.imgPerfil)
-        imgSair = rootView.findViewById(R.id.imgSair)
+        cvOpPerfil = rootView.findViewById(R.id.cvOpPerfil)
+        cvOpTutorial = rootView.findViewById(R.id.cvOpTutorial)
+        cvOpConfiguracoes = rootView.findViewById(R.id.cvOpConfiguracoes)
+        cvOpChat = rootView.findViewById(R.id.cvOpChat)
+        cvOpQuemSomos = rootView.findViewById(R.id.cvOpQuemSomos)
+        cvOpSair = rootView.findViewById(R.id.cvOpSair)
 
-        imgPerfil?.setOnClickListener{
+        cvOpPerfil!!.setOnClickListener{
+            animateButton(it)
             startActivity(Intent(context, PerfilActivity::class.java))
         }
 
-        imgSair?.setOnClickListener{
+        cvOpTutorial!!.setOnClickListener{
+            animateButton(it)
+        }
+        cvOpConfiguracoes!!.setOnClickListener{
+            animateButton(it)
+        }
+        cvOpChat!!.setOnClickListener{
+            animateButton(it)
+        }
+        cvOpQuemSomos!!.setOnClickListener{
+            animateButton(it)
+        }
+
+        cvOpSair?.setOnClickListener{
+            animateButton(it)
+
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
