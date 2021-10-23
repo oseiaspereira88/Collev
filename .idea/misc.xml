@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/button_rounded_05.xml" value="0.23" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/button_rounded_06.xml" value="0.231" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/button_rounded_07.xml" value="0.18046875" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/round_corner.xml" value="0.214" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/shadow_black_top_bottom.xml" value="0.23" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/drawable-v24/transparent_bg.xml" value="0.214" />
@@ -14,7 +15,7 @@
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_init_perfil.xml" value="0.168359375" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_intro.xml" value="0.168359375" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_perfil.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_perfil.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_quem_somos.xml" value="0.168359375" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.33" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_confirmacao_coleta.xml" value="0.22447916666666667" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_categoria_perfil.xml" value="0.168359375" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_coletas.xml" value="0.2621951219512195" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_mais_perfil.xml" value="0.168359375" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_menu.xml" value="0.18" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_notificacoes.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_voluntario.xml" value="0.18426678067550234" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/item_agenda.xml" value="0.22447916666666667" />

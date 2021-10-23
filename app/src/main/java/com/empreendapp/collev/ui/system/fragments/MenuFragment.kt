@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.R
 import com.empreendapp.collev.ui.system.LoginActivity
 import com.empreendapp.collev.ui.system.PerfilActivity
@@ -14,12 +15,12 @@ import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.google.firebase.auth.FirebaseAuth
 
 class MenuFragment : Fragment() {
-    private var cvOpPerfil: CardView? = null
-    private var cvOpQuemSomos: CardView? = null
-    private var cvOpConfiguracoes: CardView? = null
-    private var cvOpChat: CardView? = null
-    private var cvOpParceiros: CardView? = null
-    private var cvOpSair: CardView? = null
+    private var clOpPerfil: ConstraintLayout? = null
+    private var clOpQuemSomos: ConstraintLayout? = null
+    private var clOpConfiguracoes: ConstraintLayout? = null
+    private var clOpChat: ConstraintLayout? = null
+    private var clOpParceiros: ConstraintLayout? = null
+    private var clOpSair: ConstraintLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,33 +36,33 @@ class MenuFragment : Fragment() {
     }
 
     private fun intViews(rootView: View) {
-        cvOpPerfil = rootView.findViewById(R.id.cvOpPerfil)
-        cvOpQuemSomos = rootView.findViewById(R.id.cvOpQuemSomos)
-        cvOpConfiguracoes = rootView.findViewById(R.id.cvOpConfiguracoes)
-        cvOpChat = rootView.findViewById(R.id.cvOpChat)
-        cvOpParceiros = rootView.findViewById(R.id.cvOpParceiros)
-        cvOpSair = rootView.findViewById(R.id.cvOpSair)
+        clOpPerfil = rootView.findViewById(R.id.clOpPerfil)
+        clOpQuemSomos = rootView.findViewById(R.id.clOpQuemSomos)
+        clOpConfiguracoes = rootView.findViewById(R.id.clOpConfiguracoes)
+        clOpChat = rootView.findViewById(R.id.clOpChat)
+        clOpParceiros = rootView.findViewById(R.id.clOpParceiros)
+        clOpSair = rootView.findViewById(R.id.clOpSair)
 
-        cvOpPerfil!!.setOnClickListener{
+        clOpPerfil!!.setOnClickListener{
             animateButton(it)
             startActivity(Intent(context, PerfilActivity::class.java))
         }
 
-        cvOpQuemSomos!!.setOnClickListener{
+        clOpQuemSomos!!.setOnClickListener{
             animateButton(it)
         }
-        cvOpConfiguracoes!!.setOnClickListener{
+        clOpConfiguracoes!!.setOnClickListener{
             animateButton(it)
         }
-        cvOpChat!!.setOnClickListener{
+        clOpChat!!.setOnClickListener{
             animateButton(it)
         }
-        cvOpParceiros!!.setOnClickListener{
+        clOpParceiros!!.setOnClickListener{
             animateButton(it)
             startActivity(Intent(context, PerfilActivity::class.java))
         }
 
-        cvOpSair?.setOnClickListener{
+        clOpSair?.setOnClickListener{
             animateButton(it)
 
             FirebaseAuth.getInstance().signOut()

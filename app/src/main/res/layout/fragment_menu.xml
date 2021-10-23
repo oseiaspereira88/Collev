@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.system.fragments.MenuFragment" >
+    tools:context=".ui.system.fragments.MenuFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvOpPerfil"
@@ -21,17 +21,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpPerfil"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView32"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPerfil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgPerfil"
+                app:layout_constraintTop_toTopOf="@+id/imgPerfil" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
                 android:layout_height="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView19"
-                app:layout_constraintStart_toEndOf="@+id/imgPerfil"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/tvAOp1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -39,7 +54,7 @@
                 android:id="@+id/imageView19"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/icon_next_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +80,7 @@
                 android:id="@+id/tvAOp1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Nome do usuário"
@@ -78,16 +93,15 @@
             <TextView
                 android:id="@+id/tvBOp1"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Acesse o seu perfil"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgPerfil"
-                app:layout_constraintStart_toEndOf="@+id/imgPerfil"
-                app:layout_constraintTop_toBottomOf="@+id/tvAOp1" />
+                app:layout_constraintStart_toEndOf="@+id/imgPerfil" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,17 +121,32 @@
         app:layout_constraintTop_toBottomOf="@+id/cvOpPerfil">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpQuemSomos"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView34"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgQuemSomos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgQuemSomos"
+                app:layout_constraintTop_toTopOf="@+id/imgQuemSomos" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
                 android:layout_width="0dp"
                 android:layout_height="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView20"
-                app:layout_constraintStart_toEndOf="@+id/imgQuemSomos"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/tvAOp2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -125,7 +154,7 @@
                 android:id="@+id/imageView20"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/icon_next_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +179,7 @@
                 android:id="@+id/tvAOp2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Quem somos"
@@ -163,8 +192,8 @@
             <TextView
                 android:id="@+id/tvBOp2"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -193,17 +222,32 @@
         app:layout_constraintTop_toBottomOf="@+id/cvOpQuemSomos">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpConfiguracoes"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView35"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgConf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgConf"
+                app:layout_constraintTop_toTopOf="@+id/imgConf" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
                 android:layout_width="0dp"
                 android:layout_height="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView21"
-                app:layout_constraintStart_toStartOf="@+id/imgConf"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/tvBOp3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -211,7 +255,7 @@
                 android:id="@+id/imageView21"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/icon_next_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +281,7 @@
                 android:id="@+id/tvAOp3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Configuração"
@@ -250,18 +294,116 @@
             <TextView
                 android:id="@+id/tvBOp3"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Acesse as configurações"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgConf"
-                app:layout_constraintStart_toEndOf="@+id/imgConf"
-                app:layout_constraintTop_toBottomOf="@+id/tvAOp3" />
+                app:layout_constraintStart_toEndOf="@+id/imgConf" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvOpParceiros"
+        android:layout_width="0dp"
+        android:layout_height="86dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvOpConfiguracoes">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpParceiros"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView36"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgParceiros"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgParceiros"
+                app:layout_constraintTop_toTopOf="@+id/imgParceiros" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_rounded_03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView24"
+                app:layout_constraintStart_toEndOf="@+id/tvBOp5"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/icon_next_01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgParceiros"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_parceiros_01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_border_color="#EC982E"
+                app:riv_border_width="0dip"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="clamp" />
+
+            <TextView
+                android:id="@+id/tvAOp5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="Parceiros"
+                android:textColor="#F4AC51"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
+                app:layout_constraintTop_toTopOf="@+id/imgParceiros" />
+
+            <TextView
+                android:id="@+id/tvBOp5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="Sobre nossos parceiros"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgParceiros"
+                app:layout_constraintStart_toEndOf="@+id/imgParceiros" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -278,17 +420,32 @@
         app:layout_constraintTop_toBottomOf="@+id/cvOpParceiros">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView37"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgChat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgChat"
+                app:layout_constraintTop_toTopOf="@+id/imgChat" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
                 android:layout_width="0dp"
                 android:layout_height="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView23"
-                app:layout_constraintStart_toEndOf="@+id/imgChat"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/tvBOp4"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -296,7 +453,7 @@
                 android:id="@+id/imageView23"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/icon_next_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -322,7 +479,7 @@
                 android:id="@+id/tvAOp4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Chat"
@@ -335,101 +492,15 @@
             <TextView
                 android:id="@+id/tvBOp4"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Fale conosco"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgChat"
-                app:layout_constraintStart_toEndOf="@+id/imgChat"
-                app:layout_constraintTop_toBottomOf="@+id/tvAOp4" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvOpParceiros"
-        android:layout_width="0dp"
-        android:layout_height="86dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvOpConfiguracoes">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                android:background="@drawable/button_rounded_03"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView24"
-                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageView24"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/icon_next_01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imgParceiros"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="16dp"
-                android:padding="4dp"
-                android:src="@drawable/icon_parceiros_01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_border_color="#EC982E"
-                app:riv_border_width="0dip"
-                app:riv_mutate_background="true"
-                app:riv_tile_mode="clamp" />
-
-            <TextView
-                android:id="@+id/tvAOp5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="Parceiros"
-                android:textColor="#F4AC51"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
-                app:layout_constraintTop_toTopOf="@+id/imgParceiros" />
-
-            <TextView
-                android:id="@+id/tvBOp5"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="Sobre nossos parceiros"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgParceiros"
-                app:layout_constraintStart_toEndOf="@+id/imgParceiros"
-                app:layout_constraintTop_toBottomOf="@+id/tvAOp5" />
+                app:layout_constraintStart_toEndOf="@+id/imgChat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -449,17 +520,32 @@
         app:layout_constraintTop_toBottomOf="@+id/cvOpChat">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOpSair"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView38"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/button_cycle_white"
+                app:layout_constraintBottom_toBottomOf="@+id/imgSair"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgSair"
+                app:layout_constraintTop_toTopOf="@+id/imgSair" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
                 android:layout_width="0dp"
                 android:layout_height="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/button_rounded_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView25"
-                app:layout_constraintStart_toEndOf="@+id/imgSair"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@+id/tvAOp6"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -467,7 +553,7 @@
                 android:id="@+id/imageView25"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:src="@drawable/icon_next_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -478,22 +564,22 @@
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/icon_logout_02"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/icon_logout_01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_border_color="#EC982E"
                 app:riv_border_width="0dip"
-                app:riv_corner_radius="50dip"
                 app:riv_mutate_background="true"
-                app:riv_oval="true"
                 app:riv_tile_mode="clamp" />
 
             <TextView
                 android:id="@+id/tvAOp6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:text="Sair"

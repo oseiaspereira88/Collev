@@ -132,8 +132,10 @@
 
         <ImageView
             android:id="@+id/imgEditNome"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_rounded_primary_color"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -204,8 +206,10 @@
 
         <ImageView
             android:id="@+id/imgEditEmpresa"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_rounded_primary_color"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -277,8 +281,10 @@
 
         <ImageView
             android:id="@+id/imgEditEmail"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_rounded_primary_color"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -350,8 +356,10 @@
 
         <ImageView
             android:id="@+id/imgEditSenha"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_rounded_primary_color"
+            android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -365,7 +373,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/clItemPerfil3"
         app:layout_constraintTop_toBottomOf="@+id/clItemPerfil4"
-        app:srcCompat="@drawable/button_cycle_orange" />
+        app:srcCompat="@drawable/button_rounded_06" />
 
     <TextView
         android:id="@+id/tvNumeroColetas"
@@ -373,8 +381,8 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="0"
-        android:textColor="@color/white"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
         app:layout_constraintEnd_toEndOf="@+id/imageView22"
         app:layout_constraintStart_toStartOf="@+id/imageView22"
