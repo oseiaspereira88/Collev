@@ -14,6 +14,7 @@ import com.empreendapp.collev.model.Notificacao
 
 class NotificacoesFragment : Fragment() {
     private var rvNotificacoes : RecyclerView? = null
+    //private var
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class NotificacoesFragment : Fragment() {
 
     private fun intViews(rootView: View) {
         var adapter = NotificacoesAdapter(rootView.context, getAllNotificacoes())
-        rvNotificacoes = rootView.findViewById<RecyclerView>(R.id.rv_locais)
+        rvNotificacoes = rootView.findViewById(R.id.rv_locais)
         rvNotificacoes?.layoutManager = LinearLayoutManager(context)
         rvNotificacoes?.itemAnimator = DefaultItemAnimator()
         rvNotificacoes?.adapter = adapter
@@ -41,7 +42,7 @@ class NotificacoesFragment : Fragment() {
         var notificacoes = ArrayList<Notificacao>()
 
         for(i in 1..10){
-            notificacoes.add(Notificacao(i))
+            //notificacoes.add(Notificacao(i))
         }
 
         return notificacoes

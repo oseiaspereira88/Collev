@@ -18,9 +18,12 @@ import android.app.TimePickerDialog
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateInputError
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateTutorialPulse
 import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass
 import com.google.firebase.auth.FirebaseAuth
@@ -37,27 +40,34 @@ open class ColaboradorFragment : Fragment() {
     private var clSolicitarColeta: ConstraintLayout? = null
     private var clChecks: ConstraintLayout? = null
     private var tvInfoCreate: TextView? = null
-    private var tvDataColeta: TextView? = null
-    private var tvDiaColeta: TextView? = null
-    private var imgMapBG: ImageView? = null
-    private var cvCapa: CardView? = null
+    private var tvTituloColeta: TextView? = null
+    private var tvSubtituloColeta: TextView? = null
+    private var cvColetaCapa: CardView? = null
     private var tvCapaInfo: TextView? = null
     private var clColeta: ConstraintLayout? = null
-    private var tvSpacer: TextView? = null
+    private var clSemanaLista: ConstraintLayout? = null
+    private var clTime: ConstraintLayout? = null
+
+    private var llEtapaAgendada: LinearLayout? = null
+    private var tvEtapaAgendada: TextView? = null
+    private var tvEtapaAgendadaDescricao: TextView? = null
+
     private var itensSemana: ArrayList<ImageView>? = null
-    private var itemSemanaSelectedPosition: Int? = null
+    private var diasPossiveis: ArrayList<Int>? = null
     private var isStateCreate: Boolean = false
-    private var isStateCreated: Boolean = false
     private var isCanceled: Boolean = false
-    private lateinit var imgCancelForm: ImageView
-    private lateinit var time: ImageView
-    private lateinit var horaInicial: TextView
-    private lateinit var horaFinal: TextView
+    private lateinit var imgCancelarSolicitacao: ImageView
+    private lateinit var imgSelectTime: ImageView
+    private lateinit var tvPeriodoIn: TextView
+    private lateinit var tvPeriodoOut: TextView
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
     private var coletas: ArrayList<Coleta>? = null
     private var nColetas: Int = 0
     private var isPausedActionButton: Boolean = false
+
+    //variáveis do tutorial
+    private var imgClickSelectTimeAgendaTutorial: ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,21 +87,28 @@ open class ColaboradorFragment : Fragment() {
 
     private fun initViews(rootView: View?) {
         if (rootView != null) {
-            imgSolicitarColeta = rootView.findViewById(R.id.imgSolicitarColeta)
+            imgSolicitarColeta = rootView.findViewById(R.id.imgSolicitarColeta1)
             clSolicitarColeta = rootView.findViewById(R.id.clSolicitarColeta)
             clChecks = rootView.findViewById(R.id.clChecks)
-            tvInfoCreate = rootView.findViewById(R.id.tvInfoCreate)
-            tvDataColeta = rootView.findViewById(R.id.tvTituloColeta)
-            tvDiaColeta = rootView.findViewById(R.id.tvSubtituloColeta)
-            imgMapBG = rootView.findViewById(R.id.imgMapBG)
-            cvCapa = rootView.findViewById(R.id.cvCapa)
+            tvInfoCreate = rootView.findViewById(R.id.tvSolicitacaoColetaTitle)
+            tvTituloColeta = rootView.findViewById(R.id.tvTituloColeta)
+            tvSubtituloColeta = rootView.findViewById(R.id.tvSubtituloColeta)
+            cvColetaCapa = rootView.findViewById(R.id.cvColetaCapa)
             tvCapaInfo = rootView.findViewById(R.id.tvCapaInfo)
             clColeta = rootView.findViewById(R.id.clColeta)
-            tvSpacer = rootView.findViewById(R.id.tvSpacer)
-            imgCancelForm = rootView.findViewById(R.id.imgCancelForm)
-            time = rootView.findViewById(R.id.image_time)
-            horaInicial = rootView.findViewById(R.id.tvPeriodoIn)
-            horaFinal = rootView.findViewById(R.id.tvPeriodoOut)
+            clSemanaLista = rootView.findViewById(R.id.clSemanaLista)
+            clTime = rootView.findViewById(R.id.clTime)
+            imgCancelarSolicitacao = rootView.findViewById(R.id.imgCancelarSolicitacao)
+            imgSelectTime = rootView.findViewById(R.id.imgSelectTime)
+            tvPeriodoIn = rootView.findViewById(R.id.tvPeriodoIn)
+            tvPeriodoOut = rootView.findViewById(R.id.tvPeriodoOut)
+
+            llEtapaAgendada = rootView.findViewById(R.id.llEtapaAgendada)
+            tvEtapaAgendada = rootView.findViewById(R.id.tvEtapaAgendada)
+            tvEtapaAgendadaDescricao = rootView.findViewById(R.id.tvEtapaAgendadaDescricao)
+
+            //Variaveis do Tutorial
+            imgClickSelectTimeAgendaTutorial = rootView.findViewById(R.id.imgClickSelectTimeAgendaTutorial)
 
             itensSemana = ArrayList()
             val imgResources = arrayOf(
@@ -104,17 +121,19 @@ open class ColaboradorFragment : Fragment() {
                 R.id.imgS7
             )
 
+            diasPossiveis = ArrayList()
+
             imgResources.forEachIndexed { i, id ->
                 itensSemana?.add(rootView.findViewById(id))
                 itensSemana?.last()?.setOnClickListener {
-                    cleanSelecaoSemana()
+                    //cleanSelecaoSemana()
                     val item: ImageView = it as ImageView
-                    if (itemSemanaSelectedPosition == i) {
-                        item.setImageResource(R.drawable.button_cycle_orange)
-                        itemSemanaSelectedPosition = null
+                    if (diasPossiveis!!.contains(i)) {
+                        item.setImageResource(R.drawable.border_cycle_orange)
+                        diasPossiveis!!.remove(i)
                     } else {
-                        item.setImageResource(R.drawable.button_cycle_blue)
-                        itemSemanaSelectedPosition = i
+                        item.setImageResource(R.drawable.button_cycle_orange)
+                        diasPossiveis!!.add(i)
                     }
                 }
             }
@@ -125,16 +144,19 @@ open class ColaboradorFragment : Fragment() {
             }
 
             //clear all listeners
-            imgCancelForm.setOnClickListener {
+            imgCancelarSolicitacao?.setOnClickListener {
                 var sp: SharedPreferences =
                     requireContext().getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
                 if (sp.contains("ColetaSolicitada")) {
                     confirmDeleteColetaSolicitada(sp)
+                } else if (isStateCreate){
+                    isCanceled = true
+                    toggleStateCreate()
                 }
             }
 
             //TimePicker
-            time.setOnClickListener {
+            imgSelectTime?.setOnClickListener {
                 val cal = Calendar.getInstance()
                 val inicialTimeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
@@ -146,7 +168,7 @@ open class ColaboradorFragment : Fragment() {
                             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                                 cal1.set(Calendar.HOUR_OF_DAY, hourOfDay)
                                 cal1.set(Calendar.MINUTE, minute)
-                                horaFinal.text = SimpleDateFormat("HH:mm").format(cal1.time)
+                                tvPeriodoOut.text = SimpleDateFormat("HH:mm").format(cal1.time)
                                 validate()
                             }
                         var tpFinalDialog = TimePickerDialog(
@@ -159,7 +181,7 @@ open class ColaboradorFragment : Fragment() {
                         tpFinalDialog.setTitle("Até qual horário?")
                         tpFinalDialog.show()
 
-                        horaInicial.text = SimpleDateFormat("HH:mm").format(cal.time)
+                        tvPeriodoIn.text = SimpleDateFormat("HH:mm").format(cal.time)
                     }
                 var tpInicialDialog = TimePickerDialog(
                     context,
@@ -187,12 +209,11 @@ open class ColaboradorFragment : Fragment() {
                 .get().addOnCompleteListener {
                     if (it.isSuccessful) {
                         //montar coleta nas views
-                        horaInicial.text = it.result?.child("periodoIn")?.getValue().toString()
-                        horaFinal.text = it.result?.child("periodoOut")?.getValue().toString()
+                        tvPeriodoIn.text = it.result?.child("periodoIn")?.getValue().toString()
+                        tvPeriodoOut.text = it.result?.child("periodoOut")?.getValue().toString()
                     }
                 }
             verColeta()
-            isStateCreated = true
         }
     }
 
@@ -205,19 +226,23 @@ open class ColaboradorFragment : Fragment() {
     private fun validate(): Boolean {
         var isValided = true
 
-        if (itemSemanaSelectedPosition == null) {
+        if (diasPossiveis!!.isEmpty()) {
             alert("Selecione pelo menos um dia da semana", 2, requireContext())
+            animateInputError(clColeta!!)
             isValided = false
         }
 
-        var horaF = horaFinal.text.toString().replace(":", "")
-        var horaI = horaInicial.text.toString().replace(":", "")
+        var horaF = tvPeriodoOut.text.toString().replace(":", "")
+        var horaI = tvPeriodoIn.text.toString().replace(":", "")
 
         if (horaF.toInt() <= horaI.toInt()) {
             //alert período invalido!
             alert("Selecione um período válido", 2, requireContext())
-            horaInicial.text = "00:00"
-            horaFinal.text = "00:00"
+            tvPeriodoIn.text = "00:00"
+            tvPeriodoOut.text = "00:00"
+            animateInputError(clColeta!!)
+            animateTutorialPulse(imgClickSelectTimeAgendaTutorial!!)
+
             isValided = false
         }
 
@@ -225,45 +250,45 @@ open class ColaboradorFragment : Fragment() {
     }
 
     private fun toggleStateCreate() {
-        if (isCanceled == true) {
+        if (isCanceled) {
             YoYo.with(Techniques.RotateIn).duration(800).repeat(0).playOn(clSolicitarColeta)
-            cvCapa?.visibility = View.VISIBLE
+            cvColetaCapa?.visibility = View.VISIBLE
+            clSolicitarColeta?.visibility = View.VISIBLE
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(clColeta)
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(tvCapaInfo)
-            tvInfoCreate?.visibility = View.GONE
             clChecks?.visibility = View.GONE
-            tvSpacer?.visibility = View.GONE
 
             val handler = Handler()
             val r = Runnable {
                 imgSolicitarColeta?.setImageResource(R.drawable.icon_plus)
                 imgSolicitarColeta?.layoutParams?.width = 116
                 imgSolicitarColeta?.layoutParams?.height = 116
-                horaInicial.text = "00:00"
-                horaFinal.text = "00:00"
+                tvPeriodoIn.text = "00:00"
+                tvPeriodoOut.text = "00:00"
             }
             handler.postDelayed(r, 600)
             isStateCreate = false
-            isStateCreated = false
             isCanceled = false
 
-        } else if (!isStateCreate && !isStateCreated) {
+        } else if (!isStateCreate) {
             YoYo.with(Techniques.RotateIn).duration(800).repeat(0).playOn(clSolicitarColeta)
-            cvCapa?.visibility = View.GONE
+            cvColetaCapa?.visibility = View.GONE
+            clTime!!.visibility = View.VISIBLE
+            clSemanaLista!!.visibility = View.VISIBLE
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(clColeta)
-            tvInfoCreate?.visibility = View.VISIBLE
-            tvSpacer?.visibility = View.INVISIBLE
+            animateTutorialPulse(imgClickSelectTimeAgendaTutorial!!)
 
             val handler = Handler()
             val r = Runnable {
                 imgSolicitarColeta?.setImageResource(R.drawable.icon_check_white)
-                imgSolicitarColeta?.layoutParams?.width = 66
-                imgSolicitarColeta?.layoutParams?.height = 66
+                imgSolicitarColeta?.layoutParams?.width = 90
+                imgSolicitarColeta?.layoutParams?.height = 90
             }
+
             handler.postDelayed(r, 600)
             isStateCreate = true
 
-        } else if (isStateCreate && !isStateCreated) {
+        } else if (isStateCreate) {
 
             // varifica os campos e caso validados as opções, cria nova coleta com status "Solicitada"
             if (validate() && !isPausedActionButton) {
@@ -277,6 +302,7 @@ open class ColaboradorFragment : Fragment() {
                             Log.i("INFO", "coletas -> it.result = : " + it.result.toString())
                         } else {
                             alert("Verifique sua conexão!", 2, requireContext())
+                            animateInputError(clColeta!!)
                         }
                     }
             } else if (isPausedActionButton) {
@@ -322,6 +348,7 @@ open class ColaboradorFragment : Fragment() {
                     }
                 } else {
                     alert("Verifique sua conexão!", 2, requireContext())
+                    animateInputError(clColeta!!)
                 }
             }
     }
@@ -329,12 +356,15 @@ open class ColaboradorFragment : Fragment() {
     fun setColetaAndSave() {
         // preenche a coleta solicitada, salva no firebase e salva o SheredPreference
         var coleta = Coleta()
-        coleta!!.solicitante = auth!!.currentUser!!.uid
-        coleta!!.coletor = ID_COLETOR_PRINCIPAL
-        coleta!!.status = SOLICITADA
-        coleta!!.periodoIn = horaInicial.text.toString()
-        coleta!!.periodoOut = horaFinal.text.toString()
-        coleta!!.ativar().generateIdAndSave(requireContext(), COLABORADOR_PREF, this)
+        coleta.solicitante = auth!!.currentUser!!.uid
+        coleta.coletor = ID_COLETOR_PRINCIPAL
+        coleta.status = SOLICITADA
+        coleta.periodoIn = tvPeriodoIn.text.toString()
+        coleta.periodoOut = tvPeriodoOut.text.toString()
+        coleta.diasPossiveis = diasPossiveis
+        coleta.ativar()
+        coleta.generateIdAndSave(requireContext(), COLABORADOR_PREF, this)
+
         pauseActionButton()
     }
 
@@ -348,11 +378,12 @@ open class ColaboradorFragment : Fragment() {
     }
 
     fun verColeta() {
-        //animate transitation
-        cvCapa?.visibility = View.GONE
-        tvSpacer?.visibility = View.GONE
-        clChecks?.visibility = View.VISIBLE
-        tvInfoCreate?.visibility = View.GONE
+        cvColetaCapa!!.visibility = View.GONE
+        clChecks!!.visibility = View.VISIBLE
+        clSolicitarColeta?.visibility = View.GONE
+        clTime!!.visibility = View.GONE
+        clSemanaLista!!.visibility = View.GONE
+
         YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(clColeta)
         YoYo.with(Techniques.RotateOut).duration(400).repeat(0).playOn(clSolicitarColeta)
     }
@@ -370,6 +401,7 @@ open class ColaboradorFragment : Fragment() {
                             sp.edit().clear().apply()
                         } else {
                             alert("Não foi possível cancelar a solicitação!", 2, requireContext())
+                            animateInputError(clColeta!!)
                         }
                     }
             }

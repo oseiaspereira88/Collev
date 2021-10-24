@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.empreendapp.collev.R
 import com.empreendapp.collev.util.LibraryClass.PREF
 
 class DefaultFunctions {
@@ -32,6 +34,21 @@ class DefaultFunctions {
             YoYo.with(Techniques.Swing)
                 .duration(300)
                 .repeat(0).playOn(view)
+        }
+
+        fun animateTutorialPulse(view: View){
+            view.visibility = View.VISIBLE
+
+            YoYo.with(Techniques.Pulse)
+                .duration(900)
+                .repeat(6).playOn(view)
+
+            val handler = Handler()
+            val r = Runnable {
+                view.visibility = View.GONE
+            }
+
+            handler.postDelayed(r, 5400)
         }
 
         fun checkExit(activity: Activity) {

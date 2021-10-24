@@ -8,48 +8,21 @@ import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Coleta {
     var id: String? = null
     var solicitante: String? = null
     var coletor: String? = null
     var local: String? = null
-    var status //solicitada, agendada e atendida; ou cancelada;
-            : String? = null
-    var feedbacks: ArrayList<Feedback>? = null
-    var diasPossiveis: List<String>? = null
+    var status: String? = null
+    var diasPossiveis: ArrayList<Int>? = null
     var periodoIn: String? = null
     var periodoOut: String? = null
     var ativo: Boolean? = false
     var ativo_solicitante: String? = null
 
     constructor()
-
-    constructor(
-        id: String?,
-        solicitante: String?,
-        coletor: String?,
-        local: String?,
-        status: String?,
-        feedbacks: ArrayList<Feedback>?,
-        diasPossiveis: List<String>?,
-        periodoIn: String?,
-        periodoOut: String?,
-        ativo: Boolean?,
-        ativo_solicitante: String?
-    ) {
-        this.id = id
-        this.solicitante = solicitante
-        this.coletor = coletor
-        this.local = local
-        this.status = status
-        this.feedbacks = feedbacks
-        this.diasPossiveis = diasPossiveis
-        this.periodoIn = periodoIn
-        this.periodoOut = periodoOut
-        this.ativo = ativo
-        this.ativo_solicitante = ativo_solicitante
-    }
 
     fun generateIdAndSave(ctx: Context, spName: String, vf: ColaboradorFragment) {
         LibraryClass.firebaseDB!!.reference!!.child("coletas")!!.push()
