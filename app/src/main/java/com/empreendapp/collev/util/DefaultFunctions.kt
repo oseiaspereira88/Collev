@@ -45,7 +45,7 @@ class DefaultFunctions {
 
             val handler = Handler()
             val r = Runnable {
-                view.visibility = View.GONE
+                view.visibility = View.INVISIBLE
             }
 
             handler.postDelayed(r, 5400)
