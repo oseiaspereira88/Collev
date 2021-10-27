@@ -20,6 +20,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
 import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateInputError
@@ -213,9 +215,21 @@ open class ColaboradorFragment : Fragment() {
                     if (it.isSuccessful) {
                         //montar coleta nas views
                         it.result.getValue(Coleta::class.java)!!.let{ coleta ->
-                            llEtapaAgendada!!.visibility = View.VISIBLE
-                            tvEtapaAgendadaEmpty!!.visibility = View.GONE
-                            tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
+                            if(coleta.status!! == AGENDADA){
+                                llEtapaAgendada!!.visibility = View.VISIBLE
+                                tvEtapaAgendadaEmpty!!.visibility = View.GONE
+                                tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
+                            } else if (coleta.status!! == ATENDIDA){
+                                sp.edit().clear()
+
+                                val handler = Handler()
+                                val r = Runnable {
+                                    isCanceled = true
+                                    toggleStateCreate()
+                                }
+
+                                handler.postDelayed(r, 900)
+                            }
                         }
                     }
                 }
