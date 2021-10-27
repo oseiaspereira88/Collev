@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.R
 import com.empreendapp.collev.ui.system.LoginActivity
+import com.empreendapp.collev.ui.system.ParceirosActivity
 import com.empreendapp.collev.ui.system.PerfilActivity
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.google.firebase.auth.FirebaseAuth
@@ -50,6 +51,7 @@ class MenuFragment : Fragment() {
 
         clOpQuemSomos!!.setOnClickListener{
             animateButton(it)
+            startActivity(Intent(context, QuemsomosActivity::class.java))
         }
         clOpConfiguracoes!!.setOnClickListener{
             animateButton(it)
@@ -59,7 +61,7 @@ class MenuFragment : Fragment() {
         }
         clOpParceiros!!.setOnClickListener{
             animateButton(it)
-            startActivity(Intent(context, PerfilActivity::class.java))
+            startActivity(Intent(context, ParceirosActivity::class.java))
         }
 
         clOpSair?.setOnClickListener{
