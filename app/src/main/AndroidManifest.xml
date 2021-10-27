@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collev.NoActionBar">
         <activity
+            android:name=".ui.system.fragments.QuemsomosActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.system.ParceirosActivity"
             android:exported="false" />
         <activity
