@@ -41,7 +41,7 @@ class ColetoresFragment : Fragment() {
         var notificacoes = ArrayList<Notificacao>()
 
         for(i in 1..10){
-            notificacoes.add(Notificacao(i))
+            notificacoes.add(Notificacao())
         }
 
         return notificacoes
