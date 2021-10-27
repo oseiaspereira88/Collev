@@ -50,7 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.system.MainActivity" />
-        <activity android:name=".ui.adm.AdmActivity" />
         <activity android:name=".ui.system.InitPerfilActivity" />
         <activity android:name=".ui.system.CadastroActivity" />
         <activity android:name=".ui.system.LoginActivity" />

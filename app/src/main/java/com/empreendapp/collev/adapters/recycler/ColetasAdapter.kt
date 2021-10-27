@@ -66,7 +66,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    var daysList = arrayOf("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
+                    var daysList = getDaysList(coleta.diasPossiveis)
                     var adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
                     adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -124,8 +124,10 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                 .setPositiveButton("Sim") { confirmDialog, id ->
                                     dialog.cancel()
 
-                                    coleta.periodoIn = tvHorario.text.toString()
+                                    coleta.diaMarcado = spinner.selectedItem.toString()
+                                    coleta.horaMarcada = tvHorario.text.toString()
                                     coleta.status = AGENDADA
+
                                     coleta.saveInFirebase().addOnCompleteListener {
                                         if(it.isSuccessful){
                                             YoYo.with(Techniques.SlideOutRight)
@@ -229,7 +231,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    var daysList = arrayOf("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
+                    var daysList = getDaysList(coleta.diasPossiveis)
                     var adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
                     adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -287,6 +289,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                 .setPositiveButton("Sim") { confirmDialog, id ->
                                     dialog.cancel()
 
+                                    coleta.diaMarcado = spinner.selectedItem.toString() + "-feira"
                                     coleta.periodoIn = tvHorario.text.toString()
                                     coleta.status = AGENDADA
                                     coleta.saveInFirebase().addOnCompleteListener {
@@ -327,6 +330,17 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 }
             }
         }
+    }
+
+    private fun getDaysList(diasPossiveis: ArrayList<Int>?): Array<out Any> {
+        var selectedDays = ArrayList<String>()
+        var days = arrayOf("Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado")
+
+        diasPossiveis!!.forEach{
+            selectedDays.add(days[it])
+        }
+
+        return selectedDays.toArray()
     }
 
     override fun getItemCount(): Int {

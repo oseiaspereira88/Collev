@@ -19,6 +19,8 @@ class Coleta {
     var diasPossiveis: ArrayList<Int>? = null
     var periodoIn: String? = null
     var periodoOut: String? = null
+    var diaMarcado: String? = null
+    var horaMarcada: String? = null
     var ativo: Boolean? = false
     var ativo_solicitante: String? = null
 

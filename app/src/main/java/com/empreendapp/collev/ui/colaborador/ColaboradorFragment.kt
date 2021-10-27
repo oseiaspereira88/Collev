@@ -38,7 +38,7 @@ open class ColaboradorFragment : Fragment() {
     private val COLABORADOR_PREF = "com.empreendapp.collev.COLABORADOR_PREF"
     private var imgSolicitarColeta: ImageView? = null
     private var clSolicitarColeta: ConstraintLayout? = null
-    private var clChecks: ConstraintLayout? = null
+    private var clEtapas: ConstraintLayout? = null
     private var tvInfoCreate: TextView? = null
     private var tvTituloColeta: TextView? = null
     private var tvSubtituloColeta: TextView? = null
@@ -51,6 +51,7 @@ open class ColaboradorFragment : Fragment() {
     private var llEtapaAgendada: LinearLayout? = null
     private var tvEtapaAgendada: TextView? = null
     private var tvEtapaAgendadaDescricao: TextView? = null
+    private var tvEtapaAgendadaEmpty: TextView? = null
 
     private var itensSemana: ArrayList<ImageView>? = null
     private var diasPossiveis: ArrayList<Int>? = null
@@ -89,7 +90,7 @@ open class ColaboradorFragment : Fragment() {
         if (rootView != null) {
             imgSolicitarColeta = rootView.findViewById(R.id.imgSolicitarColeta1)
             clSolicitarColeta = rootView.findViewById(R.id.clSolicitarColeta)
-            clChecks = rootView.findViewById(R.id.clChecks)
+            clEtapas = rootView.findViewById(R.id.clEtapas)
             tvInfoCreate = rootView.findViewById(R.id.tvSolicitacaoColetaTitle)
             tvTituloColeta = rootView.findViewById(R.id.tvTituloColeta)
             tvSubtituloColeta = rootView.findViewById(R.id.tvSubtituloColeta)
@@ -106,6 +107,7 @@ open class ColaboradorFragment : Fragment() {
             llEtapaAgendada = rootView.findViewById(R.id.llEtapaAgendada)
             tvEtapaAgendada = rootView.findViewById(R.id.tvEtapaAgendada)
             tvEtapaAgendadaDescricao = rootView.findViewById(R.id.tvEtapaAgendadaDescricao)
+            tvEtapaAgendadaEmpty = rootView.findViewById(R.id.tvEtapaAgendadaEmpty)
 
             //Variaveis do Tutorial
             imgClickSelectTimeAgendaTutorial = rootView.findViewById(R.id.imgClickSelectTimeAgendaTutorial)
@@ -198,6 +200,7 @@ open class ColaboradorFragment : Fragment() {
 
     private fun checkColetaSolicitada() {
         var user = auth!!.currentUser
+        //getUserById()
 
         var sp: SharedPreferences = requireContext()
             .getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
@@ -209,17 +212,14 @@ open class ColaboradorFragment : Fragment() {
                 .get().addOnCompleteListener {
                     if (it.isSuccessful) {
                         //montar coleta nas views
-                        tvPeriodoIn.text = it.result?.child("periodoIn")?.getValue().toString()
-                        tvPeriodoOut.text = it.result?.child("periodoOut")?.getValue().toString()
+                        it.result.getValue(Coleta::class.java)!!.let{ coleta ->
+                            llEtapaAgendada!!.visibility = View.VISIBLE
+                            tvEtapaAgendadaEmpty!!.visibility = View.GONE
+                            tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
+                        }
                     }
                 }
             verColeta()
-        }
-    }
-
-    private fun cleanSelecaoSemana() {
-        itensSemana?.forEach { item ->
-            item.setImageResource(R.drawable.button_cycle_orange)
         }
     }
 
@@ -228,7 +228,6 @@ open class ColaboradorFragment : Fragment() {
 
         if (diasPossiveis!!.isEmpty()) {
             alert("Selecione pelo menos um dia da semana", 2, requireContext())
-            animateInputError(clColeta!!)
             isValided = false
         }
 
@@ -256,7 +255,7 @@ open class ColaboradorFragment : Fragment() {
             clSolicitarColeta?.visibility = View.VISIBLE
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(clColeta)
             YoYo.with(Techniques.Pulse).duration(400).repeat(0).playOn(tvCapaInfo)
-            clChecks?.visibility = View.GONE
+            clEtapas?.visibility = View.GONE
 
             val handler = Handler()
             val r = Runnable {
@@ -379,7 +378,7 @@ open class ColaboradorFragment : Fragment() {
 
     fun verColeta() {
         cvColetaCapa!!.visibility = View.GONE
-        clChecks!!.visibility = View.VISIBLE
+        clEtapas!!.visibility = View.VISIBLE
         clSolicitarColeta?.visibility = View.GONE
         clTime!!.visibility = View.GONE
         clSemanaLista!!.visibility = View.GONE
