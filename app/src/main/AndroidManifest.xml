@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collev.NoActionBar">
         <activity
+            android:name=".ui.system.fragments.QuemsomosActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.system.ParceirosActivity"
             android:exported="false" />
         <activity
@@ -50,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.system.MainActivity" />
-        <activity android:name=".ui.adm.AdmActivity" />
+
         <activity android:name=".ui.system.InitPerfilActivity" />
         <activity android:name=".ui.system.CadastroActivity" />
         <activity android:name=".ui.system.LoginActivity" />
