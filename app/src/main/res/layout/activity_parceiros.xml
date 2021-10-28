@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imagecoletivaAmbiental"
-        android:layout_width="133dp"
-        android:layout_height="123dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,128 +32,140 @@
 
     <EditText
         android:id="@+id/nome1"
-        android:layout_width="247dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nome"
+        android:text="Coletiva Ambiental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imagecoletivaAmbiental"
-        app:layout_constraintTop_toBottomOf="@+id/nomeParceiros" />
+        app:layout_constraintTop_toTopOf="@+id/imagecoletivaAmbiental" />
 
     <EditText
         android:id="@+id/Descrição1"
-        android:layout_width="247dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Descrição"
+        android:text="Empresa coletora"
+        app:layout_constraintBottom_toBottomOf="@+id/imagecoletivaAmbiental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toEndOf="@+id/imagecoletivaAmbiental"
-        app:layout_constraintTop_toBottomOf="@+id/nome1" />
+        app:layout_constraintStart_toEndOf="@+id/imagecoletivaAmbiental" />
 
     <ImageView
         android:id="@+id/image2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagecoletivaAmbiental"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/coletivaambiental" />
 
     <ImageView
         android:id="@+id/image3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/coletivaambiental" />
 
     <ImageView
         android:id="@+id/image4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image3"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/coletivaambiental" />
 
     <EditText
         android:id="@+id/Nome2"
-        android:layout_width="247dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nome"
+        android:text="Coletiva Ambiental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image2"
-        app:layout_constraintTop_toBottomOf="@+id/Descrição1" />
+        app:layout_constraintTop_toTopOf="@+id/image2" />
 
     <EditText
         android:id="@+id/Descrição2"
-        android:layout_width="247dp"
-        android:layout_height="66dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Descrição"
+        android:text="Empresa coletora"
+        app:layout_constraintBottom_toBottomOf="@+id/image2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image2"
         app:layout_constraintTop_toBottomOf="@+id/Nome2" />
 
     <EditText
         android:id="@+id/Nome3"
-        android:layout_width="247dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nome"
+        android:text="Coletiva Ambiental"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image3"
-        app:layout_constraintTop_toBottomOf="@+id/Descrição2" />
+        app:layout_constraintTop_toTopOf="@+id/image3" />
 
     <EditText
         android:id="@+id/Descrição3"
-        android:layout_width="247dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Descrição"
+        android:text="Empresa coletora"
+        app:layout_constraintBottom_toBottomOf="@+id/image3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
-        app:layout_constraintStart_toEndOf="@+id/image3"
-        app:layout_constraintTop_toBottomOf="@+id/Nome3" />
+        app:layout_constraintStart_toEndOf="@+id/image3" />
 
     <EditText
         android:id="@+id/Nome4"
-        android:layout_width="247dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nome"
+        android:text="Coletiva Ambiental"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image4"
-        app:layout_constraintTop_toBottomOf="@+id/Descrição3" />
+        app:layout_constraintTop_toTopOf="@+id/image4" />
 
     <EditText
         android:id="@+id/Descrição4"
-        android:layout_width="247dp"
-        android:layout_height="68dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Descrição"
+        android:text="Empresa coletora"
+        app:layout_constraintBottom_toBottomOf="@+id/image4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image4"
         app:layout_constraintTop_toBottomOf="@+id/Nome4" />

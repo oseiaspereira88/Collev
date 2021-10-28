@@ -9,44 +9,42 @@
 
     <TextView
         android:id="@+id/textView32"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:fontFamily="@font/trocchi_regular"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/reem_kufi_regular"
+        android:gravity="bottom|center_horizontal"
         android:text="Quem Somos"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="32sp"
-        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView31" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="396dp"
-        android:layout_height="113dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:textAlignment="center"
-        android:textAllCaps="true"
         android:textColor="@color/corTexto"
         android:textSize="20sp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView32"
-        tools:text="A empreendApp é uma startup tecnologica que desenvolver sites  e aplicações mobiles personalizadas para médias e micro-empresas." />
+        tools:text="Somos a EmpreendApp, uma startup de tecnologia que desenvolver sites  e aplicativos personalizados para médias e micro-empresas, no estilo de soft house." />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="366dp"
         android:layout_height="172dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -56,10 +54,10 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="223dp"
-        android:layout_height="46dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
@@ -70,9 +68,8 @@
         android:id="@+id/imageView31"
         android:layout_width="59dp"
         android:layout_height="56dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_botaovoltar" />

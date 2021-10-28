@@ -224,8 +224,7 @@ open class ColaboradorFragment : Fragment() {
 
                                 val handler = Handler()
                                 val r = Runnable {
-                                    isCanceled = true
-                                    toggleStateCreate()
+                                    cancelarFormulario()
                                 }
 
                                 handler.postDelayed(r, 900)
@@ -311,7 +310,7 @@ open class ColaboradorFragment : Fragment() {
                     .get().addOnCompleteListener {
                         if (it.isSuccessful) {
                             nColetas = it.result.childrenCount.toInt()
-                            verificarColetaSolicitada()
+                            checkColetaSolicitadaInBdElseSave()
                             Log.i("INFO", "coletas -> it.result = : " + it.result.toString())
                         } else {
                             alert("Verifique sua conexão!", 2, requireContext())
@@ -324,7 +323,7 @@ open class ColaboradorFragment : Fragment() {
         }
     }
 
-    fun verificarColetaSolicitada() {
+    fun checkColetaSolicitadaInBdElseSave() {
         coletas = ArrayList()
         LibraryClass.firebaseDB!!.reference?.child("coletas").orderByKey()
             .get().addOnCompleteListener {
@@ -412,6 +411,7 @@ open class ColaboradorFragment : Fragment() {
                         if (task.isSuccessful) {
                             cancelarFormulario()
                             sp.edit().clear().apply()
+                            alert("A solicitação foi cancelada!", 2, requireContext())
                         } else {
                             alert("Não foi possível cancelar a solicitação!", 2, requireContext())
                             animateInputError(clColeta!!)
@@ -426,6 +426,5 @@ open class ColaboradorFragment : Fragment() {
     private fun cancelarFormulario() {
         isCanceled = true
         toggleStateCreate()
-        alert("A solicitação foi cancelada!", 2, requireContext())
     }
 }
