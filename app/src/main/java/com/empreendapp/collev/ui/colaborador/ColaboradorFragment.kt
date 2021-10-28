@@ -220,7 +220,7 @@ open class ColaboradorFragment : Fragment() {
                                 tvEtapaAgendadaEmpty!!.visibility = View.GONE
                                 tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
                             } else if (coleta.status!! == ATENDIDA){
-                                sp.edit().clear()
+                                sp.edit().clear().apply()
 
                                 val handler = Handler()
                                 val r = Runnable {
