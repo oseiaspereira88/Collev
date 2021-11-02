@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collev.NoActionBar">
         <activity
-            android:name=".ui.system.fragments.QuemsomosActivity"
+            android:name=".ui.system.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.system.QuemsomosActivity"
             android:exported="true" />
         <activity
             android:name=".ui.system.ParceirosActivity"

@@ -129,7 +129,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                     coleta.status = AGENDADA
                                     coleta.desativar()
 
-                                    coleta.saveInFirebase().addOnCompleteListener {
+                                    coleta.saveInFirebase(act).addOnCompleteListener {
                                         if(it.isSuccessful){
                                             YoYo.with(Techniques.SlideOutRight)
                                                 .duration(1000)
@@ -191,7 +191,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
                     dialogView!!.findViewById<TextView>(R.id.tvConcluirColeta).setOnClickListener {
                         coleta.status = ATENDIDA
-                        coleta.saveInFirebase().addOnCompleteListener {
+                        coleta.saveInFirebase(act).addOnCompleteListener {
                             if(it.isSuccessful){
                                 YoYo.with(Techniques.SlideOutRight)
                                     .duration(1000)
@@ -293,7 +293,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                     coleta.diaMarcado = spinner.selectedItem.toString() + "-feira"
                                     coleta.periodoIn = tvHorario.text.toString()
                                     coleta.status = AGENDADA
-                                    coleta.saveInFirebase().addOnCompleteListener {
+                                    coleta.saveInFirebase(act).addOnCompleteListener {
                                         if(it.isSuccessful){
                                             YoYo.with(Techniques.SlideOutRight)
                                                 .duration(1000)

@@ -6,12 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.R
-import com.empreendapp.collev.ui.system.LoginActivity
-import com.empreendapp.collev.ui.system.ParceirosActivity
-import com.empreendapp.collev.ui.system.PerfilActivity
+import com.empreendapp.collev.ui.system.*
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.google.firebase.auth.FirebaseAuth
 
@@ -58,6 +55,7 @@ class MenuFragment : Fragment() {
         }
         clOpChat!!.setOnClickListener{
             animateButton(it)
+            startActivity(Intent(context, ChatActivity::class.java))
         }
         clOpParceiros!!.setOnClickListener{
             animateButton(it)

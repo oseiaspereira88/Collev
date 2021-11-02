@@ -213,21 +213,30 @@ open class ColaboradorFragment : Fragment() {
             database!!.child("coletas").child(solicitadaId!!)
                 .get().addOnCompleteListener {
                     if (it.isSuccessful) {
-                        //montar coleta nas views
-                        it.result.getValue(Coleta::class.java)!!.let{ coleta ->
-                            if(coleta.status!! == AGENDADA){
-                                llEtapaAgendada!!.visibility = View.VISIBLE
-                                tvEtapaAgendadaEmpty!!.visibility = View.GONE
-                                tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
-                            } else if (coleta.status!! == ATENDIDA){
-                                sp.edit().clear().apply()
+                        if (it.result.exists()){
+                            //montar coleta nas views
+                            it.result.getValue(Coleta::class.java)!!.let{ coleta ->
+                                if(coleta.status!! == AGENDADA){
+                                    llEtapaAgendada!!.visibility = View.VISIBLE
+                                    tvEtapaAgendadaEmpty!!.visibility = View.GONE
+                                    tvEtapaAgendadaDescricao!!.text = "${coleta.diaMarcado}, às ${coleta.horaMarcada} horas"
+                                } else if (coleta.status!! == ATENDIDA){
+                                    sp.edit().clear().apply()
 
-                                val handler = Handler()
-                                val r = Runnable {
-                                    cancelarFormulario()
+                                    val handler = Handler()
+                                    val r = Runnable {
+                                        cancelarFormulario()
+                                    }
+
+                                    handler.postDelayed(r, 900)
                                 }
+                            }
+                        } else{
+                            sp.edit().clear().apply()
 
-                                handler.postDelayed(r, 900)
+                            val handler = Handler()
+                            val r = Runnable {
+                                cancelarFormulario()
                             }
                         }
                     }
@@ -339,8 +348,7 @@ open class ColaboradorFragment : Fragment() {
                         coleta.periodoIn = it.result.child("periodoIn").value.toString()
                         coleta.periodoOut = it.result.child("periodoOut").value.toString()
                         coleta.ativo = it.result.child("ativo").value as Boolean?
-                        coleta.ativo_solicitante =
-                            it.result.child("ativo_solicitante").value.toString()
+                        coleta.ativo_solicitante = it.result.child("ativo_solicitante").value.toString()
 
                         coletas!!.add(coleta)
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.system.QuemsomosActivity">
-
+    tools:context=".ui.system.ChatActivity">
 
     <TextView
         android:id="@+id/textView32"
@@ -14,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/reem_kufi_regular"
         android:gravity="bottom|center_horizontal"
-        android:text="Quem Somos"
+        android:text="Fale conosco"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="32sp"
@@ -30,7 +29,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
-        android:text="A EmpreendApp é uma startup de tecnologia que desenvolver sites  e aplicativos personalizados para médias e micro-empresas."
+        android:text="Você tem alguma dúvida, algum problema pra reportar ou mesmo quer nos contratar para desenvolvermos seu aplicativo? Já estamos no aguardo..."
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +37,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="366dp"
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="0dp"
         android:layout_height="172dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,19 +50,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/mteam" />
+        app:lottie_rawRes="@raw/anim_chatting" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_empreendapp" />
+        app:srcCompat="@drawable/icon_whatsapp" />
 
     <ImageView
         android:id="@+id/imgBackQuemSomos"
@@ -71,4 +71,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_botaovoltar" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Contate-nos pelo Zap"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var coleta = notificacoes[position]
-        holder.tvColeta?.setText("Sua coleta do dia 12/07 foi finalizada. " + coleta.id_coleta)
+        holder.tvColeta?.setText("Sua coleta do dia 12/07 foi finalizada. ")
 
         holder.viewItem?.setOnLongClickListener{
             //holder.llDataHora?.visibility = View.GONE;

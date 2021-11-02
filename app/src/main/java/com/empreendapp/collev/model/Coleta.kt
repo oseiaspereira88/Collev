@@ -3,7 +3,12 @@ package com.empreendapp.collev.model
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.util.Log
 import com.empreendapp.collev.ui.colaborador.ColaboradorFragment
+import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
+import com.empreendapp.collev.util.NotificacaoTipo
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
@@ -33,7 +38,7 @@ class Coleta {
                 id = task.result.key.toString()
                 var sp: SharedPreferences = ctx.getSharedPreferences(spName, MODE_PRIVATE)
                 sp.edit().putString("ColetaSolicitada", "" + this.id).apply()
-                saveInFirebase()
+                saveInFirebase(ctx)
                 vf.verColeta()
             } else{
                 alert("Erro ao salvar a coleta no db!", 2, ctx)
@@ -41,11 +46,87 @@ class Coleta {
         }
     }
 
-    fun saveInFirebase(): Task<Void> {
-        var bdRef = LibraryClass.firebaseDB?.reference
-        bdRef = id?.let { bdRef?.child("coletas")?.child(it) }!!
+    fun saveInFirebase(ctx: Context): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB!!.reference
+        bdRef!!.child("coletas")!!.child(id!!)
+
         this.id = null
-        return bdRef.setValue(this)
+        return bdRef.setValue(this).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val notificacao = Notificacao()
+
+                when (this.status) {
+                    SOLICITADA -> {
+                        notificacao.maker("Fulano solicitou uma coleta")
+                            .toUser(coletor!!)
+                            .withType(NotificacaoTipo.SOLICITACAO)
+                            .apply(ctx)
+                            .addOnCompleteListener { task ->
+                                if (it.isSuccessful) {
+                                    notificacao.id = task.result.key.toString()
+                                    notificacao.saveInFirebase()
+                                        .addOnCompleteListener {
+                                            if (it.isSuccessful) {
+                                                Log.i("Notificação", "A notificação foi enviada.")
+                                            } else {
+                                                Log.i(
+                                                    "Notificação",
+                                                    "Falha ao enviar a notificação."
+                                                )
+                                            }
+                                        }
+                                } else {
+                                    alert("Erro ao salvar a coleta no db!", 2, ctx)
+                                }
+                            }
+                    }
+                    AGENDADA -> {
+                        notificacao.maker("Cicrano agendou a coleta")
+                            .toUser(solicitante!!)
+                            .withType(NotificacaoTipo.AGENDAMENTO)
+                            .apply(ctx)
+                            .addOnCompleteListener { task ->
+                                if (it.isSuccessful) {
+                                    notificacao.id = task.result.key.toString()
+                                    notificacao.saveInFirebase()
+                                        .addOnCompleteListener {
+                                            if (it.isSuccessful) {
+                                                Log.i("Notificação", "A notificação foi enviada.")
+                                            } else {
+                                                Log.i(
+                                                    "Notificação",
+                                                    "Falha ao enviar a notificação."
+                                                )
+                                            }
+                                        }
+                                }
+                            }
+                    }
+                    ATENDIDA -> {
+                        notificacao.maker("Cicrano solicitou uma coleta")
+                            .toUser(solicitante!!)
+                            .withType(NotificacaoTipo.CONCLUSAO)
+                            .apply(ctx)
+                            .addOnCompleteListener { task ->
+                                if (it.isSuccessful) {
+                                    notificacao.id = task.result.key.toString()
+                                    notificacao.saveInFirebase()
+                                        .addOnCompleteListener {
+                                            if (it.isSuccessful) {
+                                                Log.i("Notificação", "A notificação foi enviada.")
+                                            } else {
+                                                Log.i(
+                                                    "Notificação",
+                                                    "Falha ao enviar a notificação."
+                                                )
+                                            }
+                                        }
+                                }
+                            }
+                    }
+                }
+            }
+        }
     }
 
     fun ativar(): Coleta{

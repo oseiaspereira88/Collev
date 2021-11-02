@@ -20,15 +20,14 @@
         android:id="@+id/nomeParceiros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="PARCEIROS"
+        android:text="Parceiros"
         android:textAllCaps="false"
         android:textColor="?android:attr/colorActivatedHighlight"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/botaoVoltar" />
 
     <EditText
         android:id="@+id/nome1"
