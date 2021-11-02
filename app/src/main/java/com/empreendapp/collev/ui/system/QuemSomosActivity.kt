@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.empreendapp.collev.R
 
-class QuemsomosActivity : AppCompatActivity() {
+class QuemSomosActivity : AppCompatActivity() {
     var imgBackQuemSomos: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quemsomos)
+        setContentView(R.layout.activity_quem_somos)
         initViews()
     }
 

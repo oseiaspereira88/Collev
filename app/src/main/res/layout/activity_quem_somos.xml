@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.system.QuemsomosActivity">
+    tools:context=".ui.system.QuemSomosActivity">
 
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="64dp"
-        android:text="A EmpreendApp é uma startup de tecnologia que desenvolver sites  e aplicativos personalizados para médias e micro-empresas."
+        android:text="A EmpreendApp é uma startup de tecnologia que desenvolve inovação em aplicativos para diversos nichos do mercado."
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +38,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="366dp"
-        android:layout_height="172dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_empreendapp" />
+        app:srcCompat="@drawable/icon_empreendapp_slogan" />
 
     <ImageView
         android:id="@+id/imgBackQuemSomos"

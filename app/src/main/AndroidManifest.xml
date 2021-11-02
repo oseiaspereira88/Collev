@@ -16,7 +16,7 @@
             android:name=".ui.system.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.system.QuemsomosActivity"
+            android:name=".ui.system.QuemSomosActivity"
             android:exported="true" />
         <activity
             android:name=".ui.system.ParceirosActivity"

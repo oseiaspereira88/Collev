@@ -39,10 +39,11 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="0dp"
-        android:layout_height="172dp"
-        android:layout_marginStart="32dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,16 +52,6 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/anim_chatting" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/icon_whatsapp" />
 
     <ImageView
         android:id="@+id/imgBackQuemSomos"
@@ -72,16 +63,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_botaovoltar" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clZap"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_rounded_06"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
         android:text="Contate-nos pelo Zap"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+        app:layout_constraintBottom_toBottomOf="@+id/clZap"
+        app:layout_constraintEnd_toEndOf="@+id/clZap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clZap" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/clZap"
+        app:layout_constraintEnd_toEndOf="@+id/clZap"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/clZap"
+        app:srcCompat="@drawable/icon_whatsapp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
