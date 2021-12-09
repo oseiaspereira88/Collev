@@ -27,7 +27,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botaoVoltar" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBackParceiros" />
 
     <EditText
         android:id="@+id/nome1"
@@ -170,7 +170,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Nome4" />
 
     <ImageView
-        android:id="@+id/botaoVoltar"
+        android:id="@+id/imgBackParceiros"
         android:layout_width="59dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"

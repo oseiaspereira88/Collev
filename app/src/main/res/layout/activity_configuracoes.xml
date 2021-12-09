@@ -20,10 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBackQuemSomos2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBackConfiguracoes" />
 
     <ImageView
-        android:id="@+id/imgBackQuemSomos2"
+        android:id="@+id/imgBackConfiguracoes"
         android:layout_width="59dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
@@ -35,7 +35,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="320dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="64dp"
@@ -48,4 +48,17 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/anim_under_construction" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:text="Estamos trabalhando em novas configurações"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView2"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView2"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

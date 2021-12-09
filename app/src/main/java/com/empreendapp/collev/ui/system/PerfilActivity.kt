@@ -43,7 +43,7 @@ class PerfilActivity : AppCompatActivity() {
 
     private fun initListeners() {
         imgBackPerfil!!.setOnClickListener{
-            Toast.makeText(this, "Back!", Toast.LENGTH_SHORT).show()
+            finish()
         }
 
         clCamera!!.setOnClickListener {

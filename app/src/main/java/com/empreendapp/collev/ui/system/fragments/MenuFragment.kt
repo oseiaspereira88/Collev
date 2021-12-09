@@ -52,6 +52,7 @@ class MenuFragment : Fragment() {
         }
         clOpConfiguracoes!!.setOnClickListener{
             animateButton(it)
+            startActivity(Intent(context, ConfiguracoesActivity::class.java))
         }
         clOpChat!!.setOnClickListener{
             animateButton(it)
