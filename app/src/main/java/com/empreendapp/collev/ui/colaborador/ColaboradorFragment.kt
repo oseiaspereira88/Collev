@@ -377,7 +377,7 @@ open class ColaboradorFragment : Fragment() {
         // preenche a coleta solicitada, salva no firebase e salva o SheredPreference
         var coleta = Coleta()
         coleta.solicitante = auth!!.currentUser!!.uid
-        coleta.coletor = ID_COLETOR_PRINCIPAL
+        coleta.coletor = ID_COLETOR_PRINCIPAL //depois observar regra de negócio sobre multiplos coletores
         coleta.status = SOLICITADA
         coleta.periodoIn = tvPeriodoIn.text.toString()
         coleta.periodoOut = tvPeriodoOut.text.toString()

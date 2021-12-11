@@ -48,7 +48,7 @@ class Coleta {
 
     fun saveInFirebase(ctx: Context): Task<Void> {
         var bdRef = LibraryClass.firebaseDB!!.reference
-        bdRef!!.child("coletas")!!.child(id!!)
+        bdRef = bdRef!!.child("coletas")!!.child(id!!)
 
         this.id = null
         return bdRef.setValue(this).addOnCompleteListener {
@@ -57,7 +57,8 @@ class Coleta {
 
                 when (this.status) {
                     SOLICITADA -> {
-                        notificacao.maker("Fulano solicitou uma coleta")
+                        notificacao
+                            .maker("Fulano solicitou uma coleta")
                             .toUser(coletor!!)
                             .withType(NotificacaoTipo.SOLICITACAO)
                             .apply(ctx)
@@ -103,7 +104,7 @@ class Coleta {
                             }
                     }
                     ATENDIDA -> {
-                        notificacao.maker("Cicrano solicitou uma coleta")
+                        notificacao.maker("Deltrano atendeu a coleta")
                             .toUser(solicitante!!)
                             .withType(NotificacaoTipo.CONCLUSAO)
                             .apply(ctx)

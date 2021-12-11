@@ -17,7 +17,7 @@ class Notificacao {
 
     constructor()
 
-    //make("msg").toUser("notificado").withType("tipo").apply(context)
+    //maker("msg").toUser("notificado").withType("tipo").apply(context)
 
     fun maker(mensagem: String): Notificacao {
         this.mensagem = mensagem
@@ -47,7 +47,7 @@ class Notificacao {
 
     fun saveInFirebase(): Task<Void> {
         var bdRefNotificacao = LibraryClass.firebaseDB!!.reference
-        bdRefNotificacao!!.child("notificacoes")!!.child(id!!)
+        bdRefNotificacao = bdRefNotificacao!!.child("notificacoes")!!.child(id!!)
         this.id = null
         return bdRefNotificacao.setValue(this)
     }
