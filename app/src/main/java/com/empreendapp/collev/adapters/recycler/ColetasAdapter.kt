@@ -127,7 +127,6 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                     coleta.diaMarcado = spinner.selectedItem.toString()
                                     coleta.horaMarcada = tvHorario.text.toString()
                                     coleta.status = AGENDADA
-                                    coleta.desativar()
 
                                     coleta.saveInFirebase(act).addOnCompleteListener {
                                         if(it.isSuccessful){

@@ -7,6 +7,7 @@
     tools:context=".ui.system.fragments.NotificacoesFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clAnimNotificacoes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,12 +43,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_locais"
+        android:id="@+id/rv_notificacoes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
