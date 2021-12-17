@@ -9,10 +9,8 @@ import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
-import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
@@ -24,11 +22,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-import com.google.firebase.auth.GoogleAuthProvider
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookException
@@ -40,6 +36,14 @@ import com.facebook.FacebookCallback
 import com.facebook.login.LoginManager
 
 import com.facebook.CallbackManager
+import com.google.firebase.auth.*
+
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+
+import java.lang.Exception
+
 
 class LoginActivity : AppCompatActivity() {
     private var callbackManager: CallbackManager? = null
@@ -152,12 +156,12 @@ class LoginActivity : AppCompatActivity() {
         return isValided
     }
 
-    private fun getCampos(){
-        if(!editEmail!!.text.toString().isEmpty()) email = editEmail!!.text.toString()
-        if(!editSenha!!.text.toString().isEmpty()) senha = editSenha!!.text.toString()
+    private fun getCampos() {
+        if (!editEmail!!.text.toString().isEmpty()) email = editEmail!!.text.toString()
+        if (!editSenha!!.text.toString().isEmpty()) senha = editSenha!!.text.toString()
     }
 
-    private fun encrypt(text: String): String{
+    private fun encrypt(text: String): String {
         val md = MessageDigest.getInstance("MD5")
         val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
         val sb = StringBuilder()
@@ -171,45 +175,69 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, encrypt(senha))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    if(task.result != null){
-                        Log.d("INFO:", "signInWithEmail:success")
-                        val userFirebase: FirebaseUser? = auth.currentUser
-                        if (userFirebase != null) {
-                            if (!userFirebase.isEmailVerified) {
-                                alert("Verifique o email de confirmação!", 0, this)
+                    val userFirebase: FirebaseUser? = auth.currentUser
+                    if (userFirebase != null) {
+                        if (!userFirebase.isEmailVerified) {
+                            alert("Verifique o email de confirmação!", 0, this)
+                        } else {
+                            if (userFirebase.email?.let { it1 ->
+                                    User().haveNameAndEmailEqualSP(
+                                        applicationContext,
+                                        it1
+                                    )
+                                } == true) {
+                                var newUser = User()
+                                newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
+                                newUser.email = userFirebase.email
+                                newUser.id = userFirebase.uid
+                                newUser.saveInFirebase()
+                                newUser.deleteNameSP(applicationContext)
+                                startActivity(Intent(this, InitPerfilActivity::class.java))
                             } else {
-                                if (userFirebase.email?.let { it1 ->
-                                        User().haveNameAndEmailEqualSP(
-                                            applicationContext,
-                                            it1
-                                        )
-                                    } == true) {
-                                    var newUser = User()
-                                    newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
-                                    newUser.email =  userFirebase.email
-                                    newUser.id = userFirebase.uid
-                                    newUser.saveInFirebase()
-                                    newUser.deleteNameSP(applicationContext)
-                                    startActivity(Intent(this, InitPerfilActivity::class.java))
-                                } else {
-                                    startActivity(Intent(this, MainActivity::class.java))
-                                    finish()
-                                }
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
                             }
                         }
-                    } else{
-                        Toast.makeText(baseContext, "Email ou senha incorretos!", Toast.LENGTH_SHORT)
-                            .show()
                     }
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("ERROR:", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Verifique sua conexão!", Toast.LENGTH_SHORT)
-                        .show()
+                } else{
+                    if (!task.isSuccessful) {
+                        try {
+                            throw task.exception!!
+                        } catch (e: FirebaseAuthInvalidCredentialsException) {
+                            editSenha!!.setError(getString(R.string.error_incorrect_password))
+                            editSenha!!.requestFocus()
+                        } catch (e: FirebaseAuthInvalidUserException) {
+                            val errorCode = e.errorCode
 
-                    // checar se o email é um dos cadastrados no bd;
-                    // se sim, notificar erro no campo que apenas a senha está invalida.
-                    // se não, dizer que os dois campos estão invalidos
+                            if (errorCode.equals("ERROR_USER_NOT_FOUND")) {
+                                editEmail!!.setError(getString(R.string.error_user_not_found))
+                                editEmail!!.requestFocus()
+                            } else if (errorCode.equals("ERROR_USER_DISABLED")) {
+                                editEmail!!.setError(getString(R.string.error_user_disable))
+                                editEmail!!.requestFocus()
+                            }
+//                            else if (errorCode.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
+//                                alert(getString(R.string.error_email_already_in_use), 1, this)
+//                                editEmail!!.setError(getString(R.string.error_email_already_in_use))
+//                                editEmail!!.requestFocus()
+//                            }
+                            else {
+                                alert(e.getLocalizedMessage(), 1, this)
+                            }
+                        } catch (e: FirebaseAuthWebException) {
+                            alert(getString(R.string.error_connection_fail), 1, this)
+                        }
+//                        catch (e: FirebaseAuthUserCollisionException) {
+//                            alert(getString(R.string.error_user_exists), 0, this)
+//                            editEmail!!.setError(getString(R.string.error_user_exists))
+//                            editEmail!!.requestFocus()
+//                        }
+                        catch (e: Exception) {
+                            alert(getString(R.string.error_auth), 1, this)
+                            alert(e.toString(), 2, this)
+                            Log.e(TAG, e.message!!)
+                        }
+                    }
                 }
             }
     }
@@ -222,12 +250,13 @@ class LoginActivity : AppCompatActivity() {
             .build()
         mGoogleSignClient = GoogleSignIn.getClient(this, gso)
     }
-    private fun signInGoogle(){
+
+    private fun signInGoogle() {
         val signInIntent: Intent = mGoogleSignClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun loginWithFacebook(){
+    private fun loginWithFacebook() {
 //        loginButton = findViewById<View>(R.id.login_button) as LoginButton
 //        loginButton.setReadPermissions("email")
 //         If using in a fragment
@@ -253,23 +282,23 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
 
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "Sucesso: " + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
-            }catch (e: ApiException){
+            } catch (e: ApiException) {
                 Log.d(TAG, "Error: ${e.statusCode} " + e.status)
             }
-        } else{
+        } else {
             callbackManager!!.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String){
+    private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
@@ -287,9 +316,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun updateUI(user: FirebaseUser?){
+    private fun updateUI(user: FirebaseUser?) {
 
     }
+
     companion object {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001

@@ -5,4 +5,14 @@
     <string name="default_web_client_id_1">574198073809-g97kb12p5ifod58uvaj1oglugc2s1n54.apps.googleusercontent.com</string>
     <string name="facebook_app_id">4285431211534109</string>
     <string name="fb_login_protocol_scheme">fb4285431211534109</string>
+
+    //Error Mensages
+    <string name="error_incorrect_password">Senha incorreta!</string>
+    <string name="error_incorrect_email">Senha incorreta!</string>
+    <string name="error_user_not_found">Usuário não cadastrado!</string>
+    <string name="error_user_disable">Essa conta está desativada!</string>
+    <string name="error_email_already_in_use">Já existe uma conta registrada com esse email!</string>
+    <string name="error_connection_fail">Verifique sua conexão!</string>
+    <string name="error_user_exists">Esse usuário já foi cadastrado!</string>
+    <string name="error_auth">Falha na autenticação!</string>
 </resources>
