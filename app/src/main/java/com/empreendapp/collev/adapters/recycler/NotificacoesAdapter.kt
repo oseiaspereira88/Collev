@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.model.Notificacao
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
+import com.empreendapp.collev.util.TimeAgo.Companion.getTimeAgo
 import java.util.ArrayList
 
 class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notificacao>) : RecyclerView.Adapter<NotificacoesAdapter.ViewHolder>() {
@@ -30,7 +31,9 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var notificacao = notificacoes[position]
-        holder.tvNotificacaoTitulo?.setText(notificacao.mensagem)
+
+        holder.tvNotificacaoTitulo!!.text = notificacao.mensagem
+        holder.tvNotificacaoTempo!!.text = getTimeAgo(notificacao.data, ctx)
 
         holder.viewItem?.setOnClickListener{
             animateButton(it)

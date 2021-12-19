@@ -29,7 +29,8 @@ class Coleta {
     var ativo_solicitante: String? = null
     var solicitanteName: String? = null
     var coletorName: String? = null
-    var empresaName: String? = null
+    var empresaColetora: String? = null
+    var empresaColaboradora: String? = null
     var volumeRecipiente: String? = null
 
     constructor()
@@ -61,7 +62,7 @@ class Coleta {
                 when (this.status) {
                     SOLICITADA -> {
                         notificacao
-                            .maker("${solicitanteName} solicitou uma coleta")
+                            .maker("A ${empresaColaboradora} solicitou uma coleta")
                             .toUser(coletor!!)
                             .withType(NotificacaoTipo.SOLICITACAO)
                             .apply(ctx)
@@ -85,7 +86,7 @@ class Coleta {
                             }
                     }
                     AGENDADA -> {
-                        notificacao.maker("A ${empresaName} agendou a coleta")
+                        notificacao.maker("A ${empresaColetora} agendou a coleta")
                             .toUser(solicitante!!)
                             .withType(NotificacaoTipo.AGENDAMENTO)
                             .apply(ctx)
@@ -107,7 +108,7 @@ class Coleta {
                             }
                     }
                     ATENDIDA -> {
-                        notificacao.maker("${coletorName} atendeu a coleta")
+                        notificacao.maker("A ${empresaColetora} atendeu a coleta")
                             .toUser(solicitante!!)
                             .withType(NotificacaoTipo.CONCLUSAO)
                             .apply(ctx)

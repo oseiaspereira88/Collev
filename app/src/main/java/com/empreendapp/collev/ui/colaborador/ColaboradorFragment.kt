@@ -358,7 +358,8 @@ open class ColaboradorFragment : Fragment() {
                         coleta.ativo_solicitante = it.result.child("ativo_solicitante").value.toString()
                         coleta.coletorName = it.result.child("coletorName").value.toString()
                         coleta.solicitanteName = it.result.child("solicitanteName").value.toString()
-                        coleta.empresaName = it.result.child("empresaName").value.toString()
+                        coleta.empresaColaboradora = it.result.child("empresaColaboradora").value.toString()
+                        coleta.empresaColetora = it.result.child("empresaColetora").value.toString()
                         coleta.volumeRecipiente = it.result.child("volumeRecipiente").value.toString()
 
                         coletas!!.add(coleta)
@@ -395,7 +396,8 @@ open class ColaboradorFragment : Fragment() {
         coleta.diasPossiveis = diasPossiveis
         coleta.coletorName = "Oseias Pereira"   //atualizar com o nome público do coletor (numa tabela de nomes públicos,
         coleta.solicitanteName = usuario!!.nome //ou separar os dois tipos de usuários em tabelas diferentes)
-        coleta.empresaName = usuario!!.nome_empresa
+        coleta.empresaColaboradora = usuario!!.nome_empresa
+        coleta.empresaColetora = "Collev" //atualizar com o nome público do empresa coletora do coletor
         coleta.volumeRecipiente = usuario!!.recipiente
         coleta.ativar()
         coleta.generateIdAndSave(requireContext(), COLABORADOR_PREF, this)

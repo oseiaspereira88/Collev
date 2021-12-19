@@ -15,4 +15,29 @@
     <string name="error_connection_fail">Verifique sua conexão!</string>
     <string name="error_user_exists">Esse usuário já foi cadastrado!</string>
     <string name="error_auth">Falha na autenticação!</string>
+
+    <!-- Date Util -->
+    <string name="date_util_term_less">Menos de</string>
+    <string name="date_util_term_a">um</string>
+    <string name="date_util_term_an">um</string>
+
+    <string name="date_util_unit_second">segundo</string>
+    <string name="date_util_unit_seconds">segundos</string>
+    <string name="date_util_unit_minute">minuto</string>
+    <string name="date_util_unit_minutes">minutos</string>
+    <string name="date_util_unit_hour">hora</string>
+    <string name="date_util_unit_hours">horas</string>
+    <string name="date_util_unit_day">dia</string>
+    <string name="date_util_unit_days">dias</string>
+    <string name="date_util_unit_month">mês</string>
+    <string name="date_util_unit_months">meses</string>
+    <string name="date_util_unit_year">ano</string>
+    <string name="date_util_unit_years">anos</string>
+
+    <string name="date_util_prefix_lt">Menos de</string>
+    <string name="date_util_prefix_about">Cerca de</string>
+    <string name="date_util_prefix_over">Pouco mais de</string>
+    <string name="date_util_prefix_almost">Quase</string>
+
+    <string name="date_util_suffix">atrás</string>
 </resources>

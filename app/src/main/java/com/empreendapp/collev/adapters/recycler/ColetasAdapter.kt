@@ -54,7 +54,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
         when(coleta.status){
             SOLICITADA -> {
-                holder.tvTituloColeta!!.text = "${coleta.empresaName} solicitou coleta"
+                holder.tvTituloColeta!!.text = "${coleta.empresaColaboradora} solicitou coleta"
                 holder.tvSubtituloColeta!!.text = "O recipiente de ${coleta.volumeRecipiente} litros está cheio"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_oil_05)
 
@@ -77,6 +77,9 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
                     var tvPeriodo = dialogView!!.findViewById<TextView>(R.id.tvInfoAgendarColeta)
                     tvPeriodo.text = "Informe quando será realizada a coleta e o horário entre as ${coleta.periodoIn} e ${coleta.periodoOut} horas"
+
+                    var tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogEmpresaName)
+                    tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
 
                     var llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
                     var tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
@@ -168,7 +171,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 }
             }
             AGENDADA -> {
-                holder.tvTituloColeta!!.text = "Você agendou a coleta da ${coleta.empresaName}"
+                holder.tvTituloColeta!!.text = "Você agendou a coleta da ${coleta.empresaColaboradora}"
                 holder.tvSubtituloColeta!!.text = "Leve um recipiente de ${coleta.volumeRecipiente} litros"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_history)
 
@@ -181,6 +184,9 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
                     dialog.show()
+
+                    var tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogFinalizarEmpresaName)
+                    tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
 
                     dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog).setOnClickListener {
                         dialog.cancel()
@@ -220,8 +226,8 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 }
             }
             ATENDIDA -> {
-                holder.tvTituloColeta!!.text = "Coleta na ${coleta.empresaName} concluida!"
-                holder.tvSubtituloColeta!!.text = "Realizada no dia 21/11/2021"
+                holder.tvTituloColeta!!.text = "Coleta na ${coleta.empresaColaboradora} concluida!"
+                holder.tvSubtituloColeta!!.text = "Click para saber mais"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_check_01)
 
                 holder.viewItem.setOnClickListener{
@@ -240,9 +246,6 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     var spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
                     spinner!!.adapter = adapter
                     dialog.show()
-
-                    dialogView!!.findViewById<TextView>(R.id.tvPeriodoIn).text = coleta.periodoIn
-                    dialogView!!.findViewById<TextView>(R.id.tvPeriodoOut).text = coleta.periodoOut
 
                     var llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
                     var tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
@@ -311,7 +314,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                             }
                                             h.postDelayed(r, 1300)
 
-                                            alert("A coleta foi agendada ✔️", 2, act)
+                                            alert("A coleta foi agendada com sucesso  ✔️", 2, act)
                                         } else{
                                             alert("Coleta não agendada \uD83D\uDE15", 2, act)
                                             alert("Verifique sua conexão com a internet!", 2, act)
