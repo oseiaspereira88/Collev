@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvHeader"
+                    android:id="@+id/tvColetorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -67,7 +67,7 @@
                     android:text="Essas são as suas demandas"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView7"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvColetorName" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Body Solicitações -->

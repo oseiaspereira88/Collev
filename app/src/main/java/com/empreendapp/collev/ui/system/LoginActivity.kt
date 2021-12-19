@@ -13,6 +13,8 @@ import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
+import com.empreendapp.collev.util.DefaultFunctions.Companion.alertSnack
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
 import com.empreendapp.collev.util.FirebaseConnection
@@ -36,11 +38,13 @@ import com.facebook.FacebookCallback
 import com.facebook.login.LoginManager
 
 import com.facebook.CallbackManager
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
 
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 import java.lang.Exception
 
@@ -120,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
         val itCadastro = Intent(this, CadastroActivity::class.java)
 
         tvEntrar!!.setOnClickListener { v -> //animate
-            YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
+            animateButton(v)
             val handler = Handler()
             val r = Runnable {
                 getCampos()
@@ -129,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
             handler.postDelayed(r, 300)
         }
         tvCadastreSe!!.setOnClickListener { v -> //animate
-            YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
+            animateButton(v)
             val handler = Handler()
             val r = Runnable { startActivity(itCadastro) }
             handler.postDelayed(r, 300)
@@ -178,7 +182,7 @@ class LoginActivity : AppCompatActivity() {
                     val userFirebase: FirebaseUser? = auth.currentUser
                     if (userFirebase != null) {
                         if (!userFirebase.isEmailVerified) {
-                            alert("Verifique o email de confirmação!", 0, this)
+                            alertSnack("Verifique o email de confirmação!", 0, clLogin)
                         } else {
                             if (userFirebase.email?.let { it1 ->
                                     User().haveNameAndEmailEqualSP(
@@ -215,26 +219,13 @@ class LoginActivity : AppCompatActivity() {
                             } else if (errorCode.equals("ERROR_USER_DISABLED")) {
                                 editEmail!!.setError(getString(R.string.error_user_disable))
                                 editEmail!!.requestFocus()
+                            } else {
+                                alertSnack(e.getLocalizedMessage(), 1, clLogin)
                             }
-//                            else if (errorCode.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
-//                                alert(getString(R.string.error_email_already_in_use), 1, this)
-//                                editEmail!!.setError(getString(R.string.error_email_already_in_use))
-//                                editEmail!!.requestFocus()
-//                            }
-                            else {
-                                alert(e.getLocalizedMessage(), 1, this)
-                            }
-                        } catch (e: FirebaseAuthWebException) {
-                            alert(getString(R.string.error_connection_fail), 1, this)
-                        }
-//                        catch (e: FirebaseAuthUserCollisionException) {
-//                            alert(getString(R.string.error_user_exists), 0, this)
-//                            editEmail!!.setError(getString(R.string.error_user_exists))
-//                            editEmail!!.requestFocus()
-//                        }
-                        catch (e: Exception) {
-                            alert(getString(R.string.error_auth), 1, this)
-                            alert(e.toString(), 2, this)
+                        } catch (e: FirebaseNetworkException) {
+                            alertSnack(getString(R.string.error_connection_fail), 1, clLogin)
+                        } catch (e: Exception) {
+                            alertSnack(getString(R.string.error_auth), 1, clLogin)
                             Log.e(TAG, e.message!!)
                         }
                     }

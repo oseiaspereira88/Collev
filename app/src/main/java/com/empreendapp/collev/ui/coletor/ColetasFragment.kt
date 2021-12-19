@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.recycler.ColetasAdapter
-import com.empreendapp.collev.util.ColetaStatus.*
 import com.empreendapp.collev.model.Coleta
+import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
 import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
 import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
@@ -23,13 +23,14 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import kotlinx.android.synthetic.main.fragment_coletas.*
 
 class ColetasFragment : Fragment() {
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
-    private var rvSolicitacoes : RecyclerView? = null
-    private var rvAgenda : RecyclerView? = null
-    private var rvHistorico : RecyclerView? = null
+    private var rvSolicitacoes: RecyclerView? = null
+    private var rvAgenda: RecyclerView? = null
+    private var rvHistorico: RecyclerView? = null
     private var listSolicitacoes: ArrayList<Coleta>? = null
     private var listAgenda: ArrayList<Coleta>? = null
     private var listHistorico: ArrayList<Coleta>? = null
@@ -39,6 +40,7 @@ class ColetasFragment : Fragment() {
     private var solicitacoesAdapter: ColetasAdapter? = null
     private var agendaAdapter: ColetasAdapter? = null
     private var historicoAdapter: ColetasAdapter? = null
+    private var usuario: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +48,21 @@ class ColetasFragment : Fragment() {
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_coletas, container, false)
         initFirebase()
-        initViews(rootView)
+
+        usuario = User()
+        usuario!!.getCurrentUser(database!!, auth!!)!!.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                initViews(rootView)
+                initAdapters()
+                setChildEventListener()
+            }
+        }
         return rootView
+    }
+
+    private fun initFirebase() {
+        database = LibraryClass.firebaseDB!!.reference
+        auth = FirebaseAuth.getInstance()
     }
 
     private fun initViews(rootView: View) {
@@ -71,8 +86,7 @@ class ColetasFragment : Fragment() {
         rvAgenda?.setHasFixedSize(true)
         rvHistorico?.setHasFixedSize(true)
 
-        initAdapters()
-        setChildEventListener()
+        tvColetorName.text = "Olá, ${usuario!!.nome}!"
     }
 
     private fun initAdapters() {
@@ -80,21 +94,16 @@ class ColetasFragment : Fragment() {
         listAgenda = ArrayList()
         listHistorico = ArrayList()
 
-        solicitacoesAdapter = ColetasAdapter(requireActivity(), listSolicitacoes!!, this)
-        agendaAdapter = ColetasAdapter(requireActivity(), listAgenda!!, this)
-        historicoAdapter = ColetasAdapter(requireActivity(), listHistorico!!, this)
+        solicitacoesAdapter = ColetasAdapter(requireActivity(), listSolicitacoes!!, this, usuario!!)
+        agendaAdapter = ColetasAdapter(requireActivity(), listAgenda!!, this, usuario!!)
+        historicoAdapter = ColetasAdapter(requireActivity(), listHistorico!!, this, usuario!!)
 
         rvSolicitacoes!!.adapter = solicitacoesAdapter
         rvAgenda!!.adapter = agendaAdapter
         rvHistorico!!.adapter = historicoAdapter
     }
 
-    private fun initFirebase(){
-        database = LibraryClass.firebaseDB!!.reference
-        auth = FirebaseAuth.getInstance()
-    }
-
-    private fun setChildEventListener(){
+    private fun setChildEventListener() {
         database = database?.child("coletas")
             ?.orderByChild("solicitante")
             ?.equalTo(auth!!.currentUser!!.uid)!!.ref
@@ -104,8 +113,8 @@ class ColetasFragment : Fragment() {
                 Log.d("DEBUG", "onChildAdded -> Key: ${snapshot.key} - value: ${snapshot.value}")
                 snapshot.getValue(Coleta::class.java)?.let { coleta ->
                     coleta.id = snapshot.key
-                    if(coleta.ativo!!){
-                        when(coleta.status){
+                    if (coleta.ativo!!) {
+                        when (coleta.status) {
                             SOLICITADA -> {
                                 listSolicitacoes!!.add(coleta)
                                 updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
@@ -127,7 +136,7 @@ class ColetasFragment : Fragment() {
                 Log.d("DEBUG", "onChildChanged -> Key: ${snapshot.key} - value: ${snapshot.value}")
                 snapshot.getValue(Coleta::class.java)?.let { coleta ->
                     coleta.id = snapshot.key
-                    when(coleta.status){
+                    when (coleta.status) {
                         AGENDADA -> {
                             listSolicitacoes!!.removeIf { it.id == coleta.id }
                             listAgenda!!.add(coleta)
@@ -147,8 +156,8 @@ class ColetasFragment : Fragment() {
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d("DEBUG", "onChildRemoved: -> Key: ${snapshot.key} - value: ${snapshot.value}")
                 snapshot.getValue(Coleta::class.java)?.let { coleta ->
-                    if(coleta.ativo!!){
-                        when(coleta.status){
+                    if (coleta.ativo!!) {
+                        when (coleta.status) {
                             SOLICITADA -> {
                                 listSolicitacoes!!.removeIf { it.id == snapshot.key }
                                 updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
@@ -177,45 +186,45 @@ class ColetasFragment : Fragment() {
         database?.addChildEventListener(childEventListener)
     }
 
-    private fun updateList(listId: Int, list: ArrayList<Coleta>, adapter: ColetasAdapter){
+    private fun updateList(listId: Int, list: ArrayList<Coleta>, adapter: ColetasAdapter) {
         adapter.coletas = list
         adapter.notifyDataSetChanged()
         checkVisibleList(listId, list)
     }
 
-    public fun resetList(listId: Int){
-        when(listId){
+    public fun resetList(listId: Int) {
+        when (listId) {
             1 -> updateList(1, listSolicitacoes!!, solicitacoesAdapter!!)
             2 -> updateList(2, listAgenda!!, agendaAdapter!!)
             3 -> updateList(3, listHistorico!!, historicoAdapter!!)
         }
     }
 
-    private fun checkVisibleList(listId: Int,  list: ArrayList<Coleta>) {
-        when(listId){
+    private fun checkVisibleList(listId: Int, list: ArrayList<Coleta>) {
+        when (listId) {
             1 -> {
-                if(list.isEmpty()){
+                if (list.isEmpty()) {
                     tvEmptySolicitacoes!!.visibility = View.VISIBLE
                     rvSolicitacoes!!.visibility = View.GONE
-                } else{
+                } else {
                     tvEmptySolicitacoes!!.visibility = View.GONE
                     rvSolicitacoes!!.visibility = View.VISIBLE
                 }
             }
             2 -> {
-                if(list.isEmpty()){
+                if (list.isEmpty()) {
                     tvEmptyAgenda!!.visibility = View.VISIBLE
                     rvAgenda!!.visibility = View.GONE
-                } else{
+                } else {
                     tvEmptyAgenda!!.visibility = View.GONE
                     rvAgenda!!.visibility = View.VISIBLE
                 }
             }
             3 -> {
-                if(list.isEmpty()){
+                if (list.isEmpty()) {
                     tvEmptyHistorico!!.visibility = View.VISIBLE
                     rvHistorico!!.visibility = View.GONE
-                } else{
+                } else {
                     tvEmptyHistorico!!.visibility = View.GONE
                     rvHistorico!!.visibility = View.VISIBLE
                 }

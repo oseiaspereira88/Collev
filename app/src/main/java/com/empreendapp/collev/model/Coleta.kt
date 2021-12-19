@@ -12,7 +12,6 @@ import com.empreendapp.collev.util.NotificacaoTipo
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
-import java.util.*
 import kotlin.collections.ArrayList
 
 class Coleta {
@@ -28,6 +27,10 @@ class Coleta {
     var horaMarcada: String? = null
     var ativo: Boolean? = false
     var ativo_solicitante: String? = null
+    var solicitanteName: String? = null
+    var coletorName: String? = null
+    var empresaName: String? = null
+    var volumeRecipiente: String? = null
 
     constructor()
 
@@ -58,7 +61,7 @@ class Coleta {
                 when (this.status) {
                     SOLICITADA -> {
                         notificacao
-                            .maker("Fulano solicitou uma coleta")
+                            .maker("${solicitanteName} solicitou uma coleta")
                             .toUser(coletor!!)
                             .withType(NotificacaoTipo.SOLICITACAO)
                             .apply(ctx)
@@ -82,7 +85,7 @@ class Coleta {
                             }
                     }
                     AGENDADA -> {
-                        notificacao.maker("Cicrano agendou a coleta")
+                        notificacao.maker("A ${empresaName} agendou a coleta")
                             .toUser(solicitante!!)
                             .withType(NotificacaoTipo.AGENDAMENTO)
                             .apply(ctx)
@@ -104,7 +107,7 @@ class Coleta {
                             }
                     }
                     ATENDIDA -> {
-                        notificacao.maker("Deltrano atendeu a coleta")
+                        notificacao.maker("${coletorName} atendeu a coleta")
                             .toUser(solicitante!!)
                             .withType(NotificacaoTipo.CONCLUSAO)
                             .apply(ctx)

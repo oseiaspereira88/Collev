@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView26">
 
                 <TextView
-                    android:id="@+id/tvNotificacao"
+                    android:id="@+id/tvNotificacaoTitulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Empresa solicitou nova Coleta"
@@ -44,10 +44,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tvNotificacaoTempo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="15/07/2021" />
+                    android:text="Agora mesmo" />
             </LinearLayout>
 
             <ImageView

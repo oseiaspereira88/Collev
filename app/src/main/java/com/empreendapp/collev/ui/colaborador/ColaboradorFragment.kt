@@ -20,6 +20,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import com.empreendapp.collev.model.Colaborador
+import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
 import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
 import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
@@ -68,6 +70,7 @@ open class ColaboradorFragment : Fragment() {
     private var coletas: ArrayList<Coleta>? = null
     private var nColetas: Int = 0
     private var isPausedActionButton: Boolean = false
+    private var usuario: Colaborador? = null
 
     //variáveis do tutorial
     private var imgClickSelectTimeAgendaTutorial: ImageView? = null
@@ -78,8 +81,15 @@ open class ColaboradorFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_colaborador, container, false)
         initFirebase()
-        initViews(rootView)
-        checkColetaSolicitada()
+
+        usuario = Colaborador()
+        usuario!!.getCurrentUser(database!!, auth!!)!!.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                initViews(rootView)
+                checkColetaSolicitada()
+                initViews(rootView)
+            }
+        }
         return rootView
     }
 
@@ -201,9 +211,6 @@ open class ColaboradorFragment : Fragment() {
     }
 
     private fun checkColetaSolicitada() {
-        var user = auth!!.currentUser
-        //getUserById()
-
         var sp: SharedPreferences = requireContext()
             .getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
 
@@ -349,6 +356,10 @@ open class ColaboradorFragment : Fragment() {
                         coleta.periodoOut = it.result.child("periodoOut").value.toString()
                         coleta.ativo = it.result.child("ativo").value as Boolean?
                         coleta.ativo_solicitante = it.result.child("ativo_solicitante").value.toString()
+                        coleta.coletorName = it.result.child("coletorName").value.toString()
+                        coleta.solicitanteName = it.result.child("solicitanteName").value.toString()
+                        coleta.empresaName = it.result.child("empresaName").value.toString()
+                        coleta.volumeRecipiente = it.result.child("volumeRecipiente").value.toString()
 
                         coletas!!.add(coleta)
 
@@ -382,6 +393,10 @@ open class ColaboradorFragment : Fragment() {
         coleta.periodoIn = tvPeriodoIn.text.toString()
         coleta.periodoOut = tvPeriodoOut.text.toString()
         coleta.diasPossiveis = diasPossiveis
+        coleta.coletorName = "Oseias Pereira"   //atualizar com o nome público do coletor (numa tabela de nomes públicos,
+        coleta.solicitanteName = usuario!!.nome //ou separar os dois tipos de usuários em tabelas diferentes)
+        coleta.empresaName = usuario!!.nome_empresa
+        coleta.volumeRecipiente = usuario!!.recipiente
         coleta.ativar()
         coleta.generateIdAndSave(requireContext(), COLABORADOR_PREF, this)
 

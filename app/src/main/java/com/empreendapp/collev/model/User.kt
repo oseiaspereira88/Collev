@@ -2,9 +2,15 @@ package com.empreendapp.collev.model
 
 import android.content.Context
 import android.content.SharedPreferences;
+import android.os.Handler
 import com.empreendapp.collev.util.LibraryClass;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.empreendapp.collev.util.CryptWithMD5
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
 import java.security.NoSuchAlgorithmException
 
 
@@ -26,6 +32,36 @@ open class User {
     var id_local: String? = null
     var nome_empresa: String? = null
     var ativo: Boolean? = null
+
+    fun getCurrentUser(database: DatabaseReference, auth: FirebaseAuth): Task<DataSnapshot>? {
+        return database!!.child("users").child(auth!!.uid.toString()).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = task.result.getValue(User::class.java)
+                    setUser(currentUser)
+                } else {
+                    try {
+                        task.exception!!
+                    } catch (e: FirebaseNetworkException) {
+                        val h = Handler()
+                        val r = Runnable {
+                            getCurrentUser(database, auth)
+                        }
+                        h.postDelayed(r, 2000)
+                    }
+                }
+            }
+    }
+
+    private fun setUser(user: User?){
+        id = user?.id
+        nome = user?.nome
+        email = user?.email
+        tipo = user?.tipo
+        endereco = user?.endereco
+        id_local = user?.id_local
+        nome_empresa = user?.nome_empresa
+    }
 
     open fun saveInFirebase() {
         var bdRef = LibraryClass.firebaseDB?.reference

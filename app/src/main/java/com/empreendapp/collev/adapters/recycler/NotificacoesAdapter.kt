@@ -8,17 +8,18 @@ import com.empreendapp.collev.R
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.model.Notificacao
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import java.util.ArrayList
 
 class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notificacao>) : RecyclerView.Adapter<NotificacoesAdapter.ViewHolder>() {
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem){
-        var tvColeta: TextView? = null
-        //var llDataHora: LinearLayout? = null
+        var tvNotificacaoTitulo: TextView? = null
+        var tvNotificacaoTempo: TextView? = null
 
         init {
-            this.tvColeta = viewItem.findViewById<TextView>(R.id.tvTituloColeta);
-            //this.llDataHora = viewItem.findViewById<LinearLayout>(R.id.llDataHora);
+            this.tvNotificacaoTitulo = viewItem.findViewById(R.id.tvNotificacaoTitulo)
+            this.tvNotificacaoTempo = viewItem.findViewById(R.id.tvNotificacaoTempo)
         }
     }
 
@@ -28,12 +29,11 @@ class NotificacoesAdapter(var ctx: Context, var notificacoes: ArrayList<Notifica
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var coleta = notificacoes[position]
-        holder.tvColeta?.setText("Sua coleta do dia 12/07 foi finalizada. ")
+        var notificacao = notificacoes[position]
+        holder.tvNotificacaoTitulo?.setText(notificacao.mensagem)
 
-        holder.viewItem?.setOnLongClickListener{
-            //holder.llDataHora?.visibility = View.GONE;
-            true
+        holder.viewItem?.setOnClickListener{
+            animateButton(it)
         }
 
 

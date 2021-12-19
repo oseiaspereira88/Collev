@@ -12,15 +12,24 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.R
 import com.empreendapp.collev.util.LibraryClass.PREF
+import com.google.android.material.snackbar.Snackbar
 
 class DefaultFunctions {
 
     companion object {
-        fun alert(txtAlert: String, delay: Int, ctx: Context) {
+        fun alert(msg: String, delay: Int, ctx: Context) {
             if (delay == 1) {
-                Toast.makeText(ctx, txtAlert, Toast.LENGTH_SHORT).show()
+                Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show()
             } else if (delay == 2) {
-                Toast.makeText(ctx, txtAlert, Toast.LENGTH_LONG).show()
+                Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        fun alertSnack(msg: String, delay: Int, ctxView: View) {
+            if (delay == 1) {
+                Snackbar.make(ctxView, msg, Snackbar.LENGTH_SHORT).show()
+            } else if (delay == 2) {
+                Snackbar.make(ctxView, msg, Snackbar.LENGTH_LONG).show()
             }
         }
 

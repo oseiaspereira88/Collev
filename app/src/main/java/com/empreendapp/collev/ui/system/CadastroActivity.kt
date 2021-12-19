@@ -12,14 +12,19 @@ import android.widget.Toast
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.model.User
+import com.empreendapp.collev.util.DefaultFunctions.Companion.alertSnack
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.security.NoSuchAlgorithmException
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_cadastro.*
+import java.lang.Exception
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
@@ -120,31 +125,37 @@ class CadastroActivity : AppCompatActivity() {
                         user.sendEmailVerification()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    alert("Um email foi enviado para seu email.", 1)
+                                    alertSnack("Um email foi enviado para seu email.", 1, clCadastro)
                                 } else {
-                                    alert("Houve um erro ao soliciar a confirmação do cadastro!", 1)
+                                    alertSnack("Houve um erro ao soliciar a confirmação do cadastro!", 1, clCadastro)
                                 }
                             }
                     }
 
                     finish()
-                } else {
-                    Log.w("ERROR:", "createUserWithEmail:failure", task.exception)
-                    alert("Falha no cadastro!", 0)
-                    alert("Possivelmente o email já foi utilizado em outro cadastro.", 1)
+                } else{
+                        try {
+                            throw task.exception!!
+                        } catch (e: FirebaseAuthInvalidUserException){
+                            if (e.errorCode.equals("ERROR_EMAIL_ALREADY_IN_USE")) {
+                                alertSnack(getString(R.string.error_email_already_in_use), 1, clCadastro)
+                                editEmail!!.setError(getString(R.string.error_email_already_in_use))
+                                editEmail!!.requestFocus()
+                            } else{
+                                alertSnack("Falha ao cadastrar: " + e.message, 0, clCadastro)
+                            }
+                        } catch (e: FirebaseAuthUserCollisionException) {
+                            alertSnack(getString(R.string.error_user_exists), 0, clCadastro)
+                            editEmail!!.setError(getString(R.string.error_user_exists))
+                            editEmail!!.requestFocus()
+                        } catch (e: Exception){
+                            alertSnack("Falha ao cadastrar: " + e.message, 0, clCadastro)
+                        }
                 }
             }
     }
 
-    private fun alert(txtAlert: String, delay: Int) {
-        if (delay == 0) {
-            Toast.makeText(applicationContext, txtAlert, Toast.LENGTH_SHORT).show()
-        } else if (delay == 1) {
-            Toast.makeText(applicationContext, txtAlert, Toast.LENGTH_LONG).show()
-        }
-    }
-
     fun onConnectionFailed(connectionResult: ConnectionResult) {
-        alert("Error: $connectionResult", 1)
+        alertSnack("Error: $connectionResult", 1, clCadastro)
     }
 }

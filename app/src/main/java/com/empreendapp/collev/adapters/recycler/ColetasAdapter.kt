@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.R
 import com.empreendapp.collev.model.Coleta
+import com.empreendapp.collev.model.User
 import com.empreendapp.collev.ui.coletor.ColetasFragment
 import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
 import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
@@ -26,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var fragment: ColetasFragment) :
+class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var fragment: ColetasFragment, var usuario: User?) :
     RecyclerView.Adapter<ColetasAdapter.ViewHolder>() {
 
     class ViewHolder(var viewItem: ConstraintLayout) : RecyclerView.ViewHolder(viewItem) {
@@ -53,8 +54,8 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
         when(coleta.status){
             SOLICITADA -> {
-                holder.tvTituloColeta!!.text = "Fulano solicitou uma coleta"
-                holder.tvSubtituloColeta!!.text = "Um recipiente de 50 litros está cheio"
+                holder.tvTituloColeta!!.text = "${coleta.empresaName} solicitou coleta"
+                holder.tvSubtituloColeta!!.text = "O recipiente de ${coleta.volumeRecipiente} litros está cheio"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_oil_05)
 
                 holder.viewItem.setOnClickListener{
@@ -127,6 +128,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                     coleta.diaMarcado = spinner.selectedItem.toString()
                                     coleta.horaMarcada = tvHorario.text.toString()
                                     coleta.status = AGENDADA
+                                    coleta.coletorName = usuario!!.nome
 
                                     coleta.saveInFirebase(act).addOnCompleteListener {
                                         if(it.isSuccessful){
@@ -166,8 +168,8 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 }
             }
             AGENDADA -> {
-                holder.tvTituloColeta!!.text = "Você agendou a coleta da empresa tal" //nome da empresa ou do colaborador
-                holder.tvSubtituloColeta!!.text = "Leve um recipiente de 50 litros"
+                holder.tvTituloColeta!!.text = "Você agendou a coleta da ${coleta.empresaName}"
+                holder.tvSubtituloColeta!!.text = "Leve um recipiente de ${coleta.volumeRecipiente} litros"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_history)
 
                 holder.viewItem.setOnClickListener{
@@ -210,7 +212,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                 h.postDelayed(r, 1300)
                                 alert("A coleta foi finalizada ✔️", 2, act)
                             } else{
-                                alert("Coleta não dinalizada \uD83D\uDE15", 2, act)
+                                alert("Coleta não foi finalizada \uD83D\uDE15", 2, act)
                                 alert("Verifique sua conexão com a internet!", 2, act)
                             }
                         }
@@ -218,7 +220,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 }
             }
             ATENDIDA -> {
-                holder.tvTituloColeta!!.text = "Coleta na empresa tal concluida!"
+                holder.tvTituloColeta!!.text = "Coleta na ${coleta.empresaName} concluida!"
                 holder.tvSubtituloColeta!!.text = "Realizada no dia 21/11/2021"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_check_01)
 

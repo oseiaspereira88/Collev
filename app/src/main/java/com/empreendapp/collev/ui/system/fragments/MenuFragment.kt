@@ -8,9 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.R
+import com.empreendapp.collev.model.Colaborador
+import com.empreendapp.collev.model.User
 import com.empreendapp.collev.ui.system.*
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
+import com.empreendapp.collev.util.FirebaseConnection
+import com.empreendapp.collev.util.LibraryClass
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 class MenuFragment : Fragment() {
     private var clOpPerfil: ConstraintLayout? = null
@@ -19,6 +25,9 @@ class MenuFragment : Fragment() {
     private var clOpChat: ConstraintLayout? = null
     private var clOpParceiros: ConstraintLayout? = null
     private var clOpSair: ConstraintLayout? = null
+    private var database: DatabaseReference? = null
+    private var auth: FirebaseAuth? = null
+    private var usuario: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +38,24 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_menu, container, false)
-        intViews(rootView)
+        initFirebase()
+
+        usuario = User()
+        usuario!!.getCurrentUser(database!!, auth!!)!!.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                initViews(rootView)
+            }
+        }
+
         return rootView
     }
 
-    private fun intViews(rootView: View) {
+    private fun initFirebase() {
+        database = LibraryClass.firebaseDB?.reference
+        auth = FirebaseConnection.getFirebaseAuth()!!
+    }
+
+    private fun initViews(rootView: View) {
         clOpPerfil = rootView.findViewById(R.id.clOpPerfil)
         clOpQuemSomos = rootView.findViewById(R.id.clOpQuemSomos)
         clOpConfiguracoes = rootView.findViewById(R.id.clOpConfiguracoes)
@@ -70,5 +92,7 @@ class MenuFragment : Fragment() {
             startActivity(Intent(context, LoginActivity::class.java))
             activity?.finish()
         }
+
+        tvNomeUsuarioMenuItem.text = usuario!!.nome
     }
 }
