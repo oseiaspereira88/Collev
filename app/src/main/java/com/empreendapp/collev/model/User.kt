@@ -53,7 +53,7 @@ open class User {
             }
     }
 
-    private fun setUser(user: User?){
+    fun setUser(user: User?){
         id = user?.id
         nome = user?.nome
         email = user?.email

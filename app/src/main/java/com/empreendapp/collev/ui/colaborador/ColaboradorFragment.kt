@@ -83,7 +83,7 @@ open class ColaboradorFragment : Fragment() {
         initFirebase()
 
         usuario = Colaborador()
-        usuario!!.getCurrentUser(database!!, auth!!)!!.addOnCompleteListener { task ->
+        usuario!!.getCurrentColaborador(database!!, auth!!)!!.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 initViews(rootView)
                 checkColetaSolicitada()

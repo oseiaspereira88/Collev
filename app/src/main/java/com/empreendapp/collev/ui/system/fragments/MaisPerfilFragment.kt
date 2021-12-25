@@ -68,7 +68,7 @@ class MaisPerfilFragment : Fragment() {
         spinnerRecipiente = rootView.findViewById<View>(R.id.spinnerRecipiente) as Spinner
         tvRecipiente = rootView.findViewById<View>(R.id.tvRecipiente) as TextView
         val opcoesRecipientes =
-            arrayOf("5 Litros", "10 Litros", "15 Litros", "20 Litros", "25 Litros", "50 Litros")
+            arrayOf("5 litros", "10 litros", "15 litros", "20 litros", "25 litros", "50 litros")
         val adapter: ArrayAdapter<*> =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, opcoesRecipientes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

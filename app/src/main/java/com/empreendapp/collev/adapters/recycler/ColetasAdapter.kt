@@ -62,27 +62,27 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     animateButton(holder.viewItem)
 
                     val dialogBuilder = AlertDialog.Builder(act)
-                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_marcacao_coleta, null)
+                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_solicitada, null)
                     dialogBuilder.setView(dialogView)
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    var daysList = getDaysList(coleta.diasPossiveis)
-                    var adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
+                    val daysList = getDaysList(coleta.diasPossiveis)
+                    val adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
                     adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-                    var spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
+                    val spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
                     spinner!!.adapter = adapter
                     dialog.show()
 
-                    var tvPeriodo = dialogView!!.findViewById<TextView>(R.id.tvInfoAgendarColeta)
+                    val tvPeriodo = dialogView!!.findViewById<TextView>(R.id.tvInfoAgendarColeta)
                     tvPeriodo.text = "Informe quando será realizada a coleta e o horário entre as ${coleta.periodoIn} e ${coleta.periodoOut} horas"
 
-                    var tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogEmpresaName)
+                    val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogSolicitadaEmpresa)
                     tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
 
-                    var llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
-                    var tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
+                    val llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
+                    val tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
 
                     llHorario.setOnClickListener{
                         val cal1 = Calendar.getInstance()
@@ -91,7 +91,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                 cal1.set(Calendar.HOUR_OF_DAY, hourOfDay)
                                 cal1.set(Calendar.MINUTE, minute)
 
-                                var horaMarcada = SimpleDateFormat("HH:mm").format(cal1.time).toString().replace(":", "").toInt()
+                                val horaMarcada = SimpleDateFormat("HH:mm").format(cal1.time).toString().replace(":", "").toInt()
                                 if (horaMarcada >= coleta.periodoIn!!.toString().replace(":", "").toInt()
                                     && horaMarcada <= coleta.periodoOut.toString().replace(":", "").toInt()) {
 
@@ -101,7 +101,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                                     alert("Selecione um horário entre as ${coleta.periodoIn}h e as ${coleta.periodoOut}h!", 2, act)
                                 }
                             }
-                        var tpFinalDialog = TimePickerDialog(
+                        val tpFinalDialog = TimePickerDialog(
                             act,
                             finalTimeSetListener1,
                             cal1.get(Calendar.HOUR),
@@ -112,12 +112,12 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                         tpFinalDialog.show()
                     }
 
-                    var imgCancelDialog = dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                    val imgCancelDialog = dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog)
                     imgCancelDialog.setOnClickListener {
                         dialog.cancel()
                     }
 
-                    var tvAgendar = dialogView!!.findViewById<TextView>(R.id.tvAgendar)
+                    val tvAgendar = dialogView!!.findViewById<TextView>(R.id.tvAgendar)
                     tvAgendar.setOnClickListener {
                         if(!tvHorario.text.equals("Selecione")){
                             dialogView.visibility = View.GONE
@@ -179,13 +179,13 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     animateButton(holder.viewItem)
 
                     val dialogBuilder = AlertDialog.Builder(act)
-                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_finalizar_coleta, null)
+                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_agendada, null)
                     dialogBuilder.setView(dialogView)
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
                     dialog.show()
 
-                    var tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogFinalizarEmpresaName)
+                    val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogAgendadaEmpresa)
                     tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
 
                     dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog).setOnClickListener {
@@ -198,6 +198,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
                     dialogView!!.findViewById<TextView>(R.id.tvConcluirColeta).setOnClickListener {
                         coleta.status = ATENDIDA
+                        coleta.dataAtendida = Date()
                         coleta.saveInFirebase(act).addOnCompleteListener {
                             if(it.isSuccessful){
                                 YoYo.with(Techniques.SlideOutRight)
@@ -234,104 +235,30 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     animateButton(holder.viewItem)
 
                     val dialogBuilder = AlertDialog.Builder(act)
-                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_marcacao_coleta, null)
+                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_atendida, null)
                     dialogBuilder.setView(dialogView)
                     val dialog = dialogBuilder.create()
                     dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    var daysList = getDaysList(coleta.diasPossiveis)
-                    var adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
-                    adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    val tvEmpresa = dialogView.findViewById<TextView>(R.id.tvColetaInfoEmpresa)
+                    val tvData = dialogView.findViewById<TextView>(R.id.tvColetaInfoData)
+                    val tvDia = dialogView.findViewById<TextView>(R.id.tvColetaInfoDia)
+                    val tvHora = dialogView.findViewById<TextView>(R.id.tvColetaInfoHora)
+                    val tvRecipiente = dialogView.findViewById<TextView>(R.id.tvColetaInfoRecipiente)
 
-                    var spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
-                    spinner!!.adapter = adapter
-                    dialog.show()
+                    tvEmpresa.text = coleta.empresaColaboradora
+                    val sdf = SimpleDateFormat("dd/MM/yyyy")
+                    tvData.text = sdf.format(coleta.dataAtendida)
+                    tvDia.text = coleta.diaMarcado
+                    tvHora.text = coleta.horaMarcada
+                    tvRecipiente.text = coleta.volumeRecipiente
 
-                    var llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
-                    var tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
-
-                    llHorario.setOnClickListener{
-                        val cal1 = Calendar.getInstance()
-                        val finalTimeSetListener1 =
-                            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                                cal1.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                                cal1.set(Calendar.MINUTE, minute)
-
-                                var horaMarcada = SimpleDateFormat("HH:mm").format(cal1.time).toString().replace(":", "").toInt()
-                                if (horaMarcada >= coleta.periodoIn!!.toString().replace(":", "").toInt()
-                                    && horaMarcada <= coleta.periodoOut.toString().replace(":", "").toInt()) {
-
-                                    tvHorario.text = SimpleDateFormat("HH:mm").format(cal1.time)
-                                } else {
-                                    animateInputError(dialogView)
-                                    alert("Selecione um horário entre as ${coleta.periodoIn}h e as ${coleta.periodoOut}h!", 2, act)
-                                }
-                            }
-                        var tpFinalDialog = TimePickerDialog(
-                            act,
-                            finalTimeSetListener1,
-                            cal1.get(Calendar.HOUR),
-                            cal1.get(Calendar.MINUTE),
-                            true
-                        )
-                        tpFinalDialog.setTitle("Qual será o horário?")
-                        tpFinalDialog.show()
-                    }
-
-                    var imgCancelDialog = dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                    val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
                     imgCancelDialog.setOnClickListener {
                         dialog.cancel()
                     }
 
-                    var tvAgendar = dialogView!!.findViewById<TextView>(R.id.tvAgendar)
-                    tvAgendar.setOnClickListener {
-                        if(!tvHorario.text.equals("Selecione")){
-                            dialogView.visibility = View.GONE
-
-                            val builder = AlertDialog.Builder(act)
-                            builder.setMessage("Confirma a coleta para a ${spinner.selectedItem} as ${tvHorario.text} horas?")
-                                .setCancelable(false)
-                                .setPositiveButton("Sim") { confirmDialog, id ->
-                                    dialog.cancel()
-
-                                    coleta.diaMarcado = spinner.selectedItem.toString() + "-feira"
-                                    coleta.periodoIn = tvHorario.text.toString()
-                                    coleta.status = AGENDADA
-                                    coleta.saveInFirebase(act).addOnCompleteListener {
-                                        if(it.isSuccessful){
-                                            YoYo.with(Techniques.SlideOutRight)
-                                                .duration(1000)
-                                                .repeat(0).playOn(holder.viewItem)
-
-                                            val h = Handler()
-                                            val r = Runnable {
-                                                if(coletas.contains(coleta)) coletas.remove(coleta)
-                                                fragment.resetList(1)
-
-                                                YoYo.with(Techniques.FadeIn)
-                                                    .duration(50)
-                                                    .repeat(0).playOn(holder.viewItem)
-                                            }
-                                            h.postDelayed(r, 1300)
-
-                                            alert("A coleta foi agendada com sucesso  ✔️", 2, act)
-                                        } else{
-                                            alert("Coleta não agendada \uD83D\uDE15", 2, act)
-                                            alert("Verifique sua conexão com a internet!", 2, act)
-                                        }
-                                    }
-                                }
-                                .setNegativeButton("Não") { confirmDialog, id ->
-                                    dialogView.visibility = View.VISIBLE
-                                    confirmDialog.cancel()
-                                }
-                            val alert = builder.create()
-                            alert.show()
-                        } else{
-                            alert("Selecione um horário!", 2, act)
-                            animateInputError(dialogView)
-                        }
-                    }
+                    dialog.show()
                 }
             }
         }

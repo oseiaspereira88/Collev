@@ -17,7 +17,7 @@ class ColetaDialog: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
-        return inflater.inflate(R.layout.dialog_marcacao_coleta, container, false)
+        return inflater.inflate(R.layout.dialog_coleta_solicitada, container, false)
     }
 
     override fun onStart() {

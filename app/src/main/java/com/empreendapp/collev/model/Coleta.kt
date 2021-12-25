@@ -12,6 +12,7 @@ import com.empreendapp.collev.util.NotificacaoTipo
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
+import java.util.*
 import kotlin.collections.ArrayList
 
 class Coleta {
@@ -32,6 +33,7 @@ class Coleta {
     var empresaColetora: String? = null
     var empresaColaboradora: String? = null
     var volumeRecipiente: String? = null
+    var dataAtendida: Date? = null
 
     constructor()
 

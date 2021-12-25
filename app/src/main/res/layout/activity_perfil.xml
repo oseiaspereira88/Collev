@@ -153,7 +153,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clItemPerfil" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clItemPerfil2"
+        android:id="@+id/clColetaInfo1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -224,7 +224,7 @@
         android:background="#F3F3F3"
         app:layout_constraintEnd_toEndOf="@+id/clItemPerfil"
         app:layout_constraintStart_toStartOf="@+id/clItemPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/clItemPerfil2" />
+        app:layout_constraintTop_toBottomOf="@+id/clColetaInfo1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clItemPerfil3"
