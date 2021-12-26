@@ -88,10 +88,17 @@ open class User {
         bdRef.child("id_local").setValue(id_local)
     }
 
-    open fun saveNomeEmpresaInFirebase() {
+    open fun saveNomeEmpresaInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
-        bdRef.child("nome_empresa").setValue(nome_empresa)
+        return bdRef.child("nome_empresa").setValue(nome_empresa)
+    }
+
+    open fun saveNomeInFirebase(): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB!!.reference
+        bdRef = bdRef!!.child("users")!!.child(id!!)
+
+        return bdRef.child("nome").setValue(nome)
     }
 
     open fun saveNameAndEmailSP(ctx: Context) {

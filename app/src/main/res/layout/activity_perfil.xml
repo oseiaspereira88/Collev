@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clPerfil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.system.PerfilActivity">
@@ -79,7 +80,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clItemPerfil"
+        android:id="@+id/clPerfilNome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -89,13 +90,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfil">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEditNome"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:visibility="invisible"
+            app:boxStrokeColor="#FFCC80"
+            app:counterMaxLength="30"
+            app:hintTextColor="#F1AB42"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/llPerfilNome"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible">
+
+            <EditText
+                android:id="@+id/editPerfilNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLength="30" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/llPerfilNome"
             android:layout_width="0dp"
             android:layout_height="47dp"
+            android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgEditNome"
+            app:layout_constraintEnd_toStartOf="@+id/imgPerfilEditNome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -124,36 +151,38 @@
                     android:id="@+id/tvPerfilNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Thais Brenda"
+                    android:text="Nome do usuário"
                     android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imgEditNome"
+            android:id="@+id/imgPerfilEditNome"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/button_rounded_primary_color"
-            android:padding="4dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add_etapa_mini2" />
+            app:srcCompat="@drawable/icon_edit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvDividerP1"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="#F3F3F3"
-        app:layout_constraintEnd_toEndOf="@+id/clItemPerfil"
-        app:layout_constraintStart_toStartOf="@+id/clItemPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/clItemPerfil" />
+        app:layout_constraintEnd_toEndOf="@+id/clPerfilNome"
+        app:layout_constraintStart_toStartOf="@+id/clPerfilNome"
+        app:layout_constraintTop_toBottomOf="@+id/clPerfilNome" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clColetaInfo1"
+        android:id="@+id/clPerfilEmpresa"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -163,13 +192,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDividerP1">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEditEmpresa"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Empresa Representada"
+            android:visibility="invisible"
+            app:boxStrokeColor="#FFCC80"
+            app:counterMaxLength="30"
+            app:hintTextColor="#F1AB42"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible">
+
+            <EditText
+                android:id="@+id/editPerfilEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLength="30" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/llPerfilEmpresa"
             android:layout_width="0dp"
             android:layout_height="47dp"
+            android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgEditEmpresa"
+            app:layout_constraintEnd_toStartOf="@+id/imgPerfilEditEmpresa"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -205,29 +260,31 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imgEditEmpresa"
+            android:id="@+id/imgPerfilEditEmpresa"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/button_rounded_primary_color"
-            android:padding="4dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add_etapa_mini2" />
+            app:srcCompat="@drawable/icon_edit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tvDividerP2"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="#F3F3F3"
-        app:layout_constraintEnd_toEndOf="@+id/clItemPerfil"
-        app:layout_constraintStart_toStartOf="@+id/clItemPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/clColetaInfo1" />
+        app:layout_constraintEnd_toEndOf="@+id/clPerfilNome"
+        app:layout_constraintStart_toStartOf="@+id/clPerfilNome"
+        app:layout_constraintTop_toBottomOf="@+id/clPerfilEmpresa" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clItemPerfil3"
+        android:id="@+id/clPerfilEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -244,7 +301,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgEditEmail"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -279,16 +336,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgEditEmail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/button_rounded_primary_color"
-            android:padding="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add_etapa_mini2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -297,12 +344,12 @@
         android:layout_height="2dp"
         android:layout_marginTop="16dp"
         android:background="#F3F3F3"
-        app:layout_constraintEnd_toEndOf="@+id/clItemPerfil"
-        app:layout_constraintStart_toStartOf="@+id/clItemPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/clItemPerfil3" />
+        app:layout_constraintEnd_toEndOf="@+id/clPerfilNome"
+        app:layout_constraintStart_toStartOf="@+id/clPerfilNome"
+        app:layout_constraintTop_toBottomOf="@+id/clPerfilEmail" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clItemPerfil4"
+        android:id="@+id/clPerfilSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -316,19 +363,21 @@
             android:id="@+id/linearLayout5"
             android:layout_width="0dp"
             android:layout_height="47dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgEditSenha"
+            app:layout_constraintEnd_toStartOf="@+id/imgPerfilResetSenha"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_lock_power_off" />
+                android:translationX="1dp"
+                app:srcCompat="@android:drawable/ic_secure" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -355,15 +404,17 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imgEditSenha"
+            android:id="@+id/imgPerfilResetSenha"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/button_rounded_primary_color"
-            android:padding="4dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_add_etapa_mini2" />
+            app:srcCompat="@drawable/icon_edit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -371,8 +422,9 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/clItemPerfil3"
-        app:layout_constraintTop_toBottomOf="@+id/clItemPerfil4"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/clPerfilEmail"
+        app:layout_constraintTop_toBottomOf="@+id/clPerfilSenha"
         app:srcCompat="@drawable/button_rounded_06" />
 
     <TextView
@@ -381,7 +433,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="0"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
         app:layout_constraintEnd_toEndOf="@+id/imageView22"
