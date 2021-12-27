@@ -1,7 +1,10 @@
 package com.empreendapp.collev.ui.system
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +22,17 @@ import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.activity_perfil.*
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
+import android.provider.MediaStore
+import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import android.os.Environment
+import android.graphics.Bitmap
+import android.util.Log
+import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class PerfilActivity : AppCompatActivity() {
     private var database: DatabaseReference? = null
@@ -27,6 +41,8 @@ class PerfilActivity : AppCompatActivity() {
     private var isNameEditing = false
     private var isEmpresaEditing = false
     private var isPasswordEditing = false
+    private val PICK_IMAGE_CAMERA = 1
+    private val PICK_IMAGE_GALLERY = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +84,41 @@ class PerfilActivity : AppCompatActivity() {
         }
 
         clCamera!!.setOnClickListener {
-            alertSnack("OnClick()!", 2, clPerfil)
+            val dialogBuilder = AlertDialog.Builder(this)
+            val dialogView = this.layoutInflater.inflate(R.layout.dialog_camera_or_gallery, null)
+            dialogBuilder.setView(dialogView)
+            val dialog = dialogBuilder.create()
+            dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+            dialog.show()
+
+            val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
+            imgCancelDialog.setOnClickListener {
+                dialog.cancel()
+            }
+
+            val imgDialogCamera = dialogView.findViewById<ImageView>(R.id.imgDialogCamera)
+            imgDialogCamera.setOnClickListener {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 3)
+                } else{
+                    dialog.dismiss()
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(intent, PICK_IMAGE_CAMERA)
+                }
+            }
+
+            val imgDialogGallery = dialogView.findViewById<ImageView>(R.id.imgDialogGallery)
+            imgDialogGallery.setOnClickListener {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 3)
+                } else{
+                    dialog.dismiss()
+                    val pickPhoto = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    startActivityForResult(pickPhoto, PICK_IMAGE_GALLERY)
+                }
+            }
         }
 
         imgPerfilEditNome.setOnClickListener{
@@ -239,5 +289,45 @@ class PerfilActivity : AppCompatActivity() {
             sb.append(kotlin.String.format("%02x", b))
         }
         return sb.toString()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PICK_IMAGE_CAMERA -> if (resultCode == RESULT_OK) {
+                val selectedImage: Uri? = data!!.data
+
+                val bitmap: Bitmap = data.getExtras()!!.get("data") as Bitmap
+                val bytes = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes)
+
+                Log.e("Activity", "Pick from Camera::>>> ")
+
+                val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                val destination = File(
+                    Environment.getExternalStorageDirectory().toString() + "/" +
+                            getString(R.string.app_name), "IMG_$timeStamp.jpg"
+                )
+                val fo: FileOutputStream
+                try {
+                    destination.createNewFile()
+                    fo = FileOutputStream(destination)
+                    fo.write(bytes.toByteArray())
+                    fo.close()
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+                val imgPath = destination.getAbsolutePath()
+
+                imgPerfil.setImageBitmap(bitmap)
+            }
+            PICK_IMAGE_GALLERY -> if (resultCode == RESULT_OK) {
+                val selectedImage: Uri? = data!!.data
+                imgPerfil.setImageURI(selectedImage)
+            }
+        }
     }
 }
