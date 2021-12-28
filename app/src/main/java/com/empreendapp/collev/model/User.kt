@@ -31,6 +31,7 @@ open class User {
     var endereco: String? = null
     var id_local: String? = null
     var nome_empresa: String? = null
+    var profile_image_id: String? = null
     var ativo: Boolean? = null
 
     fun getCurrentUser(database: DatabaseReference, auth: FirebaseAuth): Task<DataSnapshot>? {
@@ -61,6 +62,7 @@ open class User {
         endereco = user?.endereco
         id_local = user?.id_local
         nome_empresa = user?.nome_empresa
+        profile_image_id = user?.profile_image_id
     }
 
     open fun saveInFirebase() {
@@ -99,6 +101,13 @@ open class User {
         bdRef = bdRef!!.child("users")!!.child(id!!)
 
         return bdRef.child("nome").setValue(nome)
+    }
+
+    open fun saveImageProfileIdInFirebase(): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB!!.reference
+        bdRef = bdRef!!.child("users")!!.child(id!!)
+
+        return bdRef.child("profile_image_id").setValue(profile_image_id)
     }
 
     open fun saveNameAndEmailSP(ctx: Context) {

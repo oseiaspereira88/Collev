@@ -32,17 +32,25 @@ import android.util.Log
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.Toast
+import com.google.firebase.storage.StorageReference
+import android.app.ProgressDialog
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 
 
 class PerfilActivity : AppCompatActivity() {
+    private val PICK_IMAGE_CAMERA = 1
+    private val PICK_IMAGE_GALLERY = 2
+    private var storage: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
+    private var imgFilePath: Uri? = null
     private var database: DatabaseReference? = null
     private var auth: FirebaseAuth? = null
     private var usuario: User? = null
     private var isNameEditing = false
     private var isEmpresaEditing = false
     private var isPasswordEditing = false
-    private val PICK_IMAGE_CAMERA = 1
-    private val PICK_IMAGE_GALLERY = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +58,11 @@ class PerfilActivity : AppCompatActivity() {
         initFirebase()
 
         usuario = User()
-        usuario!!.getCurrentUser(database!!, auth!!)!!.addOnCompleteListener { task ->
+        usuario!!.getCurrentUser(database!!, auth!!)!!
+            .addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                usuario!!.id = auth!!.uid
+
                 initViews()
                 initListeners()
             }
@@ -61,12 +72,35 @@ class PerfilActivity : AppCompatActivity() {
     private fun initFirebase() {
         database = LibraryClass.firebaseDB?.reference
         auth = FirebaseConnection.getFirebaseAuth()!!
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage!!.getReference()
     }
 
     fun initViews(){
         tvPerfilNome.text = usuario!!.nome
         tvPerfilEmail.text = usuario!!.email
         tvPerfilEmpresa.text = usuario!!.nome_empresa
+
+        if (usuario!!.profile_image_id != null) {
+            getImgInStorage()
+        }
+    }
+
+    fun getImgInStorage(){
+        val ref = storageReference!!
+            .child("profiles/${auth!!.uid}/${usuario!!.profile_image_id}")
+
+        ref.downloadUrl.addOnCompleteListener {
+            if(it.isSuccessful){
+                Picasso.get()
+                    .load(it.result)
+                    .placeholder(R.drawable.icon_user)
+                    .error(R.drawable.ic_info)
+                    .into(imgPerfil)
+            } else{
+                alertSnack("Falha ao carregar a URL", 2, clPerfil)
+            }
+        }
     }
 
     private fun initListeners() {
@@ -295,7 +329,7 @@ class PerfilActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             PICK_IMAGE_CAMERA -> if (resultCode == RESULT_OK) {
-                val selectedImage: Uri? = data!!.data
+                imgFilePath = data!!.data
 
                 val bitmap: Bitmap = data.getExtras()!!.get("data") as Bitmap
                 val bytes = ByteArrayOutputStream()
@@ -321,13 +355,61 @@ class PerfilActivity : AppCompatActivity() {
                 }
 
                 val imgPath = destination.getAbsolutePath()
-
                 imgPerfil.setImageBitmap(bitmap)
+                uploadImage()
             }
             PICK_IMAGE_GALLERY -> if (resultCode == RESULT_OK) {
-                val selectedImage: Uri? = data!!.data
-                imgPerfil.setImageURI(selectedImage)
+                imgFilePath = data!!.data
+                imgPerfil.setImageURI(imgFilePath)
+                uploadImage()
             }
+        }
+    }
+
+    private fun uploadImage() {
+        if (imgFilePath != null) {
+
+            // Code for showing progressDialog while uploading
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Carregando...")
+            progressDialog.show()
+
+            val imgID = UUID.randomUUID().toString()
+
+            // Defining the child of storageReference
+            val ref: StorageReference = storageReference!!.child(
+                "profiles/${auth!!.uid}/${imgID}"
+            )
+
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(imgFilePath!!)
+                .addOnSuccessListener { // Image uploaded successfully
+                    // Dismiss dialog
+                    progressDialog.dismiss()
+                    alertSnack("Imagem carregada!", 1, clPerfil)
+                    usuario!!.profile_image_id = imgID
+                    usuario!!.saveImageProfileIdInFirebase().addOnCompleteListener {
+                        if(it.isSuccessful) alertSnack("Perfil salvo!", 1, clPerfil)
+                    }
+                }
+                .addOnFailureListener { e -> // Error, Image not uploaded
+                    progressDialog.dismiss()
+                    Toast
+                        .makeText(
+                            this,
+                            "Failed " + e.message,
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
+                }
+                .addOnProgressListener { taskSnapshot ->
+
+                    // Progress Listener for loading
+                    // percentage on the dialog box
+                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount)
+                    progressDialog.setMessage("Carregado: " + progress.toInt() + "%")
+                }
         }
     }
 }
