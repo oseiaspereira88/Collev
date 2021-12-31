@@ -108,16 +108,13 @@
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_configuracoes.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_init_perfil.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_intro.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_parceiros.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_perfil.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_quem_somos.xml" value="0.25" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/activity_quemsomos.xml" value="0.22" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_camera_or_gallery.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_coleta_solicitada.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_coleta_view.xml" value="0.22" />
-        <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_input_email.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/dialog_local_form.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_colaborador.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Zeias/StudioProjects/Collev/app/src/main/res/layout/fragment_mais_perfil.xml" value="0.22447916666666667" />
@@ -141,6 +138,7 @@
         <entry key="app/src/main/res/layout/dialog_coleta_atendida.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/dialog_coleta_solicitada.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/dialog_finalizar_coleta.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/dialog_input_email.xml" value="0.5" />
         <entry key="app/src/main/res/layout/dialog_local_form.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/dialog_marcacao_coleta.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/fragment_coletas.xml" value="0.35520833333333335" />

@@ -186,7 +186,7 @@
         android:id="@+id/tvResetSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Esqueceu sua senha?"
         android:textColor="#43BAC5"
         android:textSize="16sp"

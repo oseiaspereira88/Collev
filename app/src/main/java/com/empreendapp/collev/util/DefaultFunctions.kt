@@ -69,5 +69,10 @@ class DefaultFunctions {
             val alert = builder.create()
             alert.show()
         }
+
+        fun whenAlertSleep(r: Runnable){
+            val h = Handler()
+            h.postDelayed(r, 3200)
+        }
     }
 }

@@ -7,9 +7,13 @@ import com.empreendapp.collev.R
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alertSnack
+import com.empreendapp.collev.util.DefaultFunctions.Companion.whenAlertSleep
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
@@ -36,7 +40,6 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.android.synthetic.main.activity_login.editEmail
-import kotlinx.android.synthetic.main.dialog_input_email.*
 import java.lang.Exception
 
 
@@ -134,6 +137,10 @@ class LoginActivity : AppCompatActivity() {
             dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
             dialog.show()
 
+            val tvDialogSolicitarAlteracao = dialogView.findViewById<TextView>(R.id.tvDialogSolicitarAlteracao)
+            val editDialogResetEmail = dialogView.findViewById<EditText>(R.id.editDialogResetEmail)
+            val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
+
             tvDialogSolicitarAlteracao.setOnClickListener {
                 if(validateEmail(editDialogResetEmail)){
                     auth.sendPasswordResetEmail(editDialogResetEmail.text.toString())
@@ -142,15 +149,11 @@ class LoginActivity : AppCompatActivity() {
                             alertSnack("Um email de alteração de senha foi enviado!", 2, clLogin)
                             dialog.dismiss()
                         } else{
-                            try {
-                                it.exception!!
-                            } catch (e: FirebaseAuthInvalidCredentialsException){
-                                if (e.errorCode.equals("ERROR_USER_NOT_FOUND")) {
-                                    alertSnack("Esse email não corresponde a nenhum usuário!", 2, clLogin)
-                                } else{
-                                    alertSnack("Houve um problema ao solicitar alteração de senha!", 2, clLogin)
-                                }
-                            } catch (e: Exception){
+                            if(it.exception is FirebaseAuthInvalidUserException){
+                                dialog.dismiss()
+                                alertSnack("Esse email não corresponde a nenhum usuário!", 2, clLogin)
+                                whenAlertSleep(Runnable { dialog.show() })
+                            } else{
                                 alertSnack("Houve um problema ao solicitar alteração de senha!", 2, clLogin)
                             }
                         }
@@ -158,6 +161,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
+            imgCancelDialog.setOnClickListener { dialog.dismiss() }
         }
     }
 
@@ -177,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        auth.signInWithEmailAndPassword(email, encrypt(senha))
+        auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val userFirebase: FirebaseUser? = auth.currentUser
