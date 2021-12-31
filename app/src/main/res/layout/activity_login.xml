@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pag_bg_01"
-    tools:context=".ui.system.LoginActivity">
+    tools:context=".ui.common.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="126dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="126dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="320dp"
-        android:paddingTop="8dp"
+        android:layout_marginBottom="346dp"
+        android:paddingTop="16dp"
         android:paddingBottom="8dp"
         android:text="Login"
         android:textSize="24sp"
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:hint="Email"
         app:boxStrokeColor="#FFCC80"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/editEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <EditText
-            android:id="@+id/edit_senha"
+            android:id="@+id/editSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -89,7 +89,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tv_entrar"
+        android:id="@+id/tvEntrar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -107,9 +107,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <TextView
-        android:id="@+id/tv_cadastre_se"
+        android:id="@+id/tvCadastrar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_rounded_02"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
@@ -133,7 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_entrar"
+        app:layout_constraintTop_toBottomOf="@+id/tvResetSenha"
         app:srcCompat="@android:drawable/bottom_bar" />
 
     <TextView
@@ -172,7 +173,7 @@
         app:srcCompat="@drawable/button_cycle_blue2" />
 
     <ImageView
-        android:id="@+id/btn_google"
+        android:id="@+id/btnGoogle"
         android:layout_width="36dp"
         android:layout_height="36dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView13"
@@ -180,5 +181,17 @@
         app:layout_constraintStart_toStartOf="@+id/imageView13"
         app:layout_constraintTop_toTopOf="@+id/imageView13"
         app:srcCompat="@drawable/icon_google" />
+
+    <TextView
+        android:id="@+id/tvResetSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Esqueceu sua senha?"
+        android:textColor="#43BAC5"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvEntrar"
+        app:layout_constraintStart_toStartOf="@+id/tvEntrar"
+        app:layout_constraintTop_toBottomOf="@+id/tvEntrar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

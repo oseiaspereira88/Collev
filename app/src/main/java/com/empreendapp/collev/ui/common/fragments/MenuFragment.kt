@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system.fragments
+package com.empreendapp.collev.ui.common.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.empreendapp.collev.R
-import com.empreendapp.collev.model.Colaborador
 import com.empreendapp.collev.model.User
-import com.empreendapp.collev.ui.system.*
+import com.empreendapp.collev.ui.common.*
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.empreendapp.collev.util.FirebaseConnection
 import com.empreendapp.collev.util.LibraryClass

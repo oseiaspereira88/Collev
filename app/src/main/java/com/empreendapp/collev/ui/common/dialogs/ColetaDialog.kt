@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system.dialogs
+package com.empreendapp.collev.ui.common.dialogs
 
 import android.app.Activity
 import android.os.Bundle

@@ -1,16 +1,11 @@
-package com.empreendapp.collev.ui.system
+package com.empreendapp.collev.ui.common
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.NavController
 import android.os.Bundle
 import com.empreendapp.collev.R
-import com.daimajia.androidanimations.library.YoYo
-import com.daimajia.androidanimations.library.Techniques
-import android.app.AlertDialog
 import android.view.KeyEvent
-import android.view.View
-import android.widget.ImageView
 import com.empreendapp.collev.util.DefaultFunctions.Companion.checkExit
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 

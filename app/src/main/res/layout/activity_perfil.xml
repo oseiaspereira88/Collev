@@ -5,7 +5,7 @@
     android:id="@+id/clPerfil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.system.PerfilActivity">
+    tools:context=".ui.common.PerfilActivity">
 
     <ImageView
         android:id="@+id/imgBackPerfil"

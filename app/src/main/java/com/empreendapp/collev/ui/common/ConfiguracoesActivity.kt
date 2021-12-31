@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system
+package com.empreendapp.collev.ui.common
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

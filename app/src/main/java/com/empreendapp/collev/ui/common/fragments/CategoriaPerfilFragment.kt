@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system.fragments
+package com.empreendapp.collev.ui.common.fragments
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth

@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system.fragments
+package com.empreendapp.collev.ui.common.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empreendapp.collev.R
-import com.empreendapp.collev.adapters.recycler.LocaisRecyclerAdapter
 import com.empreendapp.collev.adapters.recycler.NotificacoesAdapter
 import com.empreendapp.collev.model.Notificacao
 import com.empreendapp.collev.util.LibraryClass
@@ -21,7 +20,6 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import java.util.*
 import kotlin.collections.ArrayList
 
 class NotificacoesFragment : Fragment() {

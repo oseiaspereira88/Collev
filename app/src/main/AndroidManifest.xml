@@ -15,19 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collev.NoActionBar">
         <activity
-            android:name=".ui.system.ConfiguracoesActivity"
+            android:name=".ui.common.ConfiguracoesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.system.ChatActivity"
+            android:name=".ui.common.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.system.QuemSomosActivity"
+            android:name=".ui.common.QuemSomosActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.system.ParceirosActivity"
+            android:name=".ui.common.ParceirosActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.system.PerfilActivity"
+            android:name=".ui.common.PerfilActivity"
             android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -60,11 +60,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.system.MainActivity" />
-        <activity android:name=".ui.system.InitPerfilActivity" />
-        <activity android:name=".ui.system.CadastroActivity" />
-        <activity android:name=".ui.system.LoginActivity" />
-        <activity android:name=".ui.system.IntroActivity">
+        <activity android:name=".ui.common.MainActivity" />
+        <activity android:name=".ui.common.InitPerfilActivity" />
+        <activity android:name=".ui.common.CadastroActivity" />
+        <activity android:name=".ui.common.LoginActivity" />
+        <activity android:name=".ui.common.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

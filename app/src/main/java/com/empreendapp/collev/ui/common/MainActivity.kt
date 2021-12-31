@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system
+package com.empreendapp.collev.ui.common
 
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity

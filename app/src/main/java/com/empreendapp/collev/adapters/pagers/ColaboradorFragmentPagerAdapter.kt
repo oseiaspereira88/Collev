@@ -3,8 +3,8 @@ package com.empreendapp.collev.adapters.pagers
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.empreendapp.collev.ui.system.fragments.MenuFragment
-import com.empreendapp.collev.ui.system.fragments.NotificacoesFragment
+import com.empreendapp.collev.ui.common.fragments.MenuFragment
+import com.empreendapp.collev.ui.common.fragments.NotificacoesFragment
 import com.empreendapp.collev.ui.colaborador.ColaboradorFragment
 
 class ColaboradorFragmentPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm!!) {

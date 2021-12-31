@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pag_bg_02"
-    tools:context=".ui.system.CadastroActivity">
+    tools:context=".ui.common.CadastroActivity">
 
     <TextView
         android:id="@+id/tv_cadastrar"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNome">
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/editEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
@@ -123,7 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail">
 
         <EditText
-            android:id="@+id/edit_senha"
+            android:id="@+id/editSenha"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword"

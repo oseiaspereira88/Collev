@@ -1,16 +1,12 @@
-package com.empreendapp.collev.ui.system
+package com.empreendapp.collev.ui.common
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-import android.widget.EditText
 import android.os.Bundle
 import com.empreendapp.collev.R
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
-import android.view.View
-import com.daimajia.androidanimations.library.YoYo
-import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.model.User
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alertSnack
@@ -18,6 +14,8 @@ import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
 import com.google.android.gms.common.ConnectionResult
 import com.empreendapp.collev.util.FirebaseConnection
+import com.empreendapp.collev.util.InputValidate.Companion.validateEmail
+import com.empreendapp.collev.util.InputValidate.Companion.validateSenha
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -30,22 +28,15 @@ import java.security.MessageDigest
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.FacebookException
-
 import com.facebook.login.LoginResult
-
 import com.facebook.FacebookCallback
-
 import com.facebook.login.LoginManager
-
 import com.facebook.CallbackManager
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
-
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import kotlinx.android.synthetic.main.fragment_menu.*
-
+import kotlinx.android.synthetic.main.activity_login.editEmail
+import kotlinx.android.synthetic.main.dialog_input_email.*
 import java.lang.Exception
 
 
@@ -53,10 +44,6 @@ class LoginActivity : AppCompatActivity() {
     private var callbackManager: CallbackManager? = null
     private var firebaseBD: FirebaseDatabase? = null
     private lateinit var auth: FirebaseAuth
-    private var tvEntrar: TextView? = null
-    private var tvCadastreSe: TextView? = null
-    private var editEmail: EditText? = null
-    private var editSenha: EditText? = null
     private var email: String = ""
     private var senha: String = ""
     private lateinit var mGoogleSignClient: GoogleSignInClient
@@ -64,13 +51,11 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        initFirebase();
+        initFirebase()
         if (auth.currentUser != null) {
             if (auth.currentUser!!.isEmailVerified()) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
-            } else {
-                //alert("Confirme sua conta no email", 1)
             }
         }
         val currentUser = auth.currentUser
@@ -117,47 +102,63 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        tvEntrar = findViewById<View>(R.id.tv_entrar) as TextView
-        tvCadastreSe = findViewById<View>(R.id.tv_cadastre_se) as TextView
-        editEmail = findViewById<View>(R.id.edit_email) as EditText
-        editSenha = findViewById<View>(R.id.edit_senha) as EditText
-        val itCadastro = Intent(this, CadastroActivity::class.java)
-
         tvEntrar!!.setOnClickListener { v -> //animate
             animateButton(v)
             val handler = Handler()
             val r = Runnable {
                 getCampos()
-                if (validate()) login()
+                if (validateEmail(editEmail) && validateSenha(editSenha)){
+                    login()
+                }
             }
             handler.postDelayed(r, 300)
         }
-        tvCadastreSe!!.setOnClickListener { v -> //animate
+
+        tvCadastrar!!.setOnClickListener { v -> //animate
             animateButton(v)
             val handler = Handler()
-            val r = Runnable { startActivity(itCadastro) }
+            val r = Runnable { startActivity(Intent(this, CadastroActivity::class.java)) }
             handler.postDelayed(r, 300)
         }
 
-        btn_google.setOnClickListener {
+        btnGoogle.setOnClickListener {
             signInGoogle()
-            alert("The google button was clicked!", 1, this)
+            alertSnack("The google button was clicked!", 1, clLogin)
         }
-    }
 
-    private fun validate(): Boolean {
-        var isValided = true
-        if (email.isEmpty() || email.length < 10 ||
-            !email.contains('@') || !email.contains('.')
-        ) {
-            editEmail?.error = "Digite um email válido!"
-            isValided = false
+        tvResetSenha.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this)
+            val dialogView = this.layoutInflater.inflate(R.layout.dialog_input_email, null)
+            dialogBuilder.setView(dialogView)
+            val dialog = dialogBuilder.create()
+            dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+            dialog.show()
+
+            tvDialogSolicitarAlteracao.setOnClickListener {
+                if(validateEmail(editDialogResetEmail)){
+                    auth.sendPasswordResetEmail(editDialogResetEmail.text.toString())
+                        .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            alertSnack("Um email de alteração de senha foi enviado!", 2, clLogin)
+                            dialog.dismiss()
+                        } else{
+                            try {
+                                it.exception!!
+                            } catch (e: FirebaseAuthInvalidCredentialsException){
+                                if (e.errorCode.equals("ERROR_USER_NOT_FOUND")) {
+                                    alertSnack("Esse email não corresponde a nenhum usuário!", 2, clLogin)
+                                } else{
+                                    alertSnack("Houve um problema ao solicitar alteração de senha!", 2, clLogin)
+                                }
+                            } catch (e: Exception){
+                                alertSnack("Houve um problema ao solicitar alteração de senha!", 2, clLogin)
+                            }
+                        }
+                    }
+                }
+            }
+
         }
-        if (senha.isEmpty() || senha.length < 6) {
-            editSenha?.error = "Digite uma senha válida!"
-            isValided = false
-        }
-        return isValided
     }
 
     private fun getCampos() {

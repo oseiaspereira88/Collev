@@ -1,4 +1,4 @@
-package com.empreendapp.collev.ui.system
+package com.empreendapp.collev.ui.common
 
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -8,7 +8,6 @@ import com.empreendapp.collev.R
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.daimajia.androidanimations.library.YoYo
 import com.daimajia.androidanimations.library.Techniques
 import com.empreendapp.collev.model.User
@@ -51,8 +50,8 @@ class CadastroActivity : AppCompatActivity() {
     private fun initViews() {
         tvCadastrar = findViewById<View>(R.id.tv_cadastrar) as TextView
         editNome = findViewById<View>(R.id.edit_nome) as EditText
-        editEmail = findViewById<View>(R.id.edit_email) as EditText
-        editSenha = findViewById<View>(R.id.edit_senha) as EditText
+        editEmail = findViewById<View>(R.id.editEmail) as EditText
+        editSenha = findViewById<View>(R.id.editSenha) as EditText
 
         tvCadastrar!!.setOnClickListener { v -> //animate
             YoYo.with(Techniques.Pulse).duration(300).repeat(0).playOn(v)
