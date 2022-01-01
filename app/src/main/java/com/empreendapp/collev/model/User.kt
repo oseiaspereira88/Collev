@@ -3,9 +3,14 @@ package com.empreendapp.collev.model
 import android.content.Context
 import android.content.SharedPreferences;
 import android.os.Handler
-import com.empreendapp.collev.util.LibraryClass;
+import com.empreendapp.collev.util.LibraryClass
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.empreendapp.collev.util.CryptWithMD5
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.EMAIL
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.ID
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.NOME
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.PREF
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.TIPO
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -16,13 +21,6 @@ import java.security.NoSuchAlgorithmException
 
 @JsonIgnoreProperties(*arrayOf("id", "senha"))
 open class User {
-    private val TOKEN = "com.empreendapp.collev.models.User.TOKEN"
-    private val ID = "com.empreendapp.collev.models.User.ID"
-    private val NOME = "com.empreendapp.collev.models.User.NOME"
-    private val EMAIL = "com.empreendapp.collev.models.User.EMAIL"
-    private val TIPO = "com.empreendapp.collev.models.User.TIPO"
-    private var PREF = "com.empreendapp.collev.PREF"
-
     var id: String? = null
     var nome: String? = null
     var email: String? = null
@@ -32,6 +30,7 @@ open class User {
     var id_local: String? = null
     var nome_empresa: String? = null
     var profile_image_id: String? = null
+    var initialized_profile: String? = null
     var ativo: Boolean? = null
 
     fun getCurrentUser(database: DatabaseReference, auth: FirebaseAuth): Task<DataSnapshot>? {
@@ -63,6 +62,7 @@ open class User {
         id_local = user?.id_local
         nome_empresa = user?.nome_empresa
         profile_image_id = user?.profile_image_id
+        initialized_profile = user?.initialized_profile
     }
 
     open fun saveInFirebase() {
