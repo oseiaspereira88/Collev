@@ -2,8 +2,8 @@ package com.empreendapp.collev.util
 
 import android.app.Application
 import android.content.Context
+import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.PREF
 import com.google.firebase.database.FirebaseDatabase
-import com.empreendapp.collev.util.sharedpreferences.ConfigSP.Companion.PREF
 
 object LibraryClass : Application() {
     private var firebaseBD: FirebaseDatabase? = null

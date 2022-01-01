@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.empreendapp.collev.R
-import com.empreendapp.collev.util.LibraryClass.PREF
 import com.google.android.material.snackbar.Snackbar
 
 class DefaultFunctions {
