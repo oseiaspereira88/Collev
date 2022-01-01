@@ -16,9 +16,9 @@ import com.empreendapp.collev.R
 import com.empreendapp.collev.model.Coleta
 import com.empreendapp.collev.model.User
 import com.empreendapp.collev.ui.coletor.ColetasFragment
-import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
-import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
-import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateInputError
@@ -245,6 +245,11 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     val tvDia = dialogView.findViewById<TextView>(R.id.tvColetaInfoDia)
                     val tvHora = dialogView.findViewById<TextView>(R.id.tvColetaInfoHora)
                     val tvRecipiente = dialogView.findViewById<TextView>(R.id.tvColetaInfoRecipiente)
+                    val imgMap = dialogView.findViewById<ImageView>(R.id.imgMap)
+
+                    imgMap.setOnClickListener {
+                        animateButton(it)
+                    }
 
                     tvEmpresa.text = coleta.empresaColaboradora
                     val sdf = SimpleDateFormat("dd/MM/yyyy")

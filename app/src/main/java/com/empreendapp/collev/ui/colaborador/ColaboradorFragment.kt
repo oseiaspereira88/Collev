@@ -21,10 +21,9 @@ import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import com.empreendapp.collev.model.Colaborador
-import com.empreendapp.collev.model.User
-import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
-import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
-import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateInputError
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateTutorialPulse

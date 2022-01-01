@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clDialogHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgMap"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_hand_click_inclined" />
+
+                <LinearLayout
+                    android:id="@+id/llTitulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgMap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imgMap"
+                    app:layout_constraintTop_toTopOf="@+id/imgMap">
+
+                    <TextView
+                        android:id="@+id/tvTituloColeta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selecione a localização"
+                        android:textAllCaps="true"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDialogSubtitulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="da empresa que representa"
+                        android:textAllCaps="false"
+                        android:textColor="#F4B95E"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/pag_bg_01"
+                    android:textColor="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llTitulo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clDialogHeader">
+
+                <fragment
+                    android:id="@+id/fragmentDialogMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </fragment>
+
+                <TextView
+                    android:id="@+id/tvDialogSolicitarAlteracao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/button_rounded_primary_color"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:text="Usar localização atual"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragmentDialogMap" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:hint="Email"
+                    android:visibility="gone"
+                    app:boxStrokeColor="#FFCC80"
+                    app:counterMaxLength="30"
+                    app:hintTextColor="#F1AB42"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao"
+                    tools:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/editAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress"
+                        android:maxLength="30" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvDialogSolicitarAlteracao2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/button_rounded_primary_color"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:text="Buscar localização"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+                <TextView
+                    android:id="@+id/tvDialogSolicitarAlteracao3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/button_rounded_06"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:text="Concluir"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvDialogSolicitarAlteracao4"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao2" />
+
+                <TextView
+                    android:id="@+id/tvDialogSolicitarAlteracao4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/button_rounded_primary_color"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="16dp"
+                    android:text="Pular Etapa"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imgCancelDialog"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/com_facebook_close" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

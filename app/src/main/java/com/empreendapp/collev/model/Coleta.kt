@@ -5,10 +5,10 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.util.Log
 import com.empreendapp.collev.ui.colaborador.ColaboradorFragment
-import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
-import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
-import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
-import com.empreendapp.collev.util.NotificacaoTipo
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.SOLICITADA
+import com.empreendapp.collev.util.enums.NotificationType
 import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
 import com.empreendapp.collev.util.LibraryClass
 import com.google.android.gms.tasks.Task
@@ -66,7 +66,7 @@ class Coleta {
                         notificacao
                             .maker("A ${empresaColaboradora} solicitou uma coleta")
                             .toUser(coletor!!)
-                            .withType(NotificacaoTipo.SOLICITACAO)
+                            .withType(NotificationType.SOLICITACAO)
                             .apply(ctx)
                             .addOnCompleteListener { task ->
                                 if (it.isSuccessful) {
@@ -90,7 +90,7 @@ class Coleta {
                     AGENDADA -> {
                         notificacao.maker("A ${empresaColetora} agendou a coleta")
                             .toUser(solicitante!!)
-                            .withType(NotificacaoTipo.AGENDAMENTO)
+                            .withType(NotificationType.AGENDAMENTO)
                             .apply(ctx)
                             .addOnCompleteListener { task ->
                                 if (it.isSuccessful) {
@@ -112,7 +112,7 @@ class Coleta {
                     ATENDIDA -> {
                         notificacao.maker("A ${empresaColetora} atendeu a coleta")
                             .toUser(solicitante!!)
-                            .withType(NotificacaoTipo.CONCLUSAO)
+                            .withType(NotificationType.CONCLUSAO)
                             .apply(ctx)
                             .addOnCompleteListener { task ->
                                 if (it.isSuccessful) {

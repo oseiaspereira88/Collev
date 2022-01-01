@@ -285,15 +285,92 @@
         app:layout_constraintTop_toBottomOf="@+id/clPerfilEmpresa" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPerfilEmail"
+        android:id="@+id/clPerfilMap"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDividerP2">
+
+        <LinearLayout
+            android:id="@+id/llPerfilMap"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgPerfilEditMap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView77"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icon_map" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="16dp">
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Localização da empresa" />
+
+                <TextView
+                    android:id="@+id/tvPerfilMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No mapa"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgPerfilEditMap"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/button_rounded_primary_color"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_edit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvDividerP3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="#F3F3F3"
+        app:layout_constraintEnd_toEndOf="@+id/clPerfilNome"
+        app:layout_constraintStart_toStartOf="@+id/clPerfilNome"
+        app:layout_constraintTop_toBottomOf="@+id/clPerfilMap" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPerfilEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDividerP3">
 
         <LinearLayout
             android:id="@+id/linearLayout4"
@@ -340,7 +417,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tvDividerP3"
+        android:id="@+id/tvDividerP4"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="16dp"
@@ -358,7 +435,7 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDividerP3">
+        app:layout_constraintTop_toBottomOf="@+id/tvDividerP4">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEditPassword"
@@ -442,38 +519,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_edit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/clPerfilEmail"
-        app:layout_constraintTop_toBottomOf="@+id/clPerfilSenha"
-        app:srcCompat="@drawable/button_rounded_06" />
-
-    <TextView
-        android:id="@+id/tvNumeroColetas"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintEnd_toEndOf="@+id/imageView22"
-        app:layout_constraintStart_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Coletas Realizadas"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintEnd_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,12 +34,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.Toast
 import android.app.ProgressDialog
+import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 
 
-class PerfilActivity : AppCompatActivity() {
+class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
     private val PICK_IMAGE_CAMERA = 1
     private val PICK_IMAGE_GALLERY = 2
     private var storage: FirebaseStorage? = null
@@ -51,6 +58,7 @@ class PerfilActivity : AppCompatActivity() {
     private var isNameEditing = false
     private var isEmpresaEditing = false
     private var isPasswordEditing = false
+    private var googleMap: GoogleMap?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,6 +200,24 @@ class PerfilActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+        }
+
+        imgPerfilEditMap.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this)
+            val dialogView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+            dialogBuilder.setView(dialogView)
+            val dialog = dialogBuilder.create()
+            dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+            dialog.show()
+
+            val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+            mapFragment.getMapAsync(this)
+
+            val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
+            imgCancelDialog.setOnClickListener {
+                dialog.cancel()
             }
         }
 
@@ -395,13 +421,7 @@ class PerfilActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e -> // Error, Image not uploaded
                     progressDialog.dismiss()
-                    Toast
-                        .makeText(
-                            this,
-                            "Failed " + e.message,
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    alertSnack("Failed " + e.message, 1, clPerfil)
                 }
                 .addOnProgressListener { taskSnapshot ->
 
@@ -410,6 +430,22 @@ class PerfilActivity : AppCompatActivity() {
                     val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount)
                     progressDialog.setMessage("Carregado: " + progress.toInt() + "%")
                 }
+        }
+    }
+
+    override fun onMapReady(p0: GoogleMap?) {
+        googleMap=p0
+
+        //Adding markers to map
+        val latLng= LatLng(28.6139,77.2090)
+        val markerOptions = MarkerOptions().position(latLng).title("New Delhi")
+
+        // moving camera and zoom map
+        val zoomLevel = 19.0f //This goes up to 21
+
+        googleMap.let {
+            it!!.addMarker(markerOptions)
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
         }
     }
 }

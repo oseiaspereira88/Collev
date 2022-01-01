@@ -1,4 +1,4 @@
-package com.empreendapp.collev.util
+package com.empreendapp.collev.util.enums
 
  public class ColetaStatus {
      companion object{

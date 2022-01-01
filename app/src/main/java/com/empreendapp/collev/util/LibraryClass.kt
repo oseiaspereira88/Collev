@@ -3,12 +3,11 @@ package com.empreendapp.collev.util
 import android.app.Application
 import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
-import com.empreendapp.collev.util.LibraryClass
-import android.content.SharedPreferences
+import com.empreendapp.collev.util.sharedpreferences.ConfigSP.Companion.PREF
 
 object LibraryClass : Application() {
     private var firebaseBD: FirebaseDatabase? = null
-    var PREF = "com.empreendapp.collev.PREF"
+
     val firebaseDB: FirebaseDatabase?
         get() {
             if (firebaseBD == null) {

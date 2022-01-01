@@ -14,9 +14,9 @@ import com.empreendapp.collev.R
 import com.empreendapp.collev.adapters.recycler.ColetasAdapter
 import com.empreendapp.collev.model.Coleta
 import com.empreendapp.collev.model.User
-import com.empreendapp.collev.util.ColetaStatus.Companion.AGENDADA
-import com.empreendapp.collev.util.ColetaStatus.Companion.ATENDIDA
-import com.empreendapp.collev.util.ColetaStatus.Companion.SOLICITADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.AGENDADA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.ATENDIDA
+import com.empreendapp.collev.util.enums.ColetaStatus.Companion.SOLICITADA
 import com.empreendapp.collev.util.LibraryClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener

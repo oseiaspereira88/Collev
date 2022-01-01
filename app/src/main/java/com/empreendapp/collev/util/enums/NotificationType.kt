@@ -1,6 +1,6 @@
-package com.empreendapp.collev.util
+package com.empreendapp.collev.util.enums
 
- public class NotificacaoTipo {
+ public class NotificationType {
      companion object{
          val SOLICITACAO = "solicitacao"
          val AGENDAMENTO = "agendamento"
