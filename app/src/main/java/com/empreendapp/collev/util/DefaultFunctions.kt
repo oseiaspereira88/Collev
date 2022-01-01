@@ -3,14 +3,11 @@ package com.empreendapp.collev.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.empreendapp.collev.R
 import com.google.android.material.snackbar.Snackbar
 
 class DefaultFunctions {

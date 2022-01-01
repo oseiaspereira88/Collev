@@ -94,24 +94,14 @@ class CadastroActivity : AppCompatActivity() {
         user = User()
         user!!.nome = nome.trim()
         user!!.email = email.trim()
-        user!!.senha = encrypt(senha.trim())
+        user!!.senha = senha.trim()
         user!!.saveNameAndEmailSP(applicationContext)
-    }
-
-    private fun encrypt(text: String): String{
-        val md = MessageDigest.getInstance("MD5")
-        val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
-        val sb = StringBuilder()
-        for (b in hashInBytes) {
-            sb.append(kotlin.String.format("%02x", b))
-        }
-        return sb.toString()
     }
 
     private fun cadastrar() {
         initUser();
 
-        auth.createUserWithEmailAndPassword(email, encrypt(senha))
+        auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("INFO:", "createUserWithEmail:success")
