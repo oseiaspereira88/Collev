@@ -1,5 +1,6 @@
 package com.empreendapp.collev.ui.common.fragments
 
+import android.app.AlertDialog
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.Colaborador
@@ -16,10 +17,16 @@ import com.google.firebase.database.DatabaseReference
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.empreendapp.collev.listeners.UserChildEventListener
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
 
-class MaisPerfilFragment : Fragment() {
+class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
     private var firebaseBD: FirebaseDatabase? = null
     private var database: DatabaseReference? = null
     private var ref: DatabaseReference? = null
@@ -30,6 +37,7 @@ class MaisPerfilFragment : Fragment() {
     private var colaborador: Colaborador? = null
     private var coletor: Coletor? = null
     private var tipo: String? = null
+    private var googleMap: GoogleMap?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +82,8 @@ class MaisPerfilFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerRecipiente!!.adapter = adapter
 
-        rootView.findViewById<View>(R.id.tvConcluir).setOnClickListener {
+        rootView.findViewById<View>(R.id.tvConcluir)
+            .setOnClickListener {
             editNomeEmpresa = rootView.findViewById<View>(R.id.edit_nome_empresa) as EditText
             if (!editNomeEmpresa!!.text.toString().isEmpty()) {
                 if (tipo == "Coletor") {
@@ -88,9 +97,30 @@ class MaisPerfilFragment : Fragment() {
                 editNomeEmpresa!!.error = "Esse campo é obrigatório!"
             }
         }
-        rootView.findViewById<View>(R.id.tvVoltar).setOnClickListener {
+
+        rootView.findViewById<View>(R.id.tvVoltar)
+            .setOnClickListener {
             NavHostFragment.findNavController(requireParentFragment())
                 .navigate(R.id.action_localizacaoPerfilFragment_to_categoriaPerfilFragment)
+        }
+
+        rootView.findViewById<TextView>(R.id.tvLocalizacaoSelect)
+            .setOnClickListener {
+                val dialogBuilder = AlertDialog.Builder(requireContext())
+                val dialogView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+                dialogBuilder.setView(dialogView)
+                val dialog = dialogBuilder.create()
+                dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+                dialog.show()
+
+                val mapFragment = childFragmentManager
+                    .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+                mapFragment.getMapAsync(this)
+
+                val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
+                imgCancelDialog.setOnClickListener {
+                    dialog.cancel()
+                }
         }
     }
 
@@ -104,6 +134,8 @@ class MaisPerfilFragment : Fragment() {
         // com os que já estão alocados.
         coletor!!.saveEnderecoInFirebase()
         coletor!!.saveNomeEmpresaInFirebase()
+
+        coletor!!.deleteNameSP(requireContext())
     }
 
     fun saveColaboradorInBD() {
@@ -120,10 +152,22 @@ class MaisPerfilFragment : Fragment() {
         colaborador!!.saveNomeEmpresaInFirebase()
         colaborador!!.saveIdLocalInFirebase()
         colaborador!!.saveRecipienteInFirebase()
+
+        colaborador!!.deleteNameSP(requireContext())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        userChildEventListener?.let { ref?.removeEventListener(it) }
+    override fun onMapReady(p0: GoogleMap?) {
+        googleMap=p0
+
+        val latLng= LatLng(28.6139,77.2090)
+        val markerOptions: MarkerOptions = MarkerOptions().position(latLng).title("New Delhi")
+
+        // moving camera and zoom map
+        val zoomLevel = 19.0f //This goes up to 21
+
+        googleMap.let {
+            it!!.addMarker(markerOptions)
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+        }
     }
 }

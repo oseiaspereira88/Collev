@@ -184,23 +184,17 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val userFirebase: FirebaseUser? = auth.currentUser
-                    if (userFirebase != null) {
-                        if (!userFirebase.isEmailVerified) {
+                    val currentUser: FirebaseUser? = auth.currentUser
+                    if (currentUser != null) {
+                        if (!currentUser.isEmailVerified) {
                             alertSnack("Verifique o email de confirmação!", 0, clLogin)
                         } else {
-                            if (userFirebase.email?.let { it1 ->
-                                    User().haveNameAndEmailEqualSP(
-                                        applicationContext,
-                                        it1
-                                    )
-                                } == true) {
+                            if (User().haveNameAndEmailEqualSP(this, currentUser.email!!)) {
                                 var newUser = User()
-                                newUser.restaureNameSP(applicationContext) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
-                                newUser.email = userFirebase.email
-                                newUser.id = userFirebase.uid
+                                newUser.restaureNameSP(this) // obs: pendência: caso não exista nome salvo, pedir o nome do usuário.
+                                newUser.email = currentUser.email
+                                newUser.id = currentUser.uid
                                 newUser.saveInFirebase()
-                                newUser.deleteNameSP(applicationContext)
                                 startActivity(Intent(this, InitPerfilActivity::class.java))
                             } else {
                                 startActivity(Intent(this, MainActivity::class.java))
