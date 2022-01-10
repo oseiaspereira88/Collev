@@ -20,7 +20,7 @@ class UserCacheSP {
             sp.edit().putString(CACHE_EMAIL, user.email).apply()
             sp.edit().putString(CACHE_EMPRESA_NOME, user.nome_empresa).apply()
             sp.edit().putString(CACHE_PROFILE_IMAGE_ID, user.profile_image_id).apply()
-            sp.edit().putString(CACHE_INITIALIZED_PROFILE, user.initialized_profile).apply()
+            sp.edit().putBoolean(CACHE_INITIALIZED_PROFILE, user.has_profile_initialized!!).apply()
         }
     }
 

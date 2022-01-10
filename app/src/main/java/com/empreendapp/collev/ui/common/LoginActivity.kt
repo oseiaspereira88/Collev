@@ -45,7 +45,7 @@ import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
     private var callbackManager: CallbackManager? = null
-    private var firebaseBD: FirebaseDatabase? = null
+    private var database: FirebaseDatabase? = null
     private lateinit var auth: FirebaseAuth
     private var email: String = ""
     private var senha: String = ""
@@ -57,8 +57,19 @@ class LoginActivity : AppCompatActivity() {
         initFirebase()
         if (auth.currentUser != null) {
             if (auth.currentUser!!.isEmailVerified()) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                val user = User()
+                user!!.getCurrentUser(database!!.reference!!, auth!!)!!.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if(user.has_profile_initialized == true){
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else{
+                            startActivity(Intent(this, InitPerfilActivity::class.java))
+                        }
+                    } else{
+                        alertSnack("Erro ao fazer login!", 1, clLogin)
+                    }
+                }
             }
         }
         val currentUser = auth.currentUser
@@ -70,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setStatusBarBorderRadiusWhite(this)
         initViews()
-        loginGoogle()
+        InitLoginGoogle()
         initFacebook()
         initFacebookCallback()
     }
@@ -100,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
-        firebaseBD = LibraryClass.firebaseDB
+        database = LibraryClass.firebaseDB
         auth = FirebaseConnection.getFirebaseAuth()!!
     }
 
@@ -110,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
             val handler = Handler()
             val r = Runnable {
                 getCampos()
-                if (validateEmail(editEmail) && validateSenha(editSenha)){
+                if (validateEmail(editEmail) && validateSenha(editSenha)) {
                     login()
                 }
             }
@@ -137,27 +148,40 @@ class LoginActivity : AppCompatActivity() {
             dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
             dialog.show()
 
-            val tvDialogSolicitarAlteracao = dialogView.findViewById<TextView>(R.id.tvDialogSolicitarAlteracao)
+            val tvDialogSolicitarAlteracao =
+                dialogView.findViewById<TextView>(R.id.tvDialogSolicitarAlteracao)
             val editDialogResetEmail = dialogView.findViewById<EditText>(R.id.editDialogResetEmail)
             val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
 
             tvDialogSolicitarAlteracao.setOnClickListener {
-                if(validateEmail(editDialogResetEmail)){
+                if (validateEmail(editDialogResetEmail)) {
                     auth.sendPasswordResetEmail(editDialogResetEmail.text.toString())
                         .addOnCompleteListener {
-                        if(it.isSuccessful){
-                            alertSnack("Um email de alteração de senha foi enviado!", 2, clLogin)
-                            dialog.dismiss()
-                        } else{
-                            if(it.exception is FirebaseAuthInvalidUserException){
+                            if (it.isSuccessful) {
+                                alertSnack(
+                                    "Um email de alteração de senha foi enviado!",
+                                    2,
+                                    clLogin
+                                )
                                 dialog.dismiss()
-                                alertSnack("Esse email não corresponde a nenhum usuário!", 2, clLogin)
-                                whenAlertSleep(Runnable { dialog.show() })
-                            } else{
-                                alertSnack("Houve um problema ao solicitar alteração de senha!", 2, clLogin)
+                            } else {
+                                if (it.exception is FirebaseAuthInvalidUserException) {
+                                    dialog.dismiss()
+                                    alertSnack(
+                                        "Esse email não corresponde a nenhum usuário!",
+                                        2,
+                                        clLogin
+                                    )
+                                    whenAlertSleep(Runnable { dialog.show() })
+                                } else {
+                                    alertSnack(
+                                        "Houve um problema ao solicitar alteração de senha!",
+                                        2,
+                                        clLogin
+                                    )
+                                }
                             }
                         }
-                    }
                 }
             }
 
@@ -170,16 +194,6 @@ class LoginActivity : AppCompatActivity() {
         if (!editSenha!!.text.toString().isEmpty()) senha = editSenha!!.text.toString()
     }
 
-    private fun encrypt(text: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
-        val sb = StringBuilder()
-        for (b in hashInBytes) {
-            sb.append(kotlin.String.format("%02x", b))
-        }
-        return sb.toString()
-    }
-
     private fun login() {
         auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
@@ -187,7 +201,7 @@ class LoginActivity : AppCompatActivity() {
                     val currentUser: FirebaseUser? = auth.currentUser
                     if (currentUser != null) {
                         if (!currentUser.isEmailVerified) {
-                            alertSnack("Verifique o email de confirmação!", 0, clLogin)
+                            alertSnack("Verifique o email de confirmação!", 1, clLogin)
                         } else {
                             if (User().haveNameAndEmailEqualSP(this, currentUser.email!!)) {
                                 var newUser = User()
@@ -197,12 +211,24 @@ class LoginActivity : AppCompatActivity() {
                                 newUser.saveInFirebase()
                                 startActivity(Intent(this, InitPerfilActivity::class.java))
                             } else {
-                                startActivity(Intent(this, MainActivity::class.java))
-                                finish()
+                                val user = User()
+                                user!!.getCurrentUser(database!!.reference!!, auth!!)!!.addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        if(user.has_profile_initialized == true){
+                                            startActivity(Intent(this, MainActivity::class.java))
+                                            finish()
+                                        } else{
+                                            startActivity(Intent(this, InitPerfilActivity::class.java))
+                                        }
+                                    } else{
+                                        alertSnack("Erro ao fazer login!", 1, clLogin)
+                                    }
+                                }
+
                             }
                         }
                     }
-                } else{
+                } else {
                     if (!task.isSuccessful) {
                         try {
                             throw task.exception!!
@@ -232,7 +258,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun loginGoogle() {
+    private fun InitLoginGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id_1))
             .requestEmail()

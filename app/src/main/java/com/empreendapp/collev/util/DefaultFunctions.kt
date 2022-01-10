@@ -9,6 +9,8 @@ import android.widget.Toast
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.snackbar.Snackbar
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 
 class DefaultFunctions {
 
@@ -69,6 +71,16 @@ class DefaultFunctions {
         fun whenAlertSleep(r: Runnable){
             val h = Handler()
             h.postDelayed(r, 3200)
+        }
+
+         fun encrypt(text: String): String {
+            val md = MessageDigest.getInstance("MD5")
+            val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
+            val sb = StringBuilder()
+            for (b in hashInBytes) {
+                sb.append(kotlin.String.format("%02x", b))
+            }
+            return sb.toString()
         }
     }
 }

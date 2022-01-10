@@ -38,6 +38,7 @@
     <string name="date_util_prefix_about">Cerca de</string>
     <string name="date_util_prefix_over">Pouco mais de</string>
     <string name="date_util_prefix_almost">Quase</string>
-
     <string name="date_util_suffix">atrás</string>
+
+    <string name="aguarde">Aguarde</string>
 </resources>

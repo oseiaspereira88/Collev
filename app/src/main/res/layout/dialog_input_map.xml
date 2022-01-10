@@ -100,7 +100,7 @@
                     android:id="@+id/fragmentDialogMap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="320dp"
                     app:layout_constraintBottom_toTopOf="@+id/space3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
                 </fragment>
 
                 <TextView
-                    android:id="@+id/tvDialogSolicitarAlteracao"
+                    android:id="@+id/tvDialogMapUseCurrentLocaization"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -141,7 +141,7 @@
                     app:hintTextColor="#F1AB42"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogMapUseCurrentLocaization"
                     tools:visibility="gone">
 
                     <EditText
@@ -154,7 +154,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tvDialogSolicitarAlteracao2"
+                    android:id="@+id/tvDialogMapSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -172,7 +172,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
                 <TextView
-                    android:id="@+id/tvDialogSolicitarAlteracao3"
+                    android:id="@+id/tvDialogMapConcluir"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -188,11 +188,11 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvDialogSolicitarAlteracao4"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao2" />
+                    app:layout_constraintStart_toEndOf="@+id/tvDialogMapSkip"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogMapSearch" />
 
                 <TextView
-                    android:id="@+id/tvDialogSolicitarAlteracao4"
+                    android:id="@+id/tvDialogMapSkip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -209,7 +209,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDialogSolicitarAlteracao2" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvDialogMapSearch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

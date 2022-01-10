@@ -19,6 +19,8 @@ import com.empreendapp.collev.model.User
 class CategoriaPerfilFragment : Fragment() {
     private var firebaseBD: FirebaseDatabase? = null
     private var auth: FirebaseAuth? = null
+    private var isCategoriaConfirmed = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

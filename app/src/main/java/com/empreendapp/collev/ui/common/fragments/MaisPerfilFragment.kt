@@ -1,7 +1,8 @@
 package com.empreendapp.collev.ui.common.fragments
 
+import android.Manifest
 import android.app.AlertDialog
-import com.google.firebase.database.FirebaseDatabase
+import android.content.pm.PackageManager
 import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.Colaborador
 import com.empreendapp.collev.model.Coletor
@@ -10,34 +11,36 @@ import android.view.ViewGroup
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import com.empreendapp.collev.R
 import com.empreendapp.collev.util.LibraryClass
 import com.empreendapp.collev.util.FirebaseConnection
 import com.google.firebase.database.DatabaseReference
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.empreendapp.collev.listeners.UserChildEventListener
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.database.DataSnapshot
+import android.widget.Toast
+import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
+
 
 class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
-    private var firebaseBD: FirebaseDatabase? = null
+    private var googleMap: GoogleMap? = null
     private var database: DatabaseReference? = null
-    private var ref: DatabaseReference? = null
-    private var userChildEventListener: UserChildEventListener? = null
     private var editNomeEmpresa: EditText? = null
     private var spinnerRecipiente: Spinner? = null
     private var tvRecipiente: TextView? = null
     private var colaborador: Colaborador? = null
     private var coletor: Coletor? = null
     private var tipo: String? = null
-    private var googleMap: GoogleMap?=null
+    private var auth: FirebaseAuth? = null
+    private var isUsingCurrentLocalization = true
+    private var currentLatLng: LatLng? = null
+    private var selectedLatLng: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,27 +53,27 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initFirebase() {
-        firebaseBD = LibraryClass.firebaseDB
+        auth = FirebaseConnection.getFirebaseAuth()
+        database = LibraryClass.firebaseDB?.reference
     }
 
     fun initViews(rootView: View) {
-        val auth: FirebaseAuth? = FirebaseConnection.getFirebaseAuth()
-        database = LibraryClass.firebaseDB?.reference
-
         if (auth != null) {
-            database!!.child("users").child(auth.uid.toString()).get()
-                .addOnCompleteListener(OnCompleteListener<DataSnapshot?> { task ->
+            database!!.child("users").child(auth!!.uid.toString()).get()
+                .addOnCompleteListener{ task ->
                     if (task.isSuccessful) {
                         tipo = java.lang.String.valueOf(task.result?.child("tipo")?.getValue())
                         if (tipo == "Colaborador") {
                             spinnerRecipiente!!.visibility = View.VISIBLE
                             tvRecipiente!!.visibility = View.VISIBLE
                         }
-                        Toast.makeText(context, "Tipo selecionado: " + tipo, Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Tipo selecionado: " + tipo, Toast.LENGTH_LONG)
+                            .show()
                     } else {
-                        Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Firebase: Error getting data!", Toast.LENGTH_LONG)
+                            .show()
                     }
-                })
+                }
         }
 
         spinnerRecipiente = rootView.findViewById<View>(R.id.spinnerRecipiente) as Spinner
@@ -84,25 +87,25 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
 
         rootView.findViewById<View>(R.id.tvConcluir)
             .setOnClickListener {
-            editNomeEmpresa = rootView.findViewById<View>(R.id.edit_nome_empresa) as EditText
-            if (!editNomeEmpresa!!.text.toString().isEmpty()) {
-                if (tipo == "Coletor") {
-                    saveColetorInBD()
-                } else if (tipo == "Colaborador") {
-                    saveColaboradorInBD()
+                editNomeEmpresa = rootView.findViewById<View>(R.id.edit_nome_empresa) as EditText
+                if (!editNomeEmpresa!!.text.toString().isEmpty()) {
+                    if (tipo == "Coletor") {
+                        saveColetorInBD()
+                    } else if (tipo == "Colaborador") {
+                        saveColaboradorInBD()
+                    }
+                    NavHostFragment.findNavController(requireParentFragment())
+                        .navigate(R.id.action_localizacaoPerfilFragment_to_mainActivity)
+                } else {
+                    editNomeEmpresa!!.error = "Esse campo é obrigatório!"
                 }
-                NavHostFragment.findNavController(requireParentFragment())
-                    .navigate(R.id.action_localizacaoPerfilFragment_to_mainActivity)
-            } else {
-                editNomeEmpresa!!.error = "Esse campo é obrigatório!"
             }
-        }
 
         rootView.findViewById<View>(R.id.tvVoltar)
             .setOnClickListener {
-            NavHostFragment.findNavController(requireParentFragment())
-                .navigate(R.id.action_localizacaoPerfilFragment_to_categoriaPerfilFragment)
-        }
+                NavHostFragment.findNavController(requireParentFragment())
+                    .navigate(R.id.action_localizacaoPerfilFragment_to_categoriaPerfilFragment)
+            }
 
         rootView.findViewById<TextView>(R.id.tvLocalizacaoSelect)
             .setOnClickListener {
@@ -121,7 +124,30 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
                 imgCancelDialog.setOnClickListener {
                     dialog.cancel()
                 }
-        }
+
+                val tvDialogMapUseCurrentLocaization =
+                    dialogView.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+                tvDialogMapUseCurrentLocaization.setOnClickListener {
+                    isUsingCurrentLocalization = true
+
+                    if(currentLatLng != null){
+                        markerHere(currentLatLng!!)
+                        animateHere(currentLatLng!!, 19.0f)
+                    }
+
+                    animateButton(it)
+                }
+
+                val tvDialogMapConcluir = dialogView.findViewById<TextView>(R.id.tvDialogMapConcluir)
+                tvDialogMapConcluir.setOnClickListener {
+                    dialog.cancel()
+                }
+
+                val tvDialogMapSkip = dialogView.findViewById<TextView>(R.id.tvDialogMapSkip)
+                tvDialogMapSkip.setOnClickListener {
+                    dialog.cancel()
+                }
+            }
     }
 
     fun saveColetorInBD() {
@@ -129,11 +155,19 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         coletor!!.id = FirebaseConnection.getFirebaseAuth()?.uid
         coletor!!.endereco = "Rua Terezinha Campelo, 117"
         coletor!!.nome_empresa = editNomeEmpresa!!.text.toString()
+        coletor!!.has_profile_initialized = true
+
+        if (isUsingCurrentLocalization)
+            coletor!!.lat_lng = currentLatLng
+        else
+            coletor!!.lat_lng = selectedLatLng
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
         coletor!!.saveEnderecoInFirebase()
         coletor!!.saveNomeEmpresaInFirebase()
+        coletor!!.setHasProfileInitialized()
+        coletor!!.saveLatLngInFirebase()
 
         coletor!!.deleteNameSP(requireContext())
     }
@@ -145,6 +179,12 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.nome_empresa = editNomeEmpresa!!.text.toString()
         colaborador!!.id_local = "generico"
         colaborador!!.recipiente = spinnerRecipiente!!.selectedItem.toString()
+        colaborador!!.has_profile_initialized = true
+
+        if (isUsingCurrentLocalization)
+            colaborador!!.lat_lng = currentLatLng
+        else
+            colaborador!!.lat_lng = selectedLatLng
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
@@ -152,22 +192,70 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.saveNomeEmpresaInFirebase()
         colaborador!!.saveIdLocalInFirebase()
         colaborador!!.saveRecipienteInFirebase()
+        colaborador!!.setHasProfileInitialized()
+        colaborador!!.saveLatLngInFirebase()
 
         colaborador!!.deleteNameSP(requireContext())
     }
 
     override fun onMapReady(p0: GoogleMap?) {
-        googleMap=p0
+        googleMap = p0
 
-        val latLng= LatLng(28.6139,77.2090)
-        val markerOptions: MarkerOptions = MarkerOptions().position(latLng).title("New Delhi")
+        googleMap?.let {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat
+                    .requestPermissions(
+                        requireActivity(),
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ),
+                        5
+                    )
+                return
+            }
 
-        // moving camera and zoom map
-        val zoomLevel = 19.0f //This goes up to 21
+            it.isMyLocationEnabled = true
+            it.setOnMyLocationChangeListener { arg0 ->
+                if(isUsingCurrentLocalization){
+                    currentLatLng = LatLng(arg0.latitude, arg0.longitude)
 
-        googleMap.let {
-            it!!.addMarker(markerOptions)
-            it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+                    markerHere(currentLatLng!!)
+                    animateHere(currentLatLng!!, 19.0f)
+                }
+            }
+
+            it.setOnMapClickListener { point ->
+                markerHere(point)
+                animateHere(point, 19.0f)
+                isUsingCurrentLocalization = false
+                selectedLatLng = point
+            }
         }
     }
+
+    private fun markerHere(point: LatLng){
+        googleMap!!.clear()
+
+        googleMap!!.addMarker(
+            MarkerOptions()
+                .position(point)
+                .title("Marcar aqui?")
+        )
+    }
+
+    private fun animateHere(point: LatLng, zoomLevel: Float){
+        googleMap!!.animateCamera(
+            CameraUpdateFactory
+                .newLatLngZoom(point, zoomLevel)
+        )
+    }
+
 }

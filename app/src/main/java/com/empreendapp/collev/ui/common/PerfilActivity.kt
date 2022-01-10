@@ -20,8 +20,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.activity_perfil.*
-import java.nio.charset.StandardCharsets
-import java.security.MessageDigest
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
@@ -32,9 +30,8 @@ import android.util.Log
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.Toast
 import android.app.ProgressDialog
-import com.empreendapp.collev.util.DefaultFunctions.Companion.alert
+import android.widget.TextView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -58,7 +55,13 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
     private var isNameEditing = false
     private var isEmpresaEditing = false
     private var isPasswordEditing = false
-    private var googleMap: GoogleMap?=null
+
+    //Google Maps Vars
+    private var googleMap: GoogleMap? = null
+    private var isUsingCurrentLocalization = false
+    private var isUsingAccountLocalization = true
+    private var currentLatLng: LatLng? = null
+    private var selectedLatLng: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,13 +71,13 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         usuario = User()
         usuario!!.getCurrentUser(database!!, auth!!)!!
             .addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                usuario!!.id = auth!!.uid
+                if (task.isSuccessful) {
+                    usuario!!.id = auth!!.uid
 
-                initViews()
-                initListeners()
+                    initViews()
+                    initListeners()
+                }
             }
-        }
     }
 
     private fun initFirebase() {
@@ -84,7 +87,7 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         storageReference = storage!!.getReference()
     }
 
-    fun initViews(){
+    fun initViews() {
         tvPerfilNome.text = usuario!!.nome
         tvPerfilEmail.text = usuario!!.email
         tvPerfilEmpresa.text = usuario!!.nome_empresa
@@ -94,33 +97,33 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    fun getImgInStorage(){
+    fun getImgInStorage() {
         val ref = storageReference!!
             .child("profiles/${auth!!.uid}/${usuario!!.profile_image_id}")
 
         ref.downloadUrl.addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
                 Picasso.get()
                     .load(it.result)
                     .placeholder(R.drawable.icon_user)
                     .error(R.drawable.ic_info)
                     .into(imgPerfil)
-            } else{
+            } else {
                 alertSnack("Falha ao carregar a URL", 2, clPerfil)
             }
         }
     }
 
     private fun initListeners() {
-        imgBackPerfil!!.setOnClickListener{
+        imgBackPerfil!!.setOnClickListener {
             animateButton(it)
-            if(isPasswordEditing){
+            if (isPasswordEditing) {
                 toggleEditPassword()
-            } else if(isEmpresaEditing){
+            } else if (isEmpresaEditing) {
                 toggleEditEmpresa()
-            } else if(isNameEditing){
+            } else if (isNameEditing) {
                 toggleEditName()
-            } else{
+            } else {
                 finish()
             }
         }
@@ -141,9 +144,10 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
             val imgDialogCamera = dialogView.findViewById<ImageView>(R.id.imgDialogCamera)
             imgDialogCamera.setOnClickListener {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_DENIED){
+                    == PackageManager.PERMISSION_DENIED
+                ) {
                     ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 3)
-                } else{
+                } else {
                     dialog.dismiss()
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     startActivityForResult(intent, PICK_IMAGE_CAMERA)
@@ -152,30 +156,39 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
 
             val imgDialogGallery = dialogView.findViewById<ImageView>(R.id.imgDialogGallery)
             imgDialogGallery.setOnClickListener {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED){
-                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 3)
-                } else{
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    == PackageManager.PERMISSION_DENIED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        3
+                    )
+                } else {
                     dialog.dismiss()
-                    val pickPhoto = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    val pickPhoto =
+                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     startActivityForResult(pickPhoto, PICK_IMAGE_GALLERY)
                 }
             }
         }
 
-        imgPerfilEditNome.setOnClickListener{
-            if(!isNameEditing){
+        imgPerfilEditNome.setOnClickListener {
+            if (!isNameEditing) {
                 toggleEditName()
-            } else{
-                if(editNameValidate(editPerfilNome)){
+            } else {
+                if (editNameValidate(editPerfilNome)) {
                     usuario!!.id = auth!!.uid
                     usuario!!.nome = editPerfilNome.text.toString()
                     usuario!!.saveNomeInFirebase().addOnCompleteListener {
-                        if(it.isSuccessful){
+                        if (it.isSuccessful) {
                             tvPerfilNome.text = editPerfilNome.text.toString()
                             alertSnack("Novo nome salvo!", 1, clPerfil)
                             toggleEditName()
-                        } else{
+                        } else {
                             alertSnack("Falha na alteração!", 1, clPerfil)
                         }
                     }
@@ -183,19 +196,19 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        imgPerfilEditEmpresa.setOnClickListener{
-            if(!isEmpresaEditing){
+        imgPerfilEditEmpresa.setOnClickListener {
+            if (!isEmpresaEditing) {
                 toggleEditEmpresa()
-            } else{
-                if(editNameValidate(editPerfilEmpresa)){
+            } else {
+                if (editNameValidate(editPerfilEmpresa)) {
                     usuario!!.id = auth!!.uid
                     usuario!!.nome_empresa = editPerfilEmpresa.text.toString()
                     usuario!!.saveNomeEmpresaInFirebase().addOnCompleteListener {
-                        if(it.isSuccessful){
+                        if (it.isSuccessful) {
                             tvPerfilEmpresa.text = editPerfilEmpresa.text.toString()
                             alertSnack("Novo nome salvo!", 1, clPerfil)
                             toggleEditEmpresa()
-                        } else{
+                        } else {
                             alertSnack("Falha na alteração!", 1, clPerfil)
                         }
                     }
@@ -219,36 +232,89 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
             imgCancelDialog.setOnClickListener {
                 dialog.cancel()
             }
+
+            val tvDialogUseCurrentLocaization =
+                dialogView.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+            tvDialogUseCurrentLocaization.setOnClickListener {
+                isUsingCurrentLocalization = true
+
+                if (currentLatLng != null) {
+                    markerHere(currentLatLng!!)
+                    animateHere(currentLatLng!!, 19.0f)
+                }
+
+                animateButton(it)
+            }
+
+            val tvDialogMapConcluir = dialogView.findViewById<TextView>(R.id.tvDialogMapConcluir)
+            tvDialogMapConcluir.setOnClickListener {
+                if (isUsingCurrentLocalization) {
+                    usuario!!.lat_lng = currentLatLng
+                } else if (!isUsingAccountLocalization) {
+                    usuario!!.lat_lng = selectedLatLng
+                }
+
+                if (isUsingCurrentLocalization || (!!isUsingCurrentLocalization && !isUsingAccountLocalization)) {
+                    usuario!!.saveLatLngInFirebase()
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                alertSnack("Nova localização salva!", 1, clPerfil)
+                            } else {
+                                alertSnack("Não foi possivel salvar a nova localização!", 1, clPerfil)
+                            }
+                        }
+                }
+
+                dialog.cancel()
+            }
+
+            val tvDialogMapSkip = dialogView.findViewById<TextView>(R.id.tvDialogMapSkip)
+            tvDialogMapSkip.setOnClickListener {
+                dialog.cancel()
+            }
         }
 
-        imgPerfilEditPassword.setOnClickListener{
-            if(!isPasswordEditing){
+        imgPerfilEditPassword.setOnClickListener {
+            if (!isPasswordEditing) {
                 toggleEditPassword()
-            } else{
-                if(editPasswordValidate(editPerfilPassword)) {
+            } else {
+                if (editPasswordValidate(editPerfilPassword)) {
                     val builder = AlertDialog.Builder(this)
                     builder.setMessage("Deseja realmente alterar sua senha?")
                         .setCancelable(false)
                         .setPositiveButton("Sim") { confirmDialog, id ->
-                            auth!!.currentUser!!.updatePassword(encrypt(editPerfilPassword.text.toString()))
+                            auth!!.currentUser!!.updatePassword(editPerfilPassword.text.toString())
                                 .addOnCompleteListener {
-                                    if(it.isSuccessful){
+                                    if (it.isSuccessful) {
                                         alertSnack("Senha alterada!", 1, clPerfil)
                                         toggleEditPassword()
-                                    } else{
-                                        if(it.exception is FirebaseAuthRecentLoginRequiredException){
-                                            alertSnack("Essa ação necessita de um login recente!\nRefaça seu login e tente novamente.", 2, clPerfil)
+                                    } else {
+                                        if (it.exception is FirebaseAuthRecentLoginRequiredException) {
+                                            alertSnack(
+                                                "Essa ação necessita de um login recente!\nRefaça seu login e tente novamente.",
+                                                2,
+                                                clPerfil
+                                            )
 
                                             val h = Handler()
                                             val r = Runnable {
                                                 auth!!.signOut()
-                                                startActivity(Intent(this, LoginActivity::class.java))
+                                                startActivity(
+                                                    Intent(
+                                                        this,
+                                                        LoginActivity::class.java
+                                                    )
+                                                )
                                                 this.finish()
                                             }
                                             h.postDelayed(r, 4600)
 
-                                        } else{
-                                            alertSnack("Não foi possível alterar sua senha!\nVerifique sua conexão.", 1, clPerfil)
+                                        } else {
+                                            alertSnack(
+                                                "Não foi possível alterar sua senha!\nVerifique sua conexão.",
+                                                1,
+                                                clPerfil
+                                            )
                                             toggleEditPassword()
                                         }
                                     }
@@ -265,15 +331,15 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun toggleEditName(){
-        if(isNameEditing){
+    private fun toggleEditName() {
+        if (isNameEditing) {
             editPerfilNome.setText("")
             tilEditNome.visibility = View.INVISIBLE
             llPerfilNome.visibility = View.VISIBLE
             imgPerfilEditNome.setImageResource(R.drawable.icon_edit)
             animateButton(imgPerfilEditNome)
             isNameEditing = false
-        } else{
+        } else {
             editPerfilNome.setText(usuario!!.nome)
             tilEditNome.visibility = View.VISIBLE
             llPerfilNome.visibility = View.INVISIBLE
@@ -283,15 +349,15 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun toggleEditEmpresa(){
-        if(isEmpresaEditing){
+    private fun toggleEditEmpresa() {
+        if (isEmpresaEditing) {
             editPerfilEmpresa.setText("")
             tilEditEmpresa.visibility = View.INVISIBLE
             llPerfilEmpresa.visibility = View.VISIBLE
             imgPerfilEditEmpresa.setImageResource(R.drawable.icon_edit)
             animateButton(imgPerfilEditEmpresa)
             isEmpresaEditing = false
-        } else{
+        } else {
             editPerfilEmpresa.setText(usuario!!.nome_empresa)
             tilEditEmpresa.visibility = View.VISIBLE
             llPerfilEmpresa.visibility = View.INVISIBLE
@@ -301,15 +367,15 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun toggleEditPassword(){
-        if(isPasswordEditing){
+    private fun toggleEditPassword() {
+        if (isPasswordEditing) {
             editPerfilPassword.setText("")
             tilEditPassword.visibility = View.INVISIBLE
             llPerfilPassword.visibility = View.VISIBLE
             imgPerfilEditPassword.setImageResource(R.drawable.icon_edit)
             animateButton(imgPerfilEditPassword)
             isPasswordEditing = false
-        } else{
+        } else {
             editPerfilPassword.setText("")
             tilEditPassword.visibility = View.VISIBLE
             llPerfilPassword.visibility = View.INVISIBLE
@@ -341,16 +407,6 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         imgBackPerfil.callOnClick()
     }
 
-    private fun encrypt(text: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
-        val sb = StringBuilder()
-        for (b in hashInBytes) {
-            sb.append(kotlin.String.format("%02x", b))
-        }
-        return sb.toString()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -363,7 +419,8 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 Log.e("Activity", "Pick from Camera::>>> ")
 
-                val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                val timeStamp: String =
+                    SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
                 val destination = File(
                     Environment.getExternalStorageDirectory().toString() + "/" +
                             getString(R.string.app_name), "IMG_$timeStamp.jpg"
@@ -416,7 +473,7 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
                     alertSnack("Imagem carregada!", 1, clPerfil)
                     usuario!!.profile_image_id = imgID
                     usuario!!.saveImageProfileIdInFirebase().addOnCompleteListener {
-                        if(it.isSuccessful) alertSnack("Perfil salvo!", 1, clPerfil)
+                        if (it.isSuccessful) alertSnack("Perfil salvo!", 1, clPerfil)
                     }
                 }
                 .addOnFailureListener { e -> // Error, Image not uploaded
@@ -427,25 +484,81 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     // Progress Listener for loading
                     // percentage on the dialog box
-                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount)
+                    val progress =
+                        (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount)
                     progressDialog.setMessage("Carregado: " + progress.toInt() + "%")
                 }
         }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
-        googleMap=p0
+        googleMap = p0
 
-        //Adding markers to map
-        val latLng= LatLng(28.6139,77.2090)
-        val markerOptions = MarkerOptions().position(latLng).title("New Delhi")
-
-        // moving camera and zoom map
-        val zoomLevel = 19.0f //This goes up to 21
-
-        googleMap.let {
-            it!!.addMarker(markerOptions)
-            it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel))
+        if (isUsingAccountLocalization) {
+            if (usuario!!.lat_lng != null) {
+                markerHere(usuario!!.lat_lng!!)
+                animateHere(usuario!!.lat_lng!!, 19.0f)
+            } else {
+                isUsingCurrentLocalization = true
+            }
         }
+
+        googleMap?.let {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat
+                    .requestPermissions(
+                        this,
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ),
+                        5
+                    )
+                return
+            }
+
+            it.isMyLocationEnabled = true
+            it.setOnMyLocationChangeListener { arg0 ->
+                if (isUsingCurrentLocalization) {
+                    currentLatLng = LatLng(arg0.latitude, arg0.longitude)
+
+                    markerHere(currentLatLng!!)
+                    animateHere(currentLatLng!!, 19.0f)
+                }
+            }
+
+            it.setOnMapClickListener { point ->
+                markerHere(point)
+                animateHere(point, 19.0f)
+
+                isUsingCurrentLocalization = false
+                isUsingAccountLocalization = false
+                selectedLatLng = point
+            }
+        }
+    }
+
+    private fun markerHere(point: LatLng) {
+        googleMap!!.clear()
+
+        googleMap!!.addMarker(
+            MarkerOptions()
+                .position(point)
+                .title("Marcar aqui?")
+        )
+    }
+
+    private fun animateHere(point: LatLng, zoomLevel: Float) {
+        googleMap!!.animateCamera(
+            CameraUpdateFactory
+                .newLatLngZoom(point, zoomLevel)
+        )
     }
 }

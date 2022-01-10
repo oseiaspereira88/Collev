@@ -11,6 +11,7 @@ import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.ID
 import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.NOME
 import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.PREF
 import com.empreendapp.collev.util.sharedpreferences.DefaultsSP.Companion.TIPO
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -27,18 +28,18 @@ open class User {
     var senha: String? = null
     var tipo: String? = null
     var endereco: String? = null
+    var lat_lng: LatLng? = null
     var id_local: String? = null
     var nome_empresa: String? = null
     var profile_image_id: String? = null
-    var initialized_profile: String? = null
+    var has_profile_initialized = false
     var ativo: Boolean? = null
 
     fun getCurrentUser(database: DatabaseReference, auth: FirebaseAuth): Task<DataSnapshot>? {
         return database!!.child("users").child(auth!!.uid.toString()).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val currentUser = task.result.getValue(User::class.java)
-                    setUser(currentUser)
+                    setUser(task.result.getValue(User::class.java))
                 } else {
                     try {
                         task.exception!!
@@ -59,35 +60,44 @@ open class User {
         email = user?.email
         tipo = user?.tipo
         endereco = user?.endereco
+        lat_lng = user?.lat_lng
         id_local = user?.id_local
         nome_empresa = user?.nome_empresa
         profile_image_id = user?.profile_image_id
-        initialized_profile = user?.initialized_profile
+        if(user?.has_profile_initialized != null)
+            this.has_profile_initialized = user?.has_profile_initialized!!
+        ativo = user?.ativo
     }
 
-    open fun saveInFirebase() {
+    open fun saveInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
         this.id = null
-        bdRef.setValue(this)
+        return bdRef.setValue(this)
     }
 
-    open fun saveTipoInFirebase() {
+    open fun saveTipoInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
-        bdRef.child("tipo").setValue(tipo)
+        return bdRef.child("tipo").setValue(tipo)
     }
 
-    open fun saveEnderecoInFirebase() {
+    open fun saveEnderecoInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
-        bdRef.child("endereco").setValue(endereco)
+        return bdRef.child("endereco").setValue(endereco)
     }
 
-    open fun saveIdLocalInFirebase() {
+    open fun saveLatLngInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
-        bdRef.child("id_local").setValue(id_local)
+        return bdRef.child("lat_lng").setValue(lat_lng)
+    }
+
+    open fun saveIdLocalInFirebase(): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
+        return bdRef.child("id_local").setValue(id_local)
     }
 
     open fun saveNomeEmpresaInFirebase(): Task<Void> {
@@ -99,15 +109,19 @@ open class User {
     open fun saveNomeInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB!!.reference
         bdRef = bdRef!!.child("users")!!.child(id!!)
-
         return bdRef.child("nome").setValue(nome)
     }
 
     open fun saveImageProfileIdInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB!!.reference
         bdRef = bdRef!!.child("users")!!.child(id!!)
-
         return bdRef.child("profile_image_id").setValue(profile_image_id)
+    }
+
+    open fun setHasProfileInitialized(): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB!!.reference
+        bdRef = bdRef!!.child("users")!!.child(id!!)
+        return bdRef.child("has_profile_initialized").setValue(has_profile_initialized)
     }
 
     open fun saveNameAndEmailSP(ctx: Context) {
