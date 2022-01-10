@@ -42,6 +42,11 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
     private var currentLatLng: LatLng? = null
     private var selectedLatLng: LatLng? = null
 
+    // Google Map Vars
+    private var dialogMapBuilder: AlertDialog.Builder? = null
+    private var dialogMapView: View? = null
+    private var dialogMap: AlertDialog? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -109,44 +114,47 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
 
         rootView.findViewById<TextView>(R.id.tvLocalizacaoSelect)
             .setOnClickListener {
-                val dialogBuilder = AlertDialog.Builder(requireContext())
-                val dialogView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
-                dialogBuilder.setView(dialogView)
-                val dialog = dialogBuilder.create()
-                dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
-                dialog.show()
+                if(dialogMapView == null){
+                    dialogMapBuilder = AlertDialog.Builder(requireContext())
+                    dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+                    dialogMapBuilder!!.setView(dialogMapView)
+                    dialogMap = dialogMapBuilder!!.create()
+                    dialogMap!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                val mapFragment = childFragmentManager
-                    .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
-                mapFragment.getMapAsync(this)
+                    val mapFragment = childFragmentManager
+                        .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+                    mapFragment.getMapAsync(this)
 
-                val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
-                imgCancelDialog.setOnClickListener {
-                    dialog.cancel()
-                }
-
-                val tvDialogMapUseCurrentLocaization =
-                    dialogView.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
-                tvDialogMapUseCurrentLocaization.setOnClickListener {
-                    isUsingCurrentLocalization = true
-
-                    if(currentLatLng != null){
-                        markerHere(currentLatLng!!)
-                        animateHere(currentLatLng!!, 19.0f)
+                    val imgCancelDialog = dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                    imgCancelDialog.setOnClickListener {
+                        dialogMap!!.cancel()
                     }
 
-                    animateButton(it)
+                    val tvDialogMapUseCurrentLocaization =
+                        dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+                    tvDialogMapUseCurrentLocaization.setOnClickListener {
+                        isUsingCurrentLocalization = true
+
+                        if(currentLatLng != null){
+                            markerHere(currentLatLng!!)
+                            animateHere(currentLatLng!!, 19.0f)
+                        }
+
+                        animateButton(it)
+                    }
+
+                    val tvDialogMapConcluir = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
+                    tvDialogMapConcluir.setOnClickListener {
+                        dialogMap!!.cancel()
+                    }
+
+                    val tvDialogMapSkip = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
+                    tvDialogMapSkip.setOnClickListener {
+                        dialogMap!!.cancel()
+                    }
                 }
 
-                val tvDialogMapConcluir = dialogView.findViewById<TextView>(R.id.tvDialogMapConcluir)
-                tvDialogMapConcluir.setOnClickListener {
-                    dialog.cancel()
-                }
-
-                val tvDialogMapSkip = dialogView.findViewById<TextView>(R.id.tvDialogMapSkip)
-                tvDialogMapSkip.setOnClickListener {
-                    dialog.cancel()
-                }
+                dialogMap!!.show()
             }
     }
 
@@ -157,17 +165,21 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         coletor!!.nome_empresa = editNomeEmpresa!!.text.toString()
         coletor!!.has_profile_initialized = true
 
-        if (isUsingCurrentLocalization)
-            coletor!!.lat_lng = currentLatLng
-        else
-            coletor!!.lat_lng = selectedLatLng
+        if (isUsingCurrentLocalization) {
+            coletor!!.lat = currentLatLng?.latitude
+            coletor!!.lng = currentLatLng?.longitude
+        } else {
+            coletor!!.lat = selectedLatLng?.latitude
+            coletor!!.lng = selectedLatLng?.longitude
+        }
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
         coletor!!.saveEnderecoInFirebase()
         coletor!!.saveNomeEmpresaInFirebase()
         coletor!!.setHasProfileInitialized()
-        coletor!!.saveLatLngInFirebase()
+        coletor!!.saveLatInFirebase()
+        coletor!!.saveLngInFirebase()
 
         coletor!!.deleteNameSP(requireContext())
     }
@@ -181,10 +193,13 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.recipiente = spinnerRecipiente!!.selectedItem.toString()
         colaborador!!.has_profile_initialized = true
 
-        if (isUsingCurrentLocalization)
-            colaborador!!.lat_lng = currentLatLng
-        else
-            colaborador!!.lat_lng = selectedLatLng
+        if (isUsingCurrentLocalization) {
+            colaborador!!.lat = currentLatLng?.latitude
+            colaborador!!.lng = currentLatLng?.longitude
+        } else {
+            colaborador!!.lat = selectedLatLng?.latitude
+            colaborador!!.lng = selectedLatLng?.longitude
+        }
 
         // o sistema poderia sugerir localidades próximas automaticamente se baseando na proximidade dos establececimentos em local generico
         // com os que já estão alocados.
@@ -193,7 +208,8 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.saveIdLocalInFirebase()
         colaborador!!.saveRecipienteInFirebase()
         colaborador!!.setHasProfileInitialized()
-        colaborador!!.saveLatLngInFirebase()
+        colaborador!!.saveLatInFirebase()
+        colaborador!!.saveLngInFirebase()
 
         colaborador!!.deleteNameSP(requireContext())
     }

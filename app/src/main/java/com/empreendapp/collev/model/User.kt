@@ -28,7 +28,8 @@ open class User {
     var senha: String? = null
     var tipo: String? = null
     var endereco: String? = null
-    var lat_lng: LatLng? = null
+    var lat: Double? = null
+    var lng: Double? = null
     var id_local: String? = null
     var nome_empresa: String? = null
     var profile_image_id: String? = null
@@ -60,13 +61,21 @@ open class User {
         email = user?.email
         tipo = user?.tipo
         endereco = user?.endereco
-        lat_lng = user?.lat_lng
+        lat = user?.lat
+        lng = user?.lng
         id_local = user?.id_local
         nome_empresa = user?.nome_empresa
         profile_image_id = user?.profile_image_id
         if(user?.has_profile_initialized != null)
             this.has_profile_initialized = user?.has_profile_initialized!!
         ativo = user?.ativo
+    }
+
+    fun getLatLng(): LatLng? {
+        if(lat != null && lng != null)
+            return LatLng(lat!!, lng!!)
+        else
+            return null
     }
 
     open fun saveInFirebase(): Task<Void> {
@@ -88,10 +97,16 @@ open class User {
         return bdRef.child("endereco").setValue(endereco)
     }
 
-    open fun saveLatLngInFirebase(): Task<Void> {
+    open fun saveLatInFirebase(): Task<Void> {
         var bdRef = LibraryClass.firebaseDB?.reference
         bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
-        return bdRef.child("lat_lng").setValue(lat_lng)
+        return bdRef.child("lat").setValue(lat)
+    }
+
+    open fun saveLngInFirebase(): Task<Void> {
+        var bdRef = LibraryClass.firebaseDB?.reference
+        bdRef = id?.let { bdRef?.child("users")?.child(it) }!!
+        return bdRef.child("lng").setValue(lng)
     }
 
     open fun saveIdLocalInFirebase(): Task<Void> {
