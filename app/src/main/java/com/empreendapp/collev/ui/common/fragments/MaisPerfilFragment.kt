@@ -1,6 +1,7 @@
 package com.empreendapp.collev.ui.common.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -29,6 +30,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import android.widget.Toast
 import com.empreendapp.collev.util.DefaultFunctions
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
+import com.empreendapp.collev.util.DefaultFunctions.Companion.isAccessLocalizationPermissionsGranted
+import com.empreendapp.collev.util.DefaultFunctions.Companion.requestAcessLocalizationPermissions
 
 
 class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
@@ -68,7 +71,7 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
     fun initViews(rootView: View) {
         if (auth != null) {
             database!!.child("users").child(auth!!.uid.toString()).get()
-                .addOnCompleteListener{ task ->
+                .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         tipo = java.lang.String.valueOf(task.result?.child("tipo")?.getValue())
                         if (tipo == "Colaborador") {
@@ -117,56 +120,62 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
 
         rootView.findViewById<TextView>(R.id.tvLocalizacaoSelect)
             .setOnClickListener {
-                val manager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                if (isAccessLocalizationPermissionsGranted(requireContext())) {
+                    val manager =
+                        requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    DefaultFunctions.showNoGpsDialog(requireContext())
-                } else {
-                    if (dialogMapView == null) {
-                        dialogMapBuilder = AlertDialog.Builder(requireContext())
-                        dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
-                        dialogMapBuilder!!.setView(dialogMapView)
-                        dialogMap = dialogMapBuilder!!.create()
-                        dialogMap!!.getWindow()
-                            ?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+                    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        DefaultFunctions.showNoGpsDialog(requireContext())
+                    } else {
+                        if (dialogMapView == null) {
+                            dialogMapBuilder = AlertDialog.Builder(requireContext())
+                            dialogMapView =
+                                this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+                            dialogMapBuilder!!.setView(dialogMapView)
+                            dialogMap = dialogMapBuilder!!.create()
+                            dialogMap!!.getWindow()
+                                ?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                        val mapFragment = childFragmentManager
-                            .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
-                        mapFragment.getMapAsync(this)
+                            val mapFragment = childFragmentManager
+                                .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+                            mapFragment.getMapAsync(this)
 
-                        val imgCancelDialog =
-                            dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
-                        imgCancelDialog.setOnClickListener {
-                            dialogMap!!.cancel()
-                        }
-
-                        val tvDialogMapUseCurrentLocaization =
-                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
-                        tvDialogMapUseCurrentLocaization.setOnClickListener {
-                            isUsingCurrentLocalization = true
-
-                            if (currentLatLng != null) {
-                                markerHere(currentLatLng!!)
-                                animateHere(currentLatLng!!, 19.0f)
+                            val imgCancelDialog =
+                                dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                            imgCancelDialog.setOnClickListener {
+                                dialogMap!!.cancel()
                             }
 
-                            animateButton(it)
+                            val tvDialogMapUseCurrentLocaization =
+                                dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+                            tvDialogMapUseCurrentLocaization.setOnClickListener {
+                                isUsingCurrentLocalization = true
+
+                                if (currentLatLng != null) {
+                                    markerHere(currentLatLng!!)
+                                    animateHere(currentLatLng!!, 19.0f)
+                                }
+
+                                animateButton(it)
+                            }
+
+                            val tvDialogMapConcluir =
+                                dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
+                            tvDialogMapConcluir.setOnClickListener {
+                                dialogMap!!.cancel()
+                            }
+
+                            val tvDialogMapSkip =
+                                dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
+                            tvDialogMapSkip.setOnClickListener {
+                                dialogMap!!.cancel()
+                            }
                         }
 
-                        val tvDialogMapConcluir =
-                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
-                        tvDialogMapConcluir.setOnClickListener {
-                            dialogMap!!.cancel()
-                        }
-
-                        val tvDialogMapSkip =
-                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
-                        tvDialogMapSkip.setOnClickListener {
-                            dialogMap!!.cancel()
-                        }
+                        dialogMap!!.show()
                     }
-
-                    dialogMap!!.show()
+                } else{
+                    requestAcessLocalizationPermissions(requireActivity())
                 }
             }
     }
@@ -227,50 +236,35 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.deleteNameSP(requireContext())
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(p0: GoogleMap?) {
         googleMap = p0
 
         googleMap?.let {
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat
-                    .requestPermissions(
-                        requireActivity(),
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        ),
-                        5
-                    )
-                return
-            }
+            if (isAccessLocalizationPermissionsGranted(requireContext())) {
+                it.isMyLocationEnabled = true
+                it.setOnMyLocationChangeListener { arg0 ->
+                    if (isUsingCurrentLocalization) {
+                        currentLatLng = LatLng(arg0.latitude, arg0.longitude)
 
-            it.isMyLocationEnabled = true
-            it.setOnMyLocationChangeListener { arg0 ->
-                if(isUsingCurrentLocalization){
-                    currentLatLng = LatLng(arg0.latitude, arg0.longitude)
-
-                    markerHere(currentLatLng!!)
-                    animateHere(currentLatLng!!, 19.0f)
+                        markerHere(currentLatLng!!)
+                        animateHere(currentLatLng!!, 19.0f)
+                    }
                 }
-            }
 
-            it.setOnMapClickListener { point ->
-                markerHere(point)
-                animateHere(point, 19.0f)
-                isUsingCurrentLocalization = false
-                selectedLatLng = point
+                it.setOnMapClickListener { point ->
+                    markerHere(point)
+                    animateHere(point, 19.0f)
+                    isUsingCurrentLocalization = false
+                    selectedLatLng = point
+                }
+            } else{
+                requestAcessLocalizationPermissions(requireActivity())
             }
         }
     }
 
-    private fun markerHere(point: LatLng){
+    private fun markerHere(point: LatLng) {
         googleMap!!.clear()
 
         googleMap!!.addMarker(
@@ -280,11 +274,10 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    private fun animateHere(point: LatLng, zoomLevel: Float){
+    private fun animateHere(point: LatLng, zoomLevel: Float) {
         googleMap!!.animateCamera(
             CameraUpdateFactory
                 .newLatLngZoom(point, zoomLevel)
         )
     }
-
 }

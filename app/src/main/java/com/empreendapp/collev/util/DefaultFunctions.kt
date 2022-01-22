@@ -1,14 +1,17 @@
 package com.empreendapp.collev.util
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.snackbar.Snackbar
@@ -107,5 +110,28 @@ class DefaultFunctions {
             }
             return sb.toString()
         }
+
+        fun isAccessLocalizationPermissionsGranted(ctx: Context): Boolean =
+            (ActivityCompat.checkSelfPermission(
+                ctx,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                ctx,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED)
+
+
+        fun requestAcessLocalizationPermissions(act: Activity) {
+            ActivityCompat
+                .requestPermissions(
+                    act,
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    5
+                )
+        }
+
     }
 }
