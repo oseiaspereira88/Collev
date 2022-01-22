@@ -236,30 +236,37 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
         colaborador!!.deleteNameSP(requireContext())
     }
 
-    @SuppressLint("MissingPermission")
     override fun onMapReady(p0: GoogleMap?) {
         googleMap = p0
 
         googleMap?.let {
-            if (isAccessLocalizationPermissionsGranted(requireContext())) {
-                it.isMyLocationEnabled = true
-                it.setOnMyLocationChangeListener { arg0 ->
-                    if (isUsingCurrentLocalization) {
-                        currentLatLng = LatLng(arg0.latitude, arg0.longitude)
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    requestAcessLocalizationPermissions(requireActivity())
+                    return
+                } else{
+                    it.isMyLocationEnabled = true
+                    it.setOnMyLocationChangeListener { arg0 ->
+                        if (isUsingCurrentLocalization) {
+                            currentLatLng = LatLng(arg0.latitude, arg0.longitude)
 
-                        markerHere(currentLatLng!!)
-                        animateHere(currentLatLng!!, 19.0f)
+                            markerHere(currentLatLng!!)
+                            animateHere(currentLatLng!!, 19.0f)
+                        }
                     }
-                }
 
-                it.setOnMapClickListener { point ->
-                    markerHere(point)
-                    animateHere(point, 19.0f)
-                    isUsingCurrentLocalization = false
-                    selectedLatLng = point
-                }
-            } else{
-                requestAcessLocalizationPermissions(requireActivity())
+                    it.setOnMapClickListener { point ->
+                        markerHere(point)
+                        animateHere(point, 19.0f)
+                        isUsingCurrentLocalization = false
+                        selectedLatLng = point
+                    }
             }
         }
     }

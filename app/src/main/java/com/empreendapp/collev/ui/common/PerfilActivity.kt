@@ -558,35 +558,28 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                ActivityCompat
-                    .requestPermissions(
-                        this,
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        ),
-                        5
-                    )
+                requestAcessLocalizationPermissions(this)
                 return
-            }
+            } else {
 
-            it.isMyLocationEnabled = true
-            it.setOnMyLocationChangeListener { arg0 ->
-                if (isUsingCurrentLocalization) {
-                    currentLatLng = LatLng(arg0.latitude, arg0.longitude)
+                it.isMyLocationEnabled = true
+                it.setOnMyLocationChangeListener { arg0 ->
+                    if (isUsingCurrentLocalization) {
+                        currentLatLng = LatLng(arg0.latitude, arg0.longitude)
 
-                    markerHere(currentLatLng!!)
-                    animateHere(currentLatLng!!, 19.0f)
+                        markerHere(currentLatLng!!)
+                        animateHere(currentLatLng!!, 19.0f)
+                    }
                 }
-            }
 
-            it.setOnMapClickListener { point ->
-                markerHere(point)
-                animateHere(point, 19.0f)
+                it.setOnMapClickListener { point ->
+                    markerHere(point)
+                    animateHere(point, 19.0f)
 
-                isUsingCurrentLocalization = false
-                isUsingAccountLocalization = false
-                selectedLatLng = point
+                    isUsingCurrentLocalization = false
+                    isUsingAccountLocalization = false
+                    selectedLatLng = point
+                }
             }
         }
     }
