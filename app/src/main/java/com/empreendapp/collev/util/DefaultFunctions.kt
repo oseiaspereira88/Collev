@@ -3,7 +3,10 @@ package com.empreendapp.collev.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Handler
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import com.daimajia.androidanimations.library.Techniques
@@ -43,7 +46,7 @@ class DefaultFunctions {
                 .repeat(0).playOn(view)
         }
 
-        fun animateTutorialPulse(view: View){
+        fun animateTutorialPulse(view: View) {
             view.visibility = View.VISIBLE
 
             YoYo.with(Techniques.Pulse)
@@ -62,18 +65,40 @@ class DefaultFunctions {
             val builder = AlertDialog.Builder(activity)
             builder.setMessage("Deseja realmente sair?")
                 .setCancelable(false)
-                .setPositiveButton("Sim") { dialog, id ->  activity.finish() }
+                .setPositiveButton("Sim") { dialog, id -> activity.finish() }
                 .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
             val alert = builder.create()
             alert.show()
         }
 
-        fun whenAlertSleep(r: Runnable){
+        fun whenAlertSleep(r: Runnable) {
             val h = Handler()
             h.postDelayed(r, 3200)
         }
 
-         fun encrypt(text: String): String {
+        fun showNoGpsDialog(ctx: Context) {
+            var mNoGpsDialog: AlertDialog?
+            val dialogClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            val callGPSSettingIntent = Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS
+                            )
+                            ctx.startActivity(callGPSSettingIntent)
+                        }
+                    }
+                }
+
+            mNoGpsDialog = AlertDialog.Builder(ctx)
+                .setMessage("Por favor ative seu GPS para usar esse aplicativo.")
+                .setPositiveButton("Ativar", dialogClickListener)
+                .create()
+            
+            mNoGpsDialog!!.show()
+        }
+
+        fun encrypt(text: String): String {
             val md = MessageDigest.getInstance("MD5")
             val hashInBytes = md.digest(text.toByteArray(StandardCharsets.UTF_8))
             val sb = StringBuilder()

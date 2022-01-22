@@ -31,6 +31,7 @@ import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.app.ProgressDialog
+import android.content.Context
 import android.widget.TextView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -41,6 +42,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import android.content.DialogInterface
+import android.location.LocationManager
+import android.provider.Settings
+import com.empreendapp.collev.util.DefaultFunctions.Companion.showNoGpsDialog
 
 
 class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -220,73 +225,95 @@ class PerfilActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         imgPerfilEditMap.setOnClickListener {
-            if(dialogMapView == null){
-                dialogMapBuilder = AlertDialog.Builder(this)
-                dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
-                dialogMapBuilder!!.setView(dialogMapView)
-                dialogMap = dialogMapBuilder!!.create()
-                dialogMap!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+            val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-                var mapFragment = supportFragmentManager
-                    .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
-                mapFragment.getMapAsync(this)
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                showNoGpsDialog(this)
+            } else {
+                if (dialogMapView == null) {
+                    dialogMapBuilder = AlertDialog.Builder(this)
+                    dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+                    dialogMapBuilder!!.setView(dialogMapView)
+                    dialogMap = dialogMapBuilder!!.create()
+                    dialogMap!!.getWindow()
+                        ?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                val imgCancelDialog = dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
-                imgCancelDialog.setOnClickListener {
-                    dialogMap!!.cancel()
-                }
+                    var mapFragment = supportFragmentManager
+                        .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+                    mapFragment.getMapAsync(this)
 
-                val tvDialogUseCurrentLocaization =
-                    dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
-                tvDialogUseCurrentLocaization.setOnClickListener {
-                    isUsingCurrentLocalization = true
-
-                    if (currentLatLng != null) {
-                        markerHere(currentLatLng!!)
-                        animateHere(currentLatLng!!, 19.0f)
+                    val imgCancelDialog =
+                        dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                    imgCancelDialog.setOnClickListener {
+                        dialogMap!!.cancel()
                     }
 
-                    animateButton(it)
-                }
+                    val tvDialogUseCurrentLocaization =
+                        dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+                    tvDialogUseCurrentLocaization.setOnClickListener {
+                        isUsingCurrentLocalization = true
 
-                val tvDialogMapConcluir = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
-                tvDialogMapConcluir.setOnClickListener {
-                    if (isUsingCurrentLocalization) {
-                        usuario!!.lat = currentLatLng!!.latitude
-                        usuario!!.lng = currentLatLng!!.longitude
-                    } else if (!isUsingAccountLocalization) {
-                        usuario!!.lat = selectedLatLng!!.latitude
-                        usuario!!.lng = selectedLatLng!!.longitude
+                        if (currentLatLng != null) {
+                            markerHere(currentLatLng!!)
+                            animateHere(currentLatLng!!, 19.0f)
+                        }
+
+                        animateButton(it)
                     }
 
-                    if (isUsingCurrentLocalization || (!isUsingCurrentLocalization && !isUsingAccountLocalization)) {
-                        usuario!!.saveLatInFirebase()
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    usuario!!.saveLngInFirebase()
-                                        .addOnCompleteListener {
-                                            if (it.isSuccessful) {
-                                                alertSnack("Nova localização salva!", 1, clPerfil)
-                                            } else {
-                                                alertSnack("Não foi possivel salvar a nova localização!", 1, clPerfil)
+                    val tvDialogMapConcluir =
+                        dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
+                    tvDialogMapConcluir.setOnClickListener {
+                        if (isUsingCurrentLocalization) {
+                            usuario!!.lat = currentLatLng!!.latitude
+                            usuario!!.lng = currentLatLng!!.longitude
+                        } else if (!isUsingAccountLocalization) {
+                            usuario!!.lat = selectedLatLng!!.latitude
+                            usuario!!.lng = selectedLatLng!!.longitude
+                        }
+
+                        if (isUsingCurrentLocalization || (!isUsingCurrentLocalization && !isUsingAccountLocalization)) {
+                            usuario!!.saveLatInFirebase()
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        usuario!!.saveLngInFirebase()
+                                            .addOnCompleteListener {
+                                                if (it.isSuccessful) {
+                                                    alertSnack(
+                                                        "Nova localização salva!",
+                                                        1,
+                                                        clPerfil
+                                                    )
+                                                } else {
+                                                    alertSnack(
+                                                        "Não foi possivel salvar a nova localização!",
+                                                        1,
+                                                        clPerfil
+                                                    )
+                                                }
                                             }
-                                        }
-                                } else {
-                                    alertSnack("Não foi possivel salvar a nova localização!", 1, clPerfil)
+                                    } else {
+                                        alertSnack(
+                                            "Não foi possivel salvar a nova localização!",
+                                            1,
+                                            clPerfil
+                                        )
+                                    }
                                 }
-                            }
+                        }
+
+                        dialogMap!!.cancel()
                     }
 
-                    dialogMap!!.cancel()
+                    val tvDialogMapSkip =
+                        dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
+                    tvDialogMapSkip.setOnClickListener {
+                        dialogMap!!.cancel()
+                    }
                 }
 
-                val tvDialogMapSkip = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
-                tvDialogMapSkip.setOnClickListener {
-                    dialogMap!!.cancel()
-                }
+                dialogMap!!.show()
             }
-
-            dialogMap!!.show()
         }
 
         imgPerfilEditPassword.setOnClickListener {

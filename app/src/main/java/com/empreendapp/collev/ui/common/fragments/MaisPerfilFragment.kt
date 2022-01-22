@@ -2,7 +2,9 @@ package com.empreendapp.collev.ui.common.fragments
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import com.google.firebase.auth.FirebaseAuth
 import com.empreendapp.collev.model.Colaborador
 import com.empreendapp.collev.model.Coletor
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.widget.Toast
+import com.empreendapp.collev.util.DefaultFunctions
 import com.empreendapp.collev.util.DefaultFunctions.Companion.animateButton
 
 
@@ -114,47 +117,57 @@ class MaisPerfilFragment : Fragment(), OnMapReadyCallback {
 
         rootView.findViewById<TextView>(R.id.tvLocalizacaoSelect)
             .setOnClickListener {
-                if(dialogMapView == null){
-                    dialogMapBuilder = AlertDialog.Builder(requireContext())
-                    dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
-                    dialogMapBuilder!!.setView(dialogMapView)
-                    dialogMap = dialogMapBuilder!!.create()
-                    dialogMap!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+                val manager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-                    val mapFragment = childFragmentManager
-                        .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
-                    mapFragment.getMapAsync(this)
+                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    DefaultFunctions.showNoGpsDialog(requireContext())
+                } else {
+                    if (dialogMapView == null) {
+                        dialogMapBuilder = AlertDialog.Builder(requireContext())
+                        dialogMapView = this.layoutInflater.inflate(R.layout.dialog_input_map, null)
+                        dialogMapBuilder!!.setView(dialogMapView)
+                        dialogMap = dialogMapBuilder!!.create()
+                        dialogMap!!.getWindow()
+                            ?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    val imgCancelDialog = dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
-                    imgCancelDialog.setOnClickListener {
-                        dialogMap!!.cancel()
-                    }
+                        val mapFragment = childFragmentManager
+                            .findFragmentById(R.id.fragmentDialogMap) as SupportMapFragment
+                        mapFragment.getMapAsync(this)
 
-                    val tvDialogMapUseCurrentLocaization =
-                        dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
-                    tvDialogMapUseCurrentLocaization.setOnClickListener {
-                        isUsingCurrentLocalization = true
-
-                        if(currentLatLng != null){
-                            markerHere(currentLatLng!!)
-                            animateHere(currentLatLng!!, 19.0f)
+                        val imgCancelDialog =
+                            dialogMapView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                        imgCancelDialog.setOnClickListener {
+                            dialogMap!!.cancel()
                         }
 
-                        animateButton(it)
+                        val tvDialogMapUseCurrentLocaization =
+                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapUseCurrentLocaization)
+                        tvDialogMapUseCurrentLocaization.setOnClickListener {
+                            isUsingCurrentLocalization = true
+
+                            if (currentLatLng != null) {
+                                markerHere(currentLatLng!!)
+                                animateHere(currentLatLng!!, 19.0f)
+                            }
+
+                            animateButton(it)
+                        }
+
+                        val tvDialogMapConcluir =
+                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
+                        tvDialogMapConcluir.setOnClickListener {
+                            dialogMap!!.cancel()
+                        }
+
+                        val tvDialogMapSkip =
+                            dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
+                        tvDialogMapSkip.setOnClickListener {
+                            dialogMap!!.cancel()
+                        }
                     }
 
-                    val tvDialogMapConcluir = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapConcluir)
-                    tvDialogMapConcluir.setOnClickListener {
-                        dialogMap!!.cancel()
-                    }
-
-                    val tvDialogMapSkip = dialogMapView!!.findViewById<TextView>(R.id.tvDialogMapSkip)
-                    tvDialogMapSkip.setOnClickListener {
-                        dialogMap!!.cancel()
-                    }
+                    dialogMap!!.show()
                 }
-
-                dialogMap!!.show()
             }
     }
 
