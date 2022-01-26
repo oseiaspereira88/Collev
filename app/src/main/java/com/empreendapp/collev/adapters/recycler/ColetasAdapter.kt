@@ -199,6 +199,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                     dialogView!!.findViewById<TextView>(R.id.tvConcluirColeta).setOnClickListener {
                         coleta.status = ATENDIDA
                         coleta.dataAtendida = Date()
+                        coleta.desativar()
                         coleta.saveInFirebase(act).addOnCompleteListener {
                             if(it.isSuccessful){
                                 YoYo.with(Techniques.SlideOutRight)

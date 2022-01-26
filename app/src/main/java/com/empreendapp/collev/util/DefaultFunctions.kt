@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
@@ -69,6 +70,19 @@ class DefaultFunctions {
             builder.setMessage("Deseja realmente sair?")
                 .setCancelable(false)
                 .setPositiveButton("Sim") { dialog, id -> activity.finish() }
+                .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
+            val alert = builder.create()
+            alert.show()
+        }
+
+        fun checkExitAndSingout(activity: Activity, auth: FirebaseAuth) {
+            val builder = AlertDialog.Builder(activity)
+            builder.setMessage("Deseja realmente sair?")
+                .setCancelable(false)
+                .setPositiveButton("Sim") { dialog, id ->
+                        auth.signOut()
+                        activity.finish()
+                    }
                 .setNegativeButton("Não") { dialog, id -> dialog.cancel() }
             val alert = builder.create()
             alert.show()

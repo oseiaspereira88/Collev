@@ -6,8 +6,9 @@ import androidx.navigation.NavController
 import android.os.Bundle
 import com.empreendapp.collev.R
 import android.view.KeyEvent
-import com.empreendapp.collev.util.DefaultFunctions.Companion.checkExit
+import com.empreendapp.collev.util.DefaultFunctions.Companion.checkExitAndSingout
 import com.empreendapp.collev.util.DefaultLayout.Companion.setStatusBarBorderRadiusWhite
+import com.empreendapp.collev.util.FirebaseConnection
 
 class InitPerfilActivity : AppCompatActivity() {
     var navHostFragment: NavHostFragment? = null
@@ -28,7 +29,7 @@ class InitPerfilActivity : AppCompatActivity() {
     // Código botão Voltar
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
-            checkExit(this)
+            checkExitAndSingout(this, FirebaseConnection!!.getFirebaseAuth()!!)
             true
         } else {
             super.onKeyDown(keyCode, event)
