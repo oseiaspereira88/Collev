@@ -34,6 +34,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
         var tvTituloColeta: TextView? = null
         var tvSubtituloColeta: TextView? = null
         var imgColeta: ImageView? = null
+        var dialog: AlertDialog? = null
 
         init {
             this.tvTituloColeta = viewItem.findViewById(R.id.tvTituloColeta)
@@ -58,115 +59,135 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 holder.tvSubtituloColeta!!.text = "O recipiente de ${coleta.volumeRecipiente} litros está cheio"
                 holder.imgColeta!!.setImageResource(R.drawable.icon_oil_05)
 
-                holder.viewItem.setOnClickListener{
+                holder.viewItem.setOnClickListener {
                     animateButton(holder.viewItem)
 
-                    val dialogBuilder = AlertDialog.Builder(act)
-                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_solicitada, null)
-                    dialogBuilder.setView(dialogView)
-                    val dialog = dialogBuilder.create()
-                    dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+                    if (holder.dialog == null) {
+                        val dialogBuilder = AlertDialog.Builder(act)
+                        val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_solicitada, null)
+                        dialogBuilder.setView(dialogView)
+                        holder.dialog = dialogBuilder.create()
+                        holder.dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
 
-                    val daysList = getDaysList(coleta.diasPossiveis)
-                    val adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
-                    adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        val fragmentDialogMap1 = dialogView!!.findViewById<View>(R.id.fragmentDialogMap1)
+                        fragmentDialogMap1.visibility = View.GONE
 
-                    val spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
-                    spinner!!.adapter = adapter
-                    dialog.show()
+                        val llMapaVisibilityToggle = dialogView!!.findViewById<LinearLayout>(R.id.llMapaVisibilityToggle1)
+                        val tvMapaVisibilityToggle = llMapaVisibilityToggle.findViewById<TextView>(R.id.tvMapaVisibilityToggle1)
 
-                    val tvPeriodo = dialogView!!.findViewById<TextView>(R.id.tvInfoAgendarColeta)
-                    tvPeriodo.text = "Informe quando será realizada a coleta e o horário entre as ${coleta.periodoIn} e ${coleta.periodoOut} horas"
-
-                    val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogSolicitadaEmpresa)
-                    tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
-
-                    val llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
-                    val tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
-
-                    llHorario.setOnClickListener{
-                        val cal1 = Calendar.getInstance()
-                        val finalTimeSetListener1 =
-                            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                                cal1.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                                cal1.set(Calendar.MINUTE, minute)
-
-                                val horaMarcada = SimpleDateFormat("HH:mm").format(cal1.time).toString().replace(":", "").toInt()
-                                if (horaMarcada >= coleta.periodoIn!!.toString().replace(":", "").toInt()
-                                    && horaMarcada <= coleta.periodoOut.toString().replace(":", "").toInt()) {
-
-                                    tvHorario.text = SimpleDateFormat("HH:mm").format(cal1.time)
-                                } else {
-                                    animateInputError(dialogView)
-                                    alert("Selecione um horário entre as ${coleta.periodoIn}h e as ${coleta.periodoOut}h!", 2, act)
-                                }
+                        llMapaVisibilityToggle.setOnClickListener {
+                            if(fragmentDialogMap1.visibility == View.GONE){
+                                fragmentDialogMap1.visibility = View.VISIBLE
+                                tvMapaVisibilityToggle.text = "Ocultar o Mapa"
+                            } else{
+                                fragmentDialogMap1.visibility = View.GONE
+                                tvMapaVisibilityToggle.text = "Ver no Mapa"
                             }
-                        val tpFinalDialog = TimePickerDialog(
-                            act,
-                            finalTimeSetListener1,
-                            cal1.get(Calendar.HOUR),
-                            cal1.get(Calendar.MINUTE),
-                            true
-                        )
-                        tpFinalDialog.setTitle("Qual será o horário?")
-                        tpFinalDialog.show()
-                    }
+                        }
 
-                    val imgCancelDialog = dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog)
-                    imgCancelDialog.setOnClickListener {
-                        dialog.cancel()
-                    }
+                        val daysList = getDaysList(coleta.diasPossiveis)
+                        val adapter = ArrayAdapter(act, android.R.layout.simple_spinner_item, daysList)
+                        adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-                    val tvAgendar = dialogView!!.findViewById<TextView>(R.id.tvAgendar)
-                    tvAgendar.setOnClickListener {
-                        if(!tvHorario.text.equals("Selecione")){
-                            dialogView.visibility = View.GONE
+                        val spinner = dialogView!!.findViewById<Spinner>(R.id.spDias)
+                        spinner!!.adapter = adapter
+                        holder.dialog!!.show()
 
-                            val builder = AlertDialog.Builder(act)
-                            builder.setMessage("Confirma a coleta para a ${spinner.selectedItem} às ${tvHorario.text} horas?")
-                                .setCancelable(false)
-                                .setPositiveButton("Sim") { confirmDialog, id ->
-                                    dialog.cancel()
+                        val tvPeriodo = dialogView!!.findViewById<TextView>(R.id.tvInfoAgendarColeta)
+                        tvPeriodo.text = "Informe quando será realizada a coleta e o horário entre as ${coleta.periodoIn} e ${coleta.periodoOut} horas"
 
-                                    coleta.diaMarcado = spinner.selectedItem.toString()
-                                    coleta.horaMarcada = tvHorario.text.toString()
-                                    coleta.status = AGENDADA
-                                    coleta.coletorName = usuario!!.nome
+                        val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogSolicitadaEmpresa)
+                        tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
 
-                                    coleta.saveInFirebase(act).addOnCompleteListener {
-                                        if(it.isSuccessful){
-                                            YoYo.with(Techniques.SlideOutRight)
-                                                .duration(1000)
-                                                .repeat(0).playOn(holder.viewItem)
+                        val llHorario = dialogView!!.findViewById<LinearLayout>(R.id.llHorario)
+                        val tvHorario = dialogView!!.findViewById<TextView>(R.id.tvHorario)
 
-                                            val h = Handler()
-                                            val r = Runnable {
-                                                if(coletas.contains(coleta)) coletas.remove(coleta)
-                                                fragment.resetList(1)
+                        llHorario.setOnClickListener{
+                            val cal1 = Calendar.getInstance()
+                            val finalTimeSetListener1 =
+                                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                                    cal1.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                                    cal1.set(Calendar.MINUTE, minute)
 
-                                                YoYo.with(Techniques.FadeIn)
-                                                    .duration(50)
-                                                    .repeat(0).playOn(holder.viewItem)
-                                            }
-                                            h.postDelayed(r, 1300)
+                                    val horaMarcada = SimpleDateFormat("HH:mm").format(cal1.time).toString().replace(":", "").toInt()
+                                    if (horaMarcada >= coleta.periodoIn!!.toString().replace(":", "").toInt()
+                                        && horaMarcada <= coleta.periodoOut.toString().replace(":", "").toInt()) {
 
-                                            alert("A coleta foi agendada ✔️", 2, act)
-                                        } else{
-                                            alert("Coleta não agendada \uD83D\uDE15", 2, act)
-                                            alert("Verifique sua conexão com a internet!", 2, act)
-                                        }
+                                        tvHorario.text = SimpleDateFormat("HH:mm").format(cal1.time)
+                                    } else {
+                                        animateInputError(dialogView)
+                                        alert("Selecione um horário entre as ${coleta.periodoIn}h e as ${coleta.periodoOut}h!", 2, act)
                                     }
                                 }
-                                .setNegativeButton("Não") { confirmDialog, id ->
-                                    dialogView.visibility = View.VISIBLE
-                                    confirmDialog.cancel()
-                                }
-                            val alert = builder.create()
-                            alert.show()
-                        } else{
-                            alert("Selecione um horário!", 2, act)
-                            animateInputError(dialogView)
+                            val tpFinalDialog = TimePickerDialog(
+                                act,
+                                finalTimeSetListener1,
+                                cal1.get(Calendar.HOUR),
+                                cal1.get(Calendar.MINUTE),
+                                true
+                            )
+                            tpFinalDialog.setTitle("Qual será o horário?")
+                            tpFinalDialog.show()
                         }
+
+                        val imgCancelDialog = dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog)
+                        imgCancelDialog.setOnClickListener {
+                            holder.dialog!!.dismiss()
+                        }
+
+                        val tvAgendar = dialogView!!.findViewById<TextView>(R.id.tvAgendar)
+                        tvAgendar.setOnClickListener {
+                            if(!tvHorario.text.equals("Selecione")){
+                                dialogView.visibility = View.GONE
+
+                                val builder = AlertDialog.Builder(act)
+                                builder.setMessage("Confirma a coleta para a ${spinner.selectedItem} às ${tvHorario.text} horas?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Sim") { confirmDialog, id ->
+                                        holder.dialog!!.dismiss()
+
+                                        coleta.diaMarcado = spinner.selectedItem.toString()
+                                        coleta.horaMarcada = tvHorario.text.toString()
+                                        coleta.status = AGENDADA
+                                        coleta.coletorName = usuario!!.nome
+
+                                        coleta.saveInFirebase(act).addOnCompleteListener {
+                                            if(it.isSuccessful){
+                                                YoYo.with(Techniques.SlideOutRight)
+                                                    .duration(1000)
+                                                    .repeat(0).playOn(holder.viewItem)
+
+                                                val h = Handler()
+                                                val r = Runnable {
+                                                    if(coletas.contains(coleta)) coletas.remove(coleta)
+                                                    fragment.resetList(1)
+
+                                                    YoYo.with(Techniques.FadeIn)
+                                                        .duration(50)
+                                                        .repeat(0).playOn(holder.viewItem)
+                                                }
+                                                h.postDelayed(r, 1300)
+
+                                                alert("A coleta foi agendada ✔️", 2, act)
+                                            } else{
+                                                alert("Coleta não agendada \uD83D\uDE15", 2, act)
+                                                alert("Verifique sua conexão com a internet!", 2, act)
+                                            }
+                                        }
+                                    }
+                                    .setNegativeButton("Não") { confirmDialog, id ->
+                                        dialogView.visibility = View.VISIBLE
+                                        confirmDialog.dismiss()
+                                    }
+                                val alert = builder.create()
+                                alert.show()
+                            } else{
+                                alert("Selecione um horário!", 2, act)
+                                animateInputError(dialogView)
+                            }
+                        }
+                    } else{
+                        holder.dialog!!.show()
                     }
                 }
             }
@@ -178,52 +199,72 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
                 holder.viewItem.setOnClickListener{
                     animateButton(holder.viewItem)
 
-                    val dialogBuilder = AlertDialog.Builder(act)
-                    val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_agendada, null)
-                    dialogBuilder.setView(dialogView)
-                    val dialog = dialogBuilder.create()
-                    dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
-                    dialog.show()
+                    if(holder.dialog == null){
+                        val dialogBuilder = AlertDialog.Builder(act)
+                        val dialogView = act.layoutInflater.inflate(R.layout.dialog_coleta_agendada, null)
+                        dialogBuilder.setView(dialogView)
+                        holder.dialog = dialogBuilder.create()
+                        holder.dialog!!.getWindow()?.setBackgroundDrawableResource(R.drawable.transparent_bg)
+                        holder.dialog!!.show()
 
-                    val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogAgendadaEmpresa)
-                    tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
+                        val fragmentDialogMap2 = dialogView!!.findViewById<View>(R.id.fragmentDialogMap2)
+                        fragmentDialogMap2.visibility = View.GONE
 
-                    dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog).setOnClickListener {
-                        dialog.cancel()
-                    }
+                        val llMapaVisibilityToggle = dialogView!!.findViewById<LinearLayout>(R.id.llMapaVisibilityToggle2)
+                        val tvMapaVisibilityToggle = llMapaVisibilityToggle.findViewById<TextView>(R.id.tvMapaVisibilityToggle2)
 
-                    dialogView!!.findViewById<TextView>(R.id.tvNaoConcluirColeta).setOnClickListener {
-                        dialog.cancel()
-                    }
-
-                    dialogView!!.findViewById<TextView>(R.id.tvConcluirColeta).setOnClickListener {
-                        coleta.status = ATENDIDA
-                        coleta.dataAtendida = Date()
-                        coleta.desativar()
-                        coleta.saveInFirebase(act).addOnCompleteListener {
-                            if(it.isSuccessful){
-                                YoYo.with(Techniques.SlideOutRight)
-                                    .duration(1000)
-                                    .repeat(0).playOn(holder.viewItem)
-
-                                dialog.cancel()
-
-                                val h = Handler()
-                                val r = Runnable {
-                                    if(coletas.contains(coleta)) coletas.remove(coleta)
-                                    fragment.resetList(2)
-
-                                    YoYo.with(Techniques.FadeIn)
-                                        .duration(50)
-                                        .repeat(0).playOn(holder.viewItem)
-                                }
-                                h.postDelayed(r, 1300)
-                                alert("A coleta foi finalizada ✔️", 2, act)
+                        llMapaVisibilityToggle.setOnClickListener {
+                            if(fragmentDialogMap2.visibility == View.GONE){
+                                fragmentDialogMap2.visibility = View.VISIBLE
+                                tvMapaVisibilityToggle.text = "Ocultar o Mapa"
                             } else{
-                                alert("Coleta não foi finalizada \uD83D\uDE15", 2, act)
-                                alert("Verifique sua conexão com a internet!", 2, act)
+                                fragmentDialogMap2.visibility = View.GONE
+                                tvMapaVisibilityToggle.text = "Encontrar a rota"
                             }
                         }
+
+                        val tvDialogEmpresaName = dialogView!!.findViewById<TextView>(R.id.tvDialogAgendadaEmpresa)
+                        tvDialogEmpresaName.text = "Da " + coleta.empresaColaboradora
+
+                        dialogView!!.findViewById<ImageView>(R.id.imgCancelDialog).setOnClickListener {
+                            holder.dialog!!.dismiss()
+                        }
+
+                        dialogView!!.findViewById<TextView>(R.id.tvNaoConcluirColeta).setOnClickListener {
+                            holder.dialog!!.dismiss()
+                        }
+
+                        dialogView!!.findViewById<TextView>(R.id.tvConcluirColeta).setOnClickListener {
+                            coleta.status = ATENDIDA
+                            coleta.dataAtendida = Date()
+                            coleta.desativar()
+                            coleta.saveInFirebase(act).addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    YoYo.with(Techniques.SlideOutRight)
+                                        .duration(1000)
+                                        .repeat(0).playOn(holder.viewItem)
+
+                                    holder.dialog!!.dismiss()
+
+                                    val h = Handler()
+                                    val r = Runnable {
+                                        if (coletas.contains(coleta)) coletas.remove(coleta)
+                                        fragment.resetList(2)
+
+                                        YoYo.with(Techniques.FadeIn)
+                                            .duration(50)
+                                            .repeat(0).playOn(holder.viewItem)
+                                    }
+                                    h.postDelayed(r, 1300)
+                                    alert("A coleta foi finalizada ✔️", 2, act)
+                                } else {
+                                    alert("Coleta não foi finalizada \uD83D\uDE15", 2, act)
+                                    alert("Verifique sua conexão com a internet!", 2, act)
+                                }
+                            }
+                        }
+                    } else{
+                        holder.dialog!!.show()
                     }
                 }
             }
@@ -261,7 +302,7 @@ class ColetasAdapter(var act: Activity, var coletas: ArrayList<Coleta>, var frag
 
                     val imgCancelDialog = dialogView.findViewById<ImageView>(R.id.imgCancelDialog)
                     imgCancelDialog.setOnClickListener {
-                        dialog.cancel()
+                        dialog.dismiss()
                     }
 
                     dialog.show()
