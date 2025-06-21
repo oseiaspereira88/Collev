@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity()  {
         setStatusBarBorderRadiusWhite(this)
         initFirebase()
         initViews()
+        // Abertura da funcionalidade de corridas (exemplo)
+        startActivity(android.content.Intent(this, com.empreendapp.collev.ui.passageiro.SolicitarCorridaActivity::class.java))
     }
 
     private fun initFirebase() {
