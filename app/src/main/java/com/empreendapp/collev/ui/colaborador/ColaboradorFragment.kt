@@ -157,7 +157,7 @@ open class ColaboradorFragment : Fragment() {
             }
 
             //clear all listeners
-            imgCancelarSolicitacao?.setOnClickListener {
+            imgCancelarSolicitacao.setOnClickListener {
                 var sp: SharedPreferences =
                     requireContext().getSharedPreferences(COLABORADOR_PREF, MODE_PRIVATE)
                 if (sp.contains("ColetaSolicitada")) {
@@ -169,7 +169,7 @@ open class ColaboradorFragment : Fragment() {
             }
 
             //TimePicker
-            imgSelectTime?.setOnClickListener {
+            imgSelectTime.setOnClickListener {
                 val cal = Calendar.getInstance()
                 val inicialTimeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
@@ -321,7 +321,7 @@ open class ColaboradorFragment : Fragment() {
             if (validate() && !isPausedActionButton) {
                 pauseActionButton()
                 //Checar se já existe coleta ativa e com id_solicitante igual ao id do usuário solicitante
-                LibraryClass.firebaseDB!!.reference?.child("coletas")
+                LibraryClass.firebaseDB!!.reference.child("coletas")
                     .get().addOnCompleteListener {
                         if (it.isSuccessful) {
                             nColetas = it.result.childrenCount.toInt()
@@ -340,28 +340,17 @@ open class ColaboradorFragment : Fragment() {
 
     fun checkColetaSolicitadaInBdElseSave() {
         coletas = ArrayList()
-        LibraryClass.firebaseDB!!.reference?.child("coletas").orderByKey()
+        LibraryClass.firebaseDB!!.reference.child("coletas")
             .get().addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.i("INFO", "coletas.orderByKey -> it.result = : " + it.result.toString())
-
+                    Log.i("INFO", "coletas.orderByKey -> it.result = : " + it.result?.toString() ?:"null")
+                    Log.i("INFO", "coletas.orderByKey -> it.result.childrenCount = : " + it.result?.childrenCount ?: "null")
                     if (it.result.exists()) {
-                        var coleta = Coleta()
-                        coleta.id = it.result.key
-                        coleta.solicitante = it.result.child("solicitante").value.toString()
-                        coleta.coletor = it.result.child("coletor").value.toString()
-                        coleta.status = it.result.child("status").value.toString()
-                        coleta.periodoIn = it.result.child("periodoIn").value.toString()
-                        coleta.periodoOut = it.result.child("periodoOut").value.toString()
-                        coleta.ativo = it.result.child("ativo").value as Boolean?
-                        coleta.ativo_solicitante = it.result.child("ativo_solicitante").value.toString()
-                        coleta.coletorName = it.result.child("coletorName").value.toString()
-                        coleta.solicitanteName = it.result.child("solicitanteName").value.toString()
-                        coleta.empresaColaboradora = it.result.child("empresaColaboradora").value.toString()
-                        coleta.empresaColetora = it.result.child("empresaColetora").value.toString()
-                        coleta.volumeRecipiente = it.result.child("volumeRecipiente").value.toString()
 
-                        coletas!!.add(coleta)
+                        it.result.children.forEach { child ->
+                            coletas!!.add(child.getValue(Coleta::class.java)!!)
+                            Log.i("INFO", "coletas.orderByKey -> child = : " + child.toString())
+                        }
 
                         if (coletas!!.size == nColetas) {
                             var existeColetaSolicitada = false

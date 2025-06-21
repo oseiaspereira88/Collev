@@ -1,5 +1,6 @@
 package com.empreendapp.collev.ui.common
 
+import android.app.Activity
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -43,7 +44,7 @@ import kotlinx.android.synthetic.main.activity_login.editEmail
 import java.lang.Exception
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : Activity() {
     private var callbackManager: CallbackManager? = null
     private var database: FirebaseDatabase? = null
     private lateinit var auth: FirebaseAuth
@@ -272,28 +273,28 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun loginWithFacebook() {
-//        loginButton = findViewById<View>(R.id.login_button) as LoginButton
-//        loginButton.setReadPermissions("email")
-//         If using in a fragment
-//         If using in a fragment
-//        loginButton.setFragment(this)
-//
-//         Callback registration
-//        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-//            override fun onSuccess(loginResult: LoginResult?) {
-//                // App code
-//            }
-//
-//            override fun onCancel() {
-//                // App code
-//            }
-//
-//            override fun onError(exception: FacebookException) {
-//                // App code
-//            }
-//        })
-    }
+        private fun loginWithFacebook() {
+    //        loginButton = findViewById<View>(R.id.login_button) as LoginButton
+    //        loginButton.setReadPermissions("email")
+    //         If using in a fragment
+    //         If using in a fragment
+    //        loginButton.setFragment(this)
+    //
+    //         Callback registration
+    //        loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+    //            override fun onSuccess(loginResult: LoginResult?) {
+    //                // App code
+    //            }
+    //
+    //            override fun onCancel() {
+    //                // App code
+    //            }
+    //
+    //            override fun onError(exception: FacebookException) {
+    //                // App code
+    //            }
+    //        })
+        }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
